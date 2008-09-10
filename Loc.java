@@ -1,11 +1,9 @@
 import java.awt.*;
 
 public class Loc{
-    int x; //row
-    int y; //col
-    int ID; //what kind of entity can be placed here (also path number)
-    Color color; //color of square (obviously)
-    //private Entity occupant; what entity is located at this location(to be used later)
+    private int x,y,ID; //row, col, ID
+    private Color color; //color of square (obviously)
+    //private ArrayList<Actor> occupants; what entity is located at this location(to be used later)
 
     public Loc(int xcor, int ycor, int pathID){
 	setLocation(xcor,ycor);
@@ -51,4 +49,11 @@ public class Loc{
     public void setColor(Color col) {
 	color = col;
     }
+
+    //public void addActor(Actor a) 
+    //public boolean removeActor(Actor a)
+    //public boolean removeActor(int i) (?)
+    //public ArrayList<Actor> getActors()
+
+    
 }

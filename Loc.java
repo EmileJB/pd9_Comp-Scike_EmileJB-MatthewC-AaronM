@@ -9,7 +9,15 @@ public class Loc{
 	x = xcor;
 	y = ycor;
 	ID = pathID;
-	//color = default; idk what to do here yet
+	color = Color.WHITE;
+	//occupant = null;
+    }
+
+    public Loc(int xcor, int ycor, int pathID, Color c){
+	x = xcor;
+	y = ycor;
+	ID = pathID;
+	color = c;
 	//occupant = null;
     }
 

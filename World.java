@@ -1,6 +1,6 @@
 public class World {
 
-    private Loc[][] grid
+    private Loc[][] grid;
     private int money;
     private int lives;
     // private Spawner enemyspawner; idk

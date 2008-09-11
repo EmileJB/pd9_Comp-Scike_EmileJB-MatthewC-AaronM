@@ -9,7 +9,7 @@ public class Gui extends JFrame implements ActionListener {
     private Image grid;
     private Container pane;
     private JButton resetButton;
-    //private int[][] board = new int[10][10]; old code, attempting alternate method
+    private Loc[][] board = new Loc[10][10];
     private JPanel boardBorder;
 
     
@@ -46,8 +46,15 @@ public class Gui extends JFrame implements ActionListener {
 	pane.add(boardBorder,BorderLayout.CENTER);
 	//for (int[] panels:board) {
 	//  for (int panel:panels) {
-	for (int i = 0; i < x*y; i++) {
+	for (int xcor = 0; xcor < x; xcor++) {
+	    for (int ycor = 0; ycor < y; ycor++) {
+		if ( (xcor==3 && ycor<5) || (xcor==4 && ycor>=4) ) {
+		    board[xcor][ycor] = new Loc(xcor,ycor,1,Color.BLUE);
+		}
+		else
+		     board[xcor][ycor] = new Loc(xcor,ycor,-1);
 		JPanel jpanel = new JPanel();
+		jpanel.setBackground(board[xcor][ycor].getColor());
 		//JLabel thumb = new JLabel();
 		//ImageIcon icon = new ImageIcon(grid);
 		//jpanel.setPreferredSize(new Dimension(65,65));	
@@ -56,6 +63,7 @@ public class Gui extends JFrame implements ActionListener {
 		//jpanel.add(thumb);
 		boardBorder.add(jpanel);
 	    }
+	}
 	//}
     }
 

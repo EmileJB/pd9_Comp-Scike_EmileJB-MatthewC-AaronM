@@ -12,4 +12,8 @@ public class World {
 	lives = 100;
     }
 
+    public static void main(String[] args){
+	Gui g= new Gui(10,10);
+	g.setVisible(true);
+    }
 }

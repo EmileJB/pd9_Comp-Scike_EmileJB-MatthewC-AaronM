@@ -1,3 +1,7 @@
-
-
-(Matthew)-started adding the gridworld base
+5/26/14
+E: created repo 
+M: sent proposal
+5/27/14
+M: started adding the gridworld base
+5/28/14
+M: added devlog.txt

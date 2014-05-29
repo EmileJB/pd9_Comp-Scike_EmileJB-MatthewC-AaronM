@@ -7,3 +7,5 @@ M: started adding the gridworld base
 M: added devlog.txt
 A&E: worked on UML / component breakdown
 E: modified Loc class
+5/29/14
+A&M&E:had animated discussion whilst making beginnings of Gui

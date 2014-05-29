@@ -25,10 +25,10 @@ public class Gui extends JFrame implements ActionListener {
 	    System.out.println("xD?");
 	}
     }
-    public void actionPerformed(ActionEvent e){
-	
+    public void actionPerformed(ActionEvent e) {
+	System.out.println("potate");
     }
-
+    
     public Gui() {
 	boardBorder=new JPanel();
 	this.setTitle("xD");
@@ -42,14 +42,14 @@ public class Gui extends JFrame implements ActionListener {
 	pane = this.getContentPane();
 	pane.setLayout(new BorderLayout());
 	JPanel jpanel = new JPanel();
-	JPanel thumb = new JLabel();
-	ImageIcon icon = new ImageIcon(grid);
-	
+	JLabel thumb = new JLabel();
+	ImageIcon icon = new ImageIcon(grid);	
 	jpanel.setBorder(BorderFactory.createLineBorder(Color.yellow,2));
 	thumb.setIcon(icon);
 	jpanel.add(thumb);
 	boardBorder.add(jpanel);
-    
+	pane.add(boardBorder);
+	this.add(pane);
     }
     public static void main(String[] args){
 	Gui g= new Gui();

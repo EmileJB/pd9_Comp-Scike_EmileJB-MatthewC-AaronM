@@ -9,3 +9,4 @@ A&E: worked on UML / component breakdown
 E: modified Loc class
 5/29/14
 A&M&E:had animated discussion whilst making beginnings of Gui
+E:worked more on Gui to make it more grid like

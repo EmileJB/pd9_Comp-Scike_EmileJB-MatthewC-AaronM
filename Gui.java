@@ -31,6 +31,7 @@ public class Gui extends JFrame implements ActionListener {
     
     public Gui() {
 	boardBorder=new JPanel();
+	boardBorder.setLayout(new GridLayout(10,10));
 	this.setTitle("xD");
 	this.setSize(750,750);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -40,17 +41,23 @@ public class Gui extends JFrame implements ActionListener {
 	    System.out.println("you goofed Dx");
 	}
 	pane = this.getContentPane();
+	pane.setBackground(Color.white);
 	pane.setLayout(new BorderLayout());
-	JPanel jpanel = new JPanel();
-	JLabel thumb = new JLabel();
-	ImageIcon icon = new ImageIcon(grid);	
-	jpanel.setBorder(BorderFactory.createLineBorder(Color.yellow,2));
-	thumb.setIcon(icon);
-	jpanel.add(thumb);
-	boardBorder.add(jpanel);
-	pane.add(boardBorder);
-	this.add(pane);
+	pane.add(boardBorder,BorderLayout.CENTER);
+	for (int[] panels:board) {
+	    for (int panel:panels) {
+		JPanel jpanel = new JPanel();
+		//JLabel thumb = new JLabel();
+		//ImageIcon icon = new ImageIcon(grid);
+		//jpanel.setPreferredSize(new Dimension(65,65));	
+		jpanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
+		//thumb.setIcon(icon);
+		//jpanel.add(thumb);
+		boardBorder.add(jpanel);
+	    }
+	}
     }
+
     public static void main(String[] args){
 	Gui g= new Gui();
 	g.setVisible(true);

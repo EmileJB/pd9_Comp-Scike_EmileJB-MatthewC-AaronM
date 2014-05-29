@@ -6,3 +6,4 @@ M: started adding the gridworld base
 5/28/14
 M: added devlog.txt
 A&E: worked on UML / component breakdown
+E: modified Loc class

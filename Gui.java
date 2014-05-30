@@ -9,7 +9,7 @@ public class Gui extends JFrame implements ActionListener {
     private Image grid;
     private Container pane;
     private JButton resetButton;
-    private int[][] board = new int[10][10];
+    //private int[][] board = new int[10][10]; old code, attempting alternate method
     private JPanel boardBorder;
 
     
@@ -29,7 +29,7 @@ public class Gui extends JFrame implements ActionListener {
 	System.out.println("potate");
     }
     
-    public Gui() {
+    public Gui(int x, int y) {
 	boardBorder=new JPanel();
 	boardBorder.setLayout(new GridLayout(10,10));
 	this.setTitle("xD");
@@ -44,8 +44,9 @@ public class Gui extends JFrame implements ActionListener {
 	pane.setBackground(Color.white);
 	pane.setLayout(new BorderLayout());
 	pane.add(boardBorder,BorderLayout.CENTER);
-	for (int[] panels:board) {
-	    for (int panel:panels) {
+	//for (int[] panels:board) {
+	//  for (int panel:panels) {
+	for (int i = 0; i < x*y; i++) {
 		JPanel jpanel = new JPanel();
 		//JLabel thumb = new JLabel();
 		//ImageIcon icon = new ImageIcon(grid);
@@ -55,11 +56,11 @@ public class Gui extends JFrame implements ActionListener {
 		//jpanel.add(thumb);
 		boardBorder.add(jpanel);
 	    }
-	}
+	//}
     }
 
     public static void main(String[] args){
-	Gui g= new Gui();
+	Gui g= new Gui(10,10);
 	g.setVisible(true);
     }
 }

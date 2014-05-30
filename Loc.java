@@ -6,7 +6,8 @@ public class Loc{
     //private ArrayList<Actor> occupants; what entity is located at this location(to be used later)
 
     public Loc(int xcor, int ycor, int pathID){
-	setLocation(xcor,ycor);
+	x = xcor;
+	y = ycor;
 	ID = pathID;
 	//color = default; idk what to do here yet
 	//occupant = null;
@@ -30,7 +31,7 @@ public class Loc{
 	return ID;
     }
 
-    public  int getColor() {
+    public Color getColor() {
 	return color;
     }
 

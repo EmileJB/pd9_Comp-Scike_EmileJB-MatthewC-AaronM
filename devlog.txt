@@ -12,3 +12,4 @@ A&M&E:had animated discussion whilst making beginnings of Gui
 E:worked more on Gui to make it more grid like
 5/30/14
 E:Created Grid class, questioned usefullness of World class (that could be in the Gui class pmuch)
+A&M: Tweaked Loc.java and adjusted Gui.java 

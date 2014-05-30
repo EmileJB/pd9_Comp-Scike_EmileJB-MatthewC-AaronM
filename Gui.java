@@ -11,7 +11,7 @@ public class Gui extends JFrame implements ActionListener {
     private JButton resetButton;
     private Loc[][] board = new Loc[10][10];
     private JPanel boardBorder;
-
+    private int pathNumber;
     
     
     private class myKeyListener implements KeyListener {
@@ -44,23 +44,28 @@ public class Gui extends JFrame implements ActionListener {
 	pane.setBackground(Color.white);
 	pane.setLayout(new BorderLayout());
 	pane.add(boardBorder,BorderLayout.CENTER);
+	pathNumber=0;
 	//for (int[] panels:board) {
 	//  for (int panel:panels) {
 	for (int xcor = 0; xcor < x; xcor++) {
 	    for (int ycor = 0; ycor < y; ycor++) {
+		//String qwer = "";
 		if ( (xcor==3 && ycor<5) || (xcor==4 && ycor>=4) ) {
-		    board[xcor][ycor] = new Loc(xcor,ycor,1,Color.BLUE);
+		    board[xcor][ycor] = new Loc(xcor,ycor,pathNumber,Color.BLUE);
+		    //qwer="" +pathNumber;
+		    pathNumber++;
+		    
 		}
 		else
 		     board[xcor][ycor] = new Loc(xcor,ycor,-1);
 		JPanel jpanel = new JPanel();
 		jpanel.setBackground(board[xcor][ycor].getColor());
-		//JLabel thumb = new JLabel();
+		JLabel thumb = new JLabel();
 		//ImageIcon icon = new ImageIcon(grid);
 		//jpanel.setPreferredSize(new Dimension(65,65));	
 		jpanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
 		//thumb.setIcon(icon);
-		//jpanel.add(thumb);
+		jpanel.add(thumb);
 		boardBorder.add(jpanel);
 	    }
 	}

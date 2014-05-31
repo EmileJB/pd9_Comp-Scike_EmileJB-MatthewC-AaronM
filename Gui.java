@@ -34,7 +34,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     public Gui(int x, int y) {
 	Loc[] pathSent = new Loc[path.length];
 	board = new Grid(x,y,this);
-	boardBorder=new MappedJPanel(-1,-1);
+	boardBorder=new JPanel();
 	boardBorder.setLayout(new GridLayout(10,10));
 	this.setTitle("xD");
 	this.setSize(750,750);
@@ -90,7 +90,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		jpanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
 		//thumb.setIcon(icon);
 		jpanel.add(thumb);
-		boardBorder.add(jpanel);
+		boardBorder.add((JPanel)jpanel);
 	    }
 	}
 	board.setPath(pathSent);
@@ -152,7 +152,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		jpanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
 		//thumb.setIcon(icon);
 		jpanel.add(thumb);
-		boardBorder.add(jpanel);
+		boardBorder.add((JPanel)jpanel);
 	    }
 	}
         boardBorder.revalidate();	

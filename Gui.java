@@ -86,11 +86,12 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		}
 		//ImageIcon icon = new ImageIcon(grid);
 		//jpanel.setPreferredSize(new Dimension(65,65));	
-		jpanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
 		//thumb.setIcon(icon);
 		jpanel.add(thumb);
 		JPanel panel = new JPanel(new GridLayout(1,1));
 		panel.add(jpanel);
+		panel.setBackground(board.getLoc(xcor,ycor).getColor());
+		panel.setBorder(BorderFactory.createLineBorder(Color.black,1));
 		boardBorder.add(panel);
 	    }
 	}
@@ -151,11 +152,12 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		}
 		//ImageIcon icon = new ImageIcon(grid);
 		//jpanel.setPreferredSize(new Dimension(65,65));	
-		jpanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
 		//thumb.setIcon(icon);
 		jpanel.add(thumb);
-		JPanel panel = new JPanel(new GridLayout(1,1));
+		JPanel panel = new JPanel(new GridLayout(1,1,0,0));
 		panel.add(jpanel);
+		panel.setBorder(BorderFactory.createLineBorder(Color.black,1));
+		panel.setBackground(board.getLoc(xcor,ycor).getColor());
 		boardBorder.add(panel);
 	    }
 	}

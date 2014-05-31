@@ -14,6 +14,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private int pathNumber;
     private ArrayList<Enemy> Enemies;
     private int[][] path = {{0,3},{1,3},{2,3},{3,3},{4,3},{4,4},{5,4},{6,4},{7,4},{8,4},{9,4}};
+    private int money;
+    private int lives;
     
     
     private class myKeyListener implements KeyListener {
@@ -34,6 +36,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     public Gui(int x, int y) {
 	Loc[] pathSent = new Loc[path.length];
 	board = new Grid(x,y,this);
+	Enemies = new ArrayList<Enemy>();
+	lives = 100;
+	money = 0;
 	boardBorder=new JPanel(new GridLayout(10,10));
 	this.setTitle("xD");
 	this.setSize(750,750);
@@ -64,8 +69,10 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 			board.setLoc(xcor,ycor,l);
 			pathSent[i] = l;
 			numLabel = "" + i;
-			if (i == 0)
+			if (i == 0) {
 			    l.addActor(new Enemy(100,10,12,l));
+			    Enemies.add((Enemy)l.getActors().get(0));
+				    }
 			break;
 
 		   ///pathNumber++;
@@ -125,10 +132,15 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     //end of stupid mouselistener stuff
 
     public void tick() {
-	for (int i = 0; i < Enemies.size(); i++) {
+	//	int x = 23;	
+	while (board.getEnd().getActors().size()==0) {
+	    for (int i = 0; i < Enemies.size(); i++) {
+	    System.out.println("check");
 	    Enemy e = Enemies.get(i);
 	    e.act();
-	    repaint();
+	    //x--;
+	    }
+	    updateBoard();
 	}
     }
 
@@ -164,8 +176,36 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
         pane.revalidate();	
     }
 
+    public boolean removeEnemy(Enemy e) {
+	return Enemies.remove(e);
+    }
+
+    public void addEnemy(Enemy e) {
+	Enemies.add(e);
+    }
+
+    public int getMoney() {
+	return money;
+    }
+
+    public int getLives() {
+	return lives;
+    }
+
+    public void setMoney(int m) {
+	money = m;
+    }
+
+    public void setLives(int l) {
+	lives = l;
+    }
+
     public static void main(String[] args){
 	Gui g= new Gui(10,10);
 	g.setVisible(true);
+	g.tick();
+	for (int i = 0; i < g.Enemies.size(); i++) {
+	    System.out.println(g.Enemies.get(i).getLoc().getActors());
+	}
     }
 }

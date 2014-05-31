@@ -58,11 +58,12 @@ public class Enemy extends Actor {
 
     public void move() {
 	if (speed == 0) {
-	    Loc tmp = location; 
-	    setLoc(getGrid().getPathLoc(pathPos));
-	    tmp.removeActor(this); 
-	    speed = basespeed;
 	    pathPos++;
+	    Loc tmp = location; 
+	    location = board.getPathLoc(pathPos);
+	    tmp.removeActor(this);
+	    location.addActor(this); 
+	    speed = basespeed;
 		   }
 	else
 	    speed--;

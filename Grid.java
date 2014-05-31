@@ -42,6 +42,14 @@ public class Grid {
 	return getRow() * getCol();
     }
 
+    public Loc getSpawn() {
+	return spawnPoint;
+    }
+
+    public Loc getEnd() {
+	return endPoint;
+    }
+
     public void setLoc(int x, int y, Loc loc) {
 	board[x][y] = loc;
     }
@@ -55,5 +63,9 @@ public class Grid {
 	    return endPoint;
 	else
 	    return path[i];
+    }
+
+    public Gui getGui() {
+	return gui;
     }
 }

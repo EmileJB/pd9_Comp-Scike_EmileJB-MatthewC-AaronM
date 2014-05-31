@@ -21,7 +21,7 @@ public class Loc{
     }
 
     public String toString(){
-	return x + "," + "y"; //for now, later return occupant.toString()
+	return x + "," + y; //for now, later return occupant.toString()
     }
 
     //the gets and sets
@@ -60,10 +60,9 @@ public class Loc{
 
     public void addActor(Actor a) {
 	String name = a.getClass().getName();
-	if ((name == "Enemy" && ID >= 0) || (name != "Enemy" && ID < 0)) { 
+	if ((name == "Enemy" && ID >= 0) || (name != "Enemy" && ID < 0))  
 //won't work when subclasses are implemented, a fix will need to be found
 	    occupants.add(a);
-	}
     }
 
     public boolean removeActor(Actor a) {

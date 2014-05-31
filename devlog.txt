@@ -14,3 +14,5 @@ E:worked more on Gui to make it more grid like
 E:Created Grid class, questioned usefullness of World class (that could be in the Gui class pmuch)
 A&M: Tweaked Loc.java and adjusted Gui.java
 E: Added Actor class and Enemy subclass
+5/31/14
+E: More improvements on Enemy, updated Gui so Enemies can now show, many more things I don't quite remember them all.

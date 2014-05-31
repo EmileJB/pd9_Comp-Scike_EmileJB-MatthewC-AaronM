@@ -6,12 +6,14 @@ import java.io.*;
 import java.util.*;
 
 public class Gui extends JFrame implements ActionListener {
-    private Image grid;
+    private Image grid,enemy;
     private Container pane;
     private JButton resetButton;
-    private Loc[][] board = new Loc[10][10];
+    private Grid board;
     private JPanel boardBorder;
     private int pathNumber;
+    private ArrayList<Enemy> Enemies;
+    private int[][] path = {{0,3},{1,3},{2,3},{3,3},{4,3},{4,4},{5,4},{6,4},{7,4},{8,4},{9,4}};
     
     
     private class myKeyListener implements KeyListener {
@@ -30,6 +32,8 @@ public class Gui extends JFrame implements ActionListener {
     }
     
     public Gui(int x, int y) {
+	Loc[] pathSent = new Loc[path.length];
+	board = new Grid(x,y,this);
 	boardBorder=new JPanel();
 	boardBorder.setLayout(new GridLayout(10,10));
 	this.setTitle("xD");
@@ -37,6 +41,7 @@ public class Gui extends JFrame implements ActionListener {
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	try {
 	    grid = ImageIO.read(new File ( "images/BoundedGrid.gif"));
+	    enemy = ImageIO.read(new File ( "images/Enemy.gif"));
 	}catch (IOException ex) {
 	    System.out.println("you goofed Dx");
 	}
@@ -44,23 +49,38 @@ public class Gui extends JFrame implements ActionListener {
 	pane.setBackground(Color.white);
 	pane.setLayout(new BorderLayout());
 	pane.add(boardBorder,BorderLayout.CENTER);
-	pathNumber=0;
+	//pathNumber=0;
 	//for (int[] panels:board) {
 	//  for (int panel:panels) {
 	for (int xcor = 0; xcor < x; xcor++) {
 	    for (int ycor = 0; ycor < y; ycor++) {
-		//String qwer = "";
-		if ( (xcor==3 && ycor<5) || (xcor==4 && ycor>=4) ) {
-		    board[xcor][ycor] = new Loc(xcor,ycor,pathNumber,Color.BLUE);
-		    //qwer="" +pathNumber;
-		    pathNumber++;
-		    
-		}
+		String qwer = "";
+		Loc l = new Loc(xcor,ycor,-1,board,Color.WHITE);
+		//if ( (xcor==3 && ycor<5) || (xcor==4 && ycor>=4) ) {
+		for (int i = 0; i < path.length; i++) {
+		    if (xcor == path[i][0] && ycor == path[i][1]) {
+			l.setColor(Color.BLUE);
+				       l.setID(i);
+			board.setLoc(xcor,ycor,l);
+			pathSent[i] = l;
+			qwer = "" + i;
+			if (i == 0)
+			    l.addActor(new Enemy(100,10,12,l));
+			break;
+
+		   ///pathNumber++;
+		    }
+		
 		else
-		     board[xcor][ycor] = new Loc(xcor,ycor,-1);
+		   board.setLoc(xcor,ycor,l);
+		}
 		JPanel jpanel = new JPanel();
-		jpanel.setBackground(board[xcor][ycor].getColor());
-		JLabel thumb = new JLabel();
+		jpanel.setBackground(board.getLoc(xcor,ycor).getColor());
+		JLabel thumb = new JLabel(qwer);
+		if (l.getActors().size() > 0) {
+		    ImageIcon icon = new ImageIcon(enemy);
+		    thumb.setIcon(icon);
+		}
 		//ImageIcon icon = new ImageIcon(grid);
 		//jpanel.setPreferredSize(new Dimension(65,65));	
 		jpanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
@@ -69,7 +89,14 @@ public class Gui extends JFrame implements ActionListener {
 		boardBorder.add(jpanel);
 	    }
 	}
-	//}
+	board.setPath(pathSent);
+    }
+
+    public void tick() {
+	for (int i = 0; i < Enemies.size(); i++) {
+	    Enemy e = Enemies.get(i);
+	    e.act();
+	}
     }
 
     public static void main(String[] args){

@@ -1,15 +1,23 @@
 public class Enemy extends Actor {
 
     protected int reward;
+    protected int basereward;
     protected int speed;
+    protected int basespeed;
     protected int hp;
-    protected Loc location;
+    protected int basehp;
+    // protected Loc location;
+    protected Grid board;
+    protected int pathPos;
+    //protected World world (may be useful to modify things like lives and money)
 
     public Enemy(int h, int s, int r, Loc loc) {
-	hp = h;
-	speed = s;
-	reward = r;
-	location = loc;
+	super(loc);	
+	basehp = hp = h;
+	basespeed = speed = s;
+	basereward = reward = r;
+	//location = loc;
+	board = location.getGrid();
     }
 
     public int getHP() {
@@ -28,6 +36,10 @@ public class Enemy extends Actor {
 	return location;
     }
 
+    public Grid getGrid() {
+	return board;
+    }
+
     public void setHP(int h) {
 	hp = h;
     }
@@ -44,7 +56,31 @@ public class Enemy extends Actor {
 	    location = l;
 	}
 
-    public void Act() {
-    
+    public void move() {
+	if (speed == 0) {
+	    Loc tmp = location; 
+	    setLoc(getGrid().getPathLoc(pathPos));
+	    tmp.removeActor(this); 
+	    speed = basespeed;
+	    pathPos++;
+		   }
+	else
+	    speed--;
+    }
+
+    /*    public void checkHP() {
+	if (hp <= 0)
+	    die();
+	if (hp > basehhp)
+	    hp = basehp;
+    }
+
+    public void die() {
+	getLoc.remove(this);
+    }
+    */
+    public void act() { 
+    	//checkHP();
+	move();
     }
 }

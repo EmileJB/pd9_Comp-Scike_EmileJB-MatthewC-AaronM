@@ -6,5 +6,5 @@ public abstract class Actor {
 	location = loc;
     }
 
-    public abstract void Act();
+    public abstract void act();
 }

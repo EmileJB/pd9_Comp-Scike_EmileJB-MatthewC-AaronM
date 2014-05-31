@@ -16,3 +16,4 @@ A&M: Tweaked Loc.java and adjusted Gui.java
 E: Added Actor class and Enemy subclass
 5/31/14
 E: More improvements on Enemy, updated Gui so Enemies can now show, many more things I don't quite remember them all.
+A: Updated Gui to use mouseListeners and MappedJPanels, added MappedJPanel. Towers can now be added, but Gui is somewhat broken.

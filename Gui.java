@@ -10,7 +10,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private Container pane;
     private JButton resetButton;
     private Grid board;
-    private JPanel boardBorder;
+    private JPanel boardBorder,info;
     private int pathNumber;
     private ArrayList<Enemy> Enemies;
     private int[][] path = {{0,3},{1,3},{2,3},{3,3},{4,3},{4,4},{5,4},{6,4},{7,4},{8,4},{9,4}};
@@ -39,9 +39,12 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	Enemies = new ArrayList<Enemy>();
 	lives = 100;
 	money = 100;
+	info = new JPanel(new GridLayout());
+	info.add(new JLabel("Lives: "+lives));
+	info.add(new JLabel("Money: "+money));
 	boardBorder=new JPanel(new GridLayout(10,10));
 	this.setTitle("xD");
-	this.setSize(750,750);
+	this.setSize(800,750);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	try {
 	    grid = ImageIO.read(new File ( "images/BoundedGrid.gif"));
@@ -54,6 +57,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	pane.setBackground(Color.white);
 	pane.setLayout(new BorderLayout());
 	pane.add(boardBorder,BorderLayout.CENTER);
+	pane.add(info,BorderLayout.PAGE_START);
 	//pathNumber=0;
 	//for (int[] panels:board) {
 	//  for (int panel:panels) {
@@ -154,6 +158,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		Thread.currentThread().interrupt();
 	    }
 	    updateBoard();
+	    updateInfo();
+	    pane.revalidate();
 	}
     }
     
@@ -186,8 +192,13 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		panel.setBackground(board.getLoc(xcor,ycor).getColor());
 		boardBorder.add(panel);
 	    }
-	}
-        pane.revalidate();	
+	}	
+    }
+
+    public void updateInfo() {
+	info.removeAll();
+	info.add(new JLabel("Lives: "+lives));
+	info.add(new JLabel("Money: "+money));
     }
 
     public boolean removeEnemy(Enemy e) {

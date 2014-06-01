@@ -21,3 +21,4 @@ E: Updated Gui so that enemies can move along the path, quite glitchy
 A: Added the beginnings of money, made the game (seem) less glitchy
 6/01/14
 E: Fixed the problem with exponentially growing mouseListeners
+E: Made Spawner class, adjusted Gui accordingly.

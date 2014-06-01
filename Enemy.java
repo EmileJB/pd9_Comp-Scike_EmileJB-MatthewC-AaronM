@@ -17,6 +17,7 @@ public class Enemy extends Actor {
 	basespeed = speed = s;
 	basereward = reward = r;
 	//location = loc;
+	if (location != null)
 	board = location.getGrid();
     }
 
@@ -52,17 +53,22 @@ public class Enemy extends Actor {
 	reward = r;
     }
 
-    public void setLoc(Loc l) {
+    public void swapLoc(Loc l) {
 	Loc tmp = location;
 	location = l;
 	location.addActor(this);
 	tmp.removeActor(this);
 	}
 
+    public void setLoc(Loc l) {
+	location = l;
+	board = l.getGrid();
+    }
+
     public void move() {
 	if (speed == 0) {
 	    pathPos++;
-	    setLoc(board.getPathLoc(pathPos));
+	    swapLoc(board.getPathLoc(pathPos));
 	    speed = basespeed;
 		   }
 	else
@@ -78,8 +84,8 @@ public class Enemy extends Actor {
 
     public void checkPos() {
 	if (location.getID() < 0)
-	    setLoc(board.getPathLoc(pathPos));
-	if (location.equals(board.getEnd()))
+	    swapLoc(board.getPathLoc(pathPos));
+	if (location.equals(board.getEnd()) && speed == 0)
 	    finish();
     }
 
@@ -98,9 +104,9 @@ public class Enemy extends Actor {
 	g.setLives(g.getLives()-1);
     } 
   
-    public void act() { 
+    public void act() {
+	checkPos(); 
     	checkHP();
 	move();
-	checkPos();
     }
 }

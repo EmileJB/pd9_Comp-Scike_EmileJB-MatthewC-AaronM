@@ -17,6 +17,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private int money;
     private int lives;
     private static int numthings;
+    private Spawner enemySpawner;
     
     private class myKeyListener implements KeyListener {
 	public void keyPressed(KeyEvent e){
@@ -33,7 +34,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	System.out.println("potate");
     }
     
-    public Gui(int x, int y) {
+    public Gui(int x, int y, int r) {
 	Loc[] pathSent = new Loc[path.length];
 	board = new Grid(x,y,this);
 	Enemies = new ArrayList<Enemy>();
@@ -73,10 +74,11 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 			board.setLoc(xcor,ycor,l);
 			pathSent[i] = l;
 			numLabel = "" + i;
-			if (i == 0) {
-			    l.addActor(new Enemy(100,10,12,l));
+			/*if (i == 0) {
+			    l.addActor(new Enemy(50,5,10,l));
 			    Enemies.add((Enemy)l.getActors().get(0));
 				    }
+			*/
 			break;
 
 		   ///pathNumber++;
@@ -109,6 +111,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	}
 	addMouseListener(this);
 	board.setPath(pathSent);
+	enemySpawner = new Spawner(r, board.getSpawn(), this);
+	fill(25,5,5,10,90,50,50);
 	pane.validate();
     }
     //mouselistener stuff
@@ -152,14 +156,16 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
     public void tick() {
 	//	int x = 23;
-	while (board.getEnd().getActors().size()==0) {
-	    try {
+	while ((Enemies.size() > 0) || (board.getEnd().getActors().size()==0)) {
+	    //System.out.println("check");
+		try {
 		for (int i = 0; i < Enemies.size(); i++) {
 		    //System.out.println("check");
 		    Enemy e = Enemies.get(i);
 		    e.act();
 		    //x--;
 		}
+		enemySpawner.act();
 		Thread.sleep(100);
 	    }
 	    catch(InterruptedException ex) {
@@ -234,9 +240,20 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	lives = l;
     }
 
+    public void fill(int n, int basespeed, int maxspeed, int basereward, int maxreward, int basehp, int maxhp) {
+	for (int i = 0; i < n; i++) {
+	    int hp = (int)(Math.random()*maxhp) + basehp;
+	    int speed = (int)(Math.random()*maxspeed) + basespeed;
+	    int reward = (int)(Math.random()*maxreward) + basereward;
+	    enemySpawner.add(new Enemy(hp,speed,reward,null));
+	}
+    }
+
     public static void main(String[] args){
-	Gui g= new Gui(10,10);
+	Gui g= new Gui(10,10,10);
 	g.setVisible(true);
+	//System.out.println(g.Enemies.size());
 	g.tick();
+	//System.out.println(g.Enemies.size());
     }
 }

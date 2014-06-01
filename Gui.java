@@ -16,7 +16,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private int[][] path = {{0,3},{1,3},{2,3},{3,3},{4,3},{4,4},{5,4},{6,4},{7,4},{8,4},{9,4}};
     private int money;
     private int lives;
-    
+    private static int numthings;
     
     private class myKeyListener implements KeyListener {
 	public void keyPressed(KeyEvent e){
@@ -88,8 +88,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
 		MappedJPanel jpanel = new MappedJPanel(xcor,ycor);
 		jpanel.setBackground(board.getLoc(xcor,ycor).getColor());
+		//jpanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
 		jpanel.addMouseListener(this);
-		addMouseListener(this);
 		JLabel thumb = new JLabel(numLabel);
 		if (l.getActors().size() > 0) {
 		    ImageIcon icon = new ImageIcon(enemy);
@@ -99,6 +99,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		//jpanel.setPreferredSize(new Dimension(65,65));	
 		//thumb.setIcon(icon);
 		jpanel.add(thumb);
+		//boardBorder.add(jpanel);
 		JPanel panel = new JPanel(new GridLayout(1,1));
 		panel.add(jpanel);
 		panel.setBackground(board.getLoc(xcor,ycor).getColor());
@@ -106,6 +107,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		boardBorder.add(panel);
 	    }
 	}
+	addMouseListener(this);
 	board.setPath(pathSent);
 	pane.validate();
     }
@@ -118,10 +120,15 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		board.setLoc(jpanel.getX(),jpanel.getY(),new Loc(jpanel.getX(), jpanel.getY(), -2, board,Color.WHITE));
 		money -=50;
 	    }
+	    else {
+		System.out.println(numthings);
+		System.exit(1);
+	    }
 	}
 	updateBoard();
 	}
-	catch (Exception ex) {System.out.print("");}
+	catch (Exception ex) {//
+	}
     }
     
     public void mouseReleased(MouseEvent e) {
@@ -129,7 +136,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     }
     
     public void mouseEntered(MouseEvent e) {
-	//System.out.println("moo");
+	numthings++;
+	System.out.println("moo" + numthings);
     }
     
     public void mouseExited(MouseEvent e) {
@@ -155,9 +163,10 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		Thread.sleep(100);
 	    }
 	    catch(InterruptedException ex) {
+		System.out.println("gotcha");
 		Thread.currentThread().interrupt();
 	    }
-	    updateBoard();
+	     updateBoard();
 	    updateInfo();
 	    pane.revalidate();
 	}
@@ -171,7 +180,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		MappedJPanel jpanel = new MappedJPanel(xcor,ycor);
 		jpanel.setBackground(board.getLoc(xcor,ycor).getColor());
 		jpanel.addMouseListener(this);
-		addMouseListener(this);
+		//addMouseListener(this);
 		//JLabel thumb = new JLabel(""+board.getLoc(xcor,ycor).getID());
 		JLabel thumb = new JLabel();
 		if (l.getActors().size() > 0) {

@@ -53,35 +53,54 @@ public class Enemy extends Actor {
     }
 
     public void setLoc(Loc l) {
-	    location = l;
+	Loc tmp = location;
+	location = l;
+	location.addActor(this);
+	tmp.removeActor(this);
 	}
 
     public void move() {
 	if (speed == 0) {
 	    pathPos++;
-	    Loc tmp = location; 
-	    location = board.getPathLoc(pathPos);
-	    tmp.removeActor(this);
-	    location.addActor(this); 
+	    setLoc(board.getPathLoc(pathPos));
 	    speed = basespeed;
 		   }
 	else
 	    speed--;
     }
 
-    /*    public void checkHP() {
+        public void checkHP() {
 	if (hp <= 0)
 	    die();
-	if (hp > basehhp)
+	if (hp > basehp)
 	    hp = basehp;
     }
 
-    public void die() {
-	getLoc.remove(this);
+    public void checkPos() {
+	if (location.getID() < 0)
+	    setLoc(board.getPathLoc(pathPos));
+	if (location.equals(board.getEnd()))
+	    finish();
     }
-    */
+
+    public void die() {
+	location.removeActor(this);
+	Gui g = board.getGui();
+	g.removeEnemy(this);
+	g.setMoney(g.getMoney()+reward);
+    }
+
+    public void finish() {
+	System.out.println("win");
+	location.removeActor(this);
+	Gui g = board.getGui();
+	g.removeEnemy(this);
+	g.setLives(g.getLives()-1);
+    } 
+  
     public void act() { 
-    	//checkHP();
+    	checkHP();
 	move();
+	checkPos();
     }
 }

@@ -38,7 +38,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	board = new Grid(x,y,this);
 	Enemies = new ArrayList<Enemy>();
 	lives = 100;
-	money = 0;
+	money = 100;
 	boardBorder=new JPanel(new GridLayout(10,10));
 	this.setTitle("xD");
 	this.setSize(750,750);
@@ -107,10 +107,17 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     }
     //mouselistener stuff
     public void mousePressed(MouseEvent e) {//needs some way of finding the jpanel's coordinates
+	try {
 	MappedJPanel jpanel = (MappedJPanel)e.getSource();
-	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1)
-	    board.setLoc(jpanel.getX(),jpanel.getY(),new Loc(jpanel.getX(), jpanel.getY(), -2, board,Color.WHITE));
+	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) { 
+	    if (/*currTower = 1 &&*/money >= 50) {
+		board.setLoc(jpanel.getX(),jpanel.getY(),new Loc(jpanel.getX(), jpanel.getY(), -2, board,Color.WHITE));
+		money -=50;
+	    }
+	}
 	updateBoard();
+	}
+	catch (Exception ex) {System.out.print("");}
     }
     
     public void mouseReleased(MouseEvent e) {
@@ -132,18 +139,24 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     //end of stupid mouselistener stuff
 
     public void tick() {
-	//	int x = 23;	
+	//	int x = 23;
 	while (board.getEnd().getActors().size()==0) {
-	    for (int i = 0; i < Enemies.size(); i++) {
-	    System.out.println("check");
-	    Enemy e = Enemies.get(i);
-	    e.act();
-	    //x--;
+	    try {
+		for (int i = 0; i < Enemies.size(); i++) {
+		    //System.out.println("check");
+		    Enemy e = Enemies.get(i);
+		    e.act();
+		    //x--;
+		}
+		Thread.sleep(100);
+	    }
+	    catch(InterruptedException ex) {
+		Thread.currentThread().interrupt();
 	    }
 	    updateBoard();
 	}
     }
-
+    
     public void updateBoard() {
         boardBorder.removeAll();
 	for (int xcor = 0; xcor < board.getRow(); xcor++) {
@@ -153,7 +166,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		jpanel.setBackground(board.getLoc(xcor,ycor).getColor());
 		jpanel.addMouseListener(this);
 		addMouseListener(this);
-		JLabel thumb = new JLabel(""+board.getLoc(xcor,ycor).getID());
+		//JLabel thumb = new JLabel(""+board.getLoc(xcor,ycor).getID());
+		JLabel thumb = new JLabel();
 		if (l.getActors().size() > 0) {
 		    ImageIcon icon = new ImageIcon(enemy);
 		    thumb.setIcon(icon);
@@ -204,8 +218,5 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	Gui g= new Gui(10,10);
 	g.setVisible(true);
 	g.tick();
-	for (int i = 0; i < g.Enemies.size(); i++) {
-	    System.out.println(g.Enemies.get(i).getLoc().getActors());
-	}
     }
 }

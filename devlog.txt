@@ -18,3 +18,4 @@ E: Added Actor class and Enemy subclass
 E: More improvements on Enemy, updated Gui so Enemies can now show, many more things I don't quite remember them all.
 A: Updated Gui to use mouseListeners and MappedJPanels, added MappedJPanel. Towers can now be added.
 E: Updated Gui so that enemies can move along the path, quite glitchy
+A: Added the beginnings of money, made the game (seem) less glitchy

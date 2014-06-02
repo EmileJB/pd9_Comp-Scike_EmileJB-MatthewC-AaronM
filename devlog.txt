@@ -22,3 +22,5 @@ A: Added the beginnings of money, made the game (seem) less glitchy
 6/01/14
 E: Fixed the problem with exponentially growing mouseListeners
 E: Made Spawner class, adjusted Gui accordingly.
+6/02/14
+A&E: Starter Tower class

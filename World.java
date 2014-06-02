@@ -13,7 +13,7 @@ public class World {
     }
 
     public static void main(String[] args){
-	Gui g= new Gui(10,10);
+	Gui g= new Gui(10,10,10);
 	g.setVisible(true);
     }
 }

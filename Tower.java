@@ -4,13 +4,13 @@ public class Tower extends Actor {
     
     protected int damage;
     protected int basedamage;
-    protected int rate;
+    protected int rate, turn;
     protected int baserate;
     protected int range;
     protected int baserange;
     protected Grid board;
     protected ArrayList<Loc> targets; //all locs in tower's range
-    protected ArrayList<Actor> activeTargets; //all actors in tower's range
+    protected ArrayList<Enemy> activeTargets; //all enemies in tower's range
     protected int numTargets; //amount of targets that can be shot at once
     //protected Projectile projectile;
 
@@ -19,6 +19,8 @@ public class Tower extends Actor {
 	basedamage = damage = d;
 	baserate = rate = s;
 	baserange = range = r;
+	turn = 0;
+	numTargets = n;
 	if (location != null)
 	    board = loc.getGrid();
     }
@@ -70,16 +72,32 @@ public class Tower extends Actor {
 
     public void setTargets() {
 	targets = new ArrayList<Loc>();
-	activeTargets = new ArrayList<Actor>();
+	activeTargets = new ArrayList<Enemy>();
 	int x = location.getX();
 	int y = location.getY();
-	for (int i = x - range; (i < x + range) && (x - range > 0 && x + range < board.getRow()); i++) {
-	    for (int j = y - range; (i < y + range) && (y - range > 0 && y + range < board.getCol()); j++) {
-		targets.add(board.getLoc(i,j));
+	for (int i = x - range; i <= x + range; i++) {
+	    for (int j = y - range; j <= y + range; j++) {
+		if ( j >= 0 && j < board.getCol() && i >= 0 && i < board.getRow()) {
+		    targets.add(board.getLoc(i,j));
+		    for (Actor a:board.getLoc(i,j).getActors()) {
+			if (a instanceof Enemy) 
+			    activeTargets.add((Enemy)a);
+		    }
+		}
 	    }
 	}
     }    
 	   
     public void act() {
+	setTargets();
+	if (turn%rate == 0) {
+	    for (int i = 0; i < activeTargets.size() && i <= numTargets;i++) {
+		activeTargets.get(0).setHP(activeTargets.get(0).getHP()-damage);
+		activeTargets.remove(0);
+	    }
+	}
+	//System.out.println(targets);
+	//System.out.println(activeTargets);
+	    turn++;
     }
 }

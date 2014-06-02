@@ -13,6 +13,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private JPanel boardBorder,info;
     private int pathNumber;
     private ArrayList<Enemy> Enemies;
+    private ArrayList<Tower> Towers;
     private int[][] path = {{0,3},{1,3},{2,3},{3,3},{4,3},{4,4},{5,4},{6,4},{7,4},{8,4},{9,4}};
     private int money;
     private int lives;
@@ -38,6 +39,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	Loc[] pathSent = new Loc[path.length];
 	board = new Grid(x,y,this);
 	Enemies = new ArrayList<Enemy>();
+	Towers = new ArrayList<Tower>();
 	lives = 100;
 	money = 100;
 	info = new JPanel(new GridLayout());
@@ -122,7 +124,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) { 
 	    if (/*currTower = 1 &&*/money >= 50) {
 		Loc l = new Loc(jpanel.getX(), jpanel.getY(), -2, board,Color.WHITE);
-		l.addActor(new Tower(l));//different kinds of tower
+		Tower t = new Tower(l,5,2,2,1);//damage,rate,range,numtargets
+		Towers.add(t);
+		l.addActor(t);//different kinds of tower
 		board.setLoc(jpanel.getX(),jpanel.getY(),l);
 		money -=50;		
 	    }
@@ -161,6 +165,12 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    //System.out.println("check");
 		    Enemy e = Enemies.get(i);
 		    e.act();
+		    //x--;
+		}
+		for (int i = 0; i < Towers.size(); i++) {
+		    //System.out.println("check");
+		    Tower t = Towers.get(i);
+		    t.act();
 		    //x--;
 		}
 		enemySpawner.act();

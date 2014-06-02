@@ -121,12 +121,10 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	MappedJPanel jpanel = (MappedJPanel)e.getSource();
 	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) { 
 	    if (/*currTower = 1 &&*/money >= 50) {
-		board.setLoc(jpanel.getX(),jpanel.getY(),new Loc(jpanel.getX(), jpanel.getY(), -2, board,Color.WHITE));
-		money -=50;
-	    }
-	    else {
-		System.out.println(numthings);
-		System.exit(1);
+		Loc l = new Loc(jpanel.getX(), jpanel.getY(), -2, board,Color.WHITE);
+		l.addActor(new Tower(l));//different kinds of tower
+		board.setLoc(jpanel.getX(),jpanel.getY(),l);
+		money -=50;		
 	    }
 	}
 	updateBoard();
@@ -174,7 +172,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    }
 	     updateBoard();
 	    updateInfo();
-	    pane.revalidate();
+	    pane.validate();
 	}
     }
     

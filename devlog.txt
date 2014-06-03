@@ -28,3 +28,4 @@ A: Got towers to target and shoot at enemies (enemies drop money upon dying, eve
 M: Fixed death bug
 6/03/14
 M: Worked on attacked animation to no avail; added attacked actor gif
+M: Scike! I got the actor to change color when attacked!

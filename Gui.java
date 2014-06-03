@@ -173,6 +173,10 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    t.act();
 		    //x--;
 		}
+		for (int i = 0; i < Enemies.size(); i++){
+		    Enemy e = Enemies.get(i);
+		    e.checkHP();
+		}
 		enemySpawner.act();
 		Thread.sleep(100);
 	    }

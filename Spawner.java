@@ -1,5 +1,6 @@
 import java.util.*;
-
+import java.awt.*;
+import javax.imageio.*;
 public class Spawner {
 
 	private Queue<Enemy> spawns;
@@ -8,7 +9,7 @@ public class Spawner {
 	private Loc sendTo;
 	private Gui gui;
 
-	public Spawner(int r, Loc l, Gui g) {
+    public Spawner(int r, Loc l, Gui g, ImageIcon i) {
 	    spawns = new LinkedList<Enemy>();
 	    baserate = rate = r;
 	    sendTo = l;

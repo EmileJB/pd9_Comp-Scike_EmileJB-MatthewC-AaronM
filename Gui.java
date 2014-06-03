@@ -171,11 +171,14 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    //System.out.println("check");
 		    Tower t = Towers.get(i);
 		    t.act();
+		    updateBoard();
+		    Thread.sleep(10);
 		    //x--;
 		}
 		for (int i = 0; i < Enemies.size(); i++){
 		    Enemy e = Enemies.get(i);
 		    e.checkHP();
+		    e.resetImg();
 		}
 		enemySpawner.act();
 		Thread.sleep(100);
@@ -201,7 +204,15 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		//addMouseListener(this);
 		//JLabel thumb = new JLabel(""+board.getLoc(xcor,ycor).getID());
 		JLabel thumb = new JLabel();
+		/*
 		if (l.getActors().size() > 0) {
+		    Enemy g = (Enemy) l.getActors().get(0);
+		    ImageIcon icon = new ImageIcon(g.getImg());
+		    thumb.setIcon(icon);
+		}
+		*/
+		if (l.getActors().size() > 0) {
+		    // Enemy g = (Enemy) l.getActors().get(0);
 		    ImageIcon icon = new ImageIcon(enemy);
 		    thumb.setIcon(icon);
 		}

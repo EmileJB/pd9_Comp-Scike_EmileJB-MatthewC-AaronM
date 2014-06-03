@@ -1,11 +1,11 @@
 import info.gridworld.grid.*;
 import info.gridworld.world.*;
 
-public class Game extends World<Location> {
+public class Game extends World<Loc> {
     private Location[] [] crib = new Location[10][10];
     private boolean placeable;
 
-    public Game(BoundedGrid<Location> b){
+    public Game(BoundedGrid<Loc> b){
 	super(b);
 	start();
     }
@@ -13,7 +13,7 @@ public class Game extends World<Location> {
     public void start() {
 	for (int r =0; r<=9; r++){
 	    for (int c=0; c <=9; c++){
-		crib[r][c]= new Location(r, c);
+		crib[r][c]= new Loc(r, c);
 	    }
 	}
 	

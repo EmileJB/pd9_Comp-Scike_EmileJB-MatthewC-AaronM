@@ -25,3 +25,6 @@ E: Made Spawner class, adjusted Gui accordingly.
 6/02/14
 E: Started Tower class
 A: Got towers to target and shoot at enemies (enemies drop money upon dying, everything works very well!)
+M: Fixed death bug
+6/03/14
+M: Worked on attacked animation to no avail; added attacked actor gif

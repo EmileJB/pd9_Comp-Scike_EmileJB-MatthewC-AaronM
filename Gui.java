@@ -187,9 +187,16 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		System.out.println("gotcha");
 		Thread.currentThread().interrupt();
 	    }
-	     updateBoard();
-	    updateInfo();
-	    pane.validate();
+		updateBoard();
+		Thread.sleep(10);
+		for (int i = 0; i < Enemies.size(); i++){
+		    Enemy e = Enemies.get(i);
+		    e.resetImg();
+
+		}
+		updateBoard();
+		updateInfo();
+		pane.validate();
 	}
     }
     

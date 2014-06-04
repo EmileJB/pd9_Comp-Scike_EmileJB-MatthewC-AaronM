@@ -1,3 +1,9 @@
+import javax.swing.*;
+import javax.imageio.*;
+import java.io.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
 public class Enemy extends Actor {
 
     protected int reward;
@@ -9,6 +15,7 @@ public class Enemy extends Actor {
     // protected Loc location;
     protected Grid board;
     protected int pathPos;
+    protected Image img, norm, atkd;
     //protected World world (may be useful to modify things like lives and money)
 
     public Enemy(int h, int s, int r, Loc loc) {
@@ -19,12 +26,18 @@ public class Enemy extends Actor {
 	//location = loc;
 	if (location != null)
 	board = location.getGrid();
+	try {
+	    norm = ImageIO.read(new File ( "images/Enemy.gif"));
+	    atkd = ImageIO.read(new File ( "images/atkdactor.gif"));
+	}catch (IOException ex) {
+	    System.out.println("you goofed Dx");
+	}
+	img = norm;
     }
 
     public int getHP() {
 	return hp;
     }
-
     public int getSpeed() {
 	return speed;
     }
@@ -75,7 +88,7 @@ public class Enemy extends Actor {
 	    speed--;
     }
 
-        public void checkHP() {
+    public void checkHP() {
 	if (hp <= 0)
 	    die();
 	if (hp > basehp)
@@ -108,5 +121,14 @@ public class Enemy extends Actor {
 	checkPos(); 
     	checkHP();
 	move();
+    }
+    public void setImg(){
+	img = atkd;
+    }
+    public void resetImg(){
+	img= norm;
+    }
+    public Image getImg(){
+	return img;
     }
 }

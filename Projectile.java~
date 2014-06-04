@@ -1,0 +1,22 @@
+import javax.swing.*;
+import javax.imageio.*;
+import java.io.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+
+
+public class Projectile {
+    
+    protected Loc target, spot;
+
+    public Projectile(Location dest, Location spawn){
+	target = dest;
+	spot=spawn;
+
+	try {
+	    norm = ImageIO.read(new File ( "images/Enemy.gif"));
+	    atkd = ImageIO.read(new File ( "images/atkdactor.gif"));
+	}catch (IOException ex) {
+	    System.out.println("you goofed Dx");
+	}

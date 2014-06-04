@@ -158,6 +158,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
     public void tick() {
 	//	int x = 23;
+	Projectile p = new Projectile(board.getLoc(9,9), board.getLoc(7,4));
 	while ((Enemies.size() > 0) || (board.getEnd().getActors().size()==0)) {
 	    //System.out.println("check");
 		try {
@@ -171,6 +172,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    //System.out.println("check");
 		    Tower t = Towers.get(i);
 		    t.act();
+		    
+		    
 		    //updateBoard();
 		    // Thread.sleep(10);
 		    //x--;
@@ -180,6 +183,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    e.checkHP();
 
 		}
+	
+		
+		   
 		enemySpawner.act();
 		Thread.sleep(100);
 	    }
@@ -201,6 +207,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    e.resetImg();
 
 		}
+		p.act();
+		
 		updateBoard();
 		updateInfo();
 		pane.validate();
@@ -222,16 +230,32 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    ImageIcon icon = new ImageIcon(tower);
 		    thumb.setIcon(icon);
 		}	
-		else if (l.getActors().size() > 0) {
+		else if (l.getID() > 0 && l.getActors().size()>0) {
 		    Enemy g = (Enemy) l.getActors().get(0);
 		    ImageIcon icon = new ImageIcon(g.getImg());
 		    thumb.setIcon(icon);
+		}
+		JLabel proj = new JLabel();
+		if (l.getActors().size() > 0 &&){
+		    // System.out.println("here1");
+		    for (int q =0; q < l.getActors().size();q++){
+			//System.out.println("here2");
+			if (l.getActors().get(q).ID() ==3){
+			    // System.out.println("here3");
+			    
+			    Projectile p = (Projectile) l.getActors().get(q);
+			    ImageIcon icon = new ImageIcon(p.getImg());
+
+			    proj.setIcon(icon);
+			}
+		    }
 		}
 		
 		//ImageIcon icon = new ImageIcon(grid);
 		//jpanel.setPreferredSize(new Dimension(65,65));	
 		//thumb.setIcon(icon);
 		jpanel.add(thumb);
+		jpanel.add(proj);
 		JPanel panel = new JPanel(new GridLayout(1,1,0,0));
 		panel.add(jpanel);
 		panel.setBorder(BorderFactory.createLineBorder(Color.black,1));

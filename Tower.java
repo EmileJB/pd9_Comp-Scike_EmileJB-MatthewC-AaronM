@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Tower extends Actor {
-    
+    protected int id;
     protected int damage;
     protected int basedamage;
     protected int rate, turn;
@@ -16,6 +16,7 @@ public class Tower extends Actor {
 
     public Tower (Loc loc, int d, int s, int r, int n) {
 	super(loc);
+	id=1;
 	basedamage = damage = d;
 	baserate = rate = s;
 	baserange = range = r;
@@ -119,5 +120,8 @@ public class Tower extends Actor {
 	//System.out.println(targets);
 	//System.out.println(activeTargets);
 	    turn++;
+    }
+    public int ID() {
+	return id;
     }
 }

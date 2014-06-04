@@ -14,6 +14,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private int pathNumber;
     private ArrayList<Enemy> Enemies;
     private ArrayList<Tower> Towers;
+    private ArrayList<Projectile> Projectiles;
     private int[][] path = {{0,3},{1,3},{2,3},{3,3},{4,3},{4,4},{5,4},{6,4},{7,4},{8,4},{9,4}};
     private int money;
     private int lives;
@@ -40,6 +41,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	board = new Grid(x,y,this);
 	Enemies = new ArrayList<Enemy>();
 	Towers = new ArrayList<Tower>();
+	Projectiles = new ArrayList<Projectile>();
 	lives = 100;
 	money = 100;
 	info = new JPanel(new GridLayout());
@@ -124,7 +126,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) { 
 	    if (/*currTower = 1 &&*/money >= 50) {
 		Loc l = new Loc(jpanel.getX(), jpanel.getY(), -2, board,Color.WHITE);
-		Tower t = new Tower(l,5,2,2,1);//damage,rate,range,numtargets
+		Tower t = new Tower(l,20,6,3,0);//loc, damage,rate,range,numtargets
 		Towers.add(t);
 		l.addActor(t);//different kinds of tower
 		board.setLoc(jpanel.getX(),jpanel.getY(),l);
@@ -158,7 +160,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
     public void tick() {
 	//	int x = 23;
-	Projectile p = new Projectile(board.getLoc(9,9), board.getLoc(7,4));
+	
 	while ((Enemies.size() > 0) || (board.getEnd().getActors().size()==0)) {
 	    //System.out.println("check");
 		try {
@@ -182,6 +184,16 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    Enemy e = Enemies.get(i);
 		    e.checkHP();
 
+		}
+		for (int i = 0; i < Projectiles.size(); i++) {
+		    //System.out.println("check");
+		    Projectile t = Projectiles.get(i);
+		    t.act();
+		    
+		    
+		    //updateBoard();
+		    // Thread.sleep(10);
+		    //x--;
 		}
 	
 		
@@ -207,7 +219,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    e.resetImg();
 
 		}
-		p.act();
+	
 		
 		updateBoard();
 		updateInfo();
@@ -274,7 +286,12 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     public boolean removeEnemy(Enemy e) {
 	return Enemies.remove(e);
     }
-
+    public void addProjectile(Projectile p){
+	Projectiles.add(p);
+    }
+    public boolean removeProjectile(Projectile p){
+	return Projectiles.remove(p);
+    }
     public void addEnemy(Enemy e) {
 	Enemies.add(e);
     }

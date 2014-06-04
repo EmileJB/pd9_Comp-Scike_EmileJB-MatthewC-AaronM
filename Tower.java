@@ -113,7 +113,7 @@ public class Tower extends Actor {
 	if (turn%rate == 0) {
 	    for (int i = 0; i < activeTargets.size() && i <= numTargets;i++) {
 		activeTargets.get(0).setHP(activeTargets.get(0).getHP()-damage);
-		Projectile p = new Projectile(getLoc(), activeTargets.get(0).getLoc());
+		Projectile p = new Projectile(getLoc(), activeTargets.get(0).getLoc(), board.getGui());
 		p.act();
 		activeTargets.get(0).setImg();
 		activeTargets.remove(0);

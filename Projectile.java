@@ -13,26 +13,31 @@ public class Projectile extends Actor {
     protected Grid g;
     protected Gui gu;
     
-    public Projectile(Loc spawn, Loc dest){
+    public Projectile(Loc spawn, Loc dest, Gui gu){
 	super(spawn);
 	id=3;
 	spot=location;
-	target=dest;
+	target=dest;	
 	g= spot.getGrid();
+	gu = g.getGui();
+	//System.out.println(gu);
 	try {
 	    img = ImageIO.read(new File ( "images/misnw.gif"));
 	}catch (IOException ex) {
 	    System.out.println("you goofed Dx");
 	}
 	spot.addActor(this);
+	gu.addProjectile(this);
     }
     public void setTarget( Loc dest){
 	target = dest;
     }
     public void moveOne(int x, int y) {
+	gu = g.getGui();
 	Loc tmp = spot;
-	tmp.removeActor(this);
-	//System.out.println(spot);
+	spot.removeActor(this);
+	g.getLoc(spot.getX(),spot.getY()).removeActor(this);
+	System.out.println(spot.getActors());
 	g.placeActor(x,y, this);
 	
 	spot =g.getLoc(x,y);
@@ -43,7 +48,7 @@ public class Projectile extends Actor {
     }
     public void act() {
 	
-	while (!(spot.getX()== target.getX() && spot.getY() == target.getY())) {
+	//	while (!(spot.getX()== target.getX() && spot.getY() == target.getY())) {
 	//System.out.println("X: "+target.getX()+spot.getX() + "\nY: "+ target.getY() + spot.getY());
 	    
 	    if (spot.getX() > target.getX() && spot.getY() > target.getY()){
@@ -78,13 +83,19 @@ public class Projectile extends Actor {
 		//	System.out.println("here");
 		moveOne(spot.getX()-1, spot.getY());
 	    }
-	    
-	}
-	    //	spot.removeActor(this);
+	    else {
+		this.die();
+	    }
+    
+
 	
-	    //	}
-	    //System.out.println("we made it!");
-	
+     
+    }
+    public void die(){
+	location.removeActor(this);	
+		g.getLoc(spot.getX(),spot.getY()).removeActor(this);
+	g.getLoc(target.getX(),target.getY()).removeActor(this);
+	gu.removeProjectile(this);
     }
     public Image getImg(){
 	return img;

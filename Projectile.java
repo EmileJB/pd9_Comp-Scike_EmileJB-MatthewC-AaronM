@@ -43,7 +43,7 @@ public class Projectile extends Actor {
     }
     public void act() {
 	
-	//while (!(spot.getX()== target.getX() && spot.getY() == target.getY())) {
+	while (!(spot.getX()== target.getX() && spot.getY() == target.getY())) {
 	//System.out.println("X: "+target.getX()+spot.getX() + "\nY: "+ target.getY() + spot.getY());
 	    
 	    if (spot.getX() > target.getX() && spot.getY() > target.getY()){
@@ -79,7 +79,7 @@ public class Projectile extends Actor {
 		moveOne(spot.getX()-1, spot.getY());
 	    }
 	    
-	
+	}
 	    //	spot.removeActor(this);
 	
 	    //	}

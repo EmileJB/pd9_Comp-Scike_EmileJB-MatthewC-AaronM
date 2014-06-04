@@ -243,8 +243,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
 			    proj.setIcon(icon);
 			}
-			else if (l.getID() > 0 && l.getActors().size()>0) {
-			    Enemy g = (Enemy) l.getActors().get(0);
+			else if (l.getActors().get(q).ID()==0) {
+			    Enemy g = (Enemy) l.getActors().get(q);
 			    ImageIcon icon = new ImageIcon(g.getImg());
 			    thumb.setIcon(icon);
 			}

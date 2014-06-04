@@ -29,3 +29,5 @@ M: Fixed death bug
 6/03/14
 M: Worked on attacked animation to no avail; added attacked actor gif
 M: Scike! I got the actor to change color when attacked!
+6/04/14
+M: Started projectiles; had problems with getting projectiles on the path as well as removing past versions of itself. hopefully its a small bug.

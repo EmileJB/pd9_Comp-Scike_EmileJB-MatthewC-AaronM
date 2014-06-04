@@ -23,6 +23,7 @@ public class Tower extends Actor {
 	numTargets = n;
 	if (location != null)
 	    board = loc.getGrid();
+	setTargets();
     }
 
     public int getDamage() {
@@ -75,21 +76,39 @@ public class Tower extends Actor {
 	activeTargets = new ArrayList<Enemy>();
 	int x = location.getX();
 	int y = location.getY();
-	for (int i = x - range; i <= x + range; i++) {
-	    for (int j = y - range; j <= y + range; j++) {
-		if ( j >= 0 && j < board.getCol() && i >= 0 && i < board.getRow()) {
+	for (int i = x + range; i >= x - range; i--) {
+	    for (int j = y + range; j >= y - range; j--) {
+		if ( j >= 0 && j < board.getCol() && i >= 0 && i < board.getRow() && board.getLoc(i,j).getID() >= 0) {
 		    targets.add(board.getLoc(i,j));
-		    for (Actor a:board.getLoc(i,j).getActors()) {
-			if (a instanceof Enemy) 
-			    activeTargets.add((Enemy)a);
-		    }
 		}
 	    }
+	}//sort targets according to ID using insertion sort, because this method is called only a few times by each tower and targets has very few elements.
+		int i = 0;
+	Loc key;
+	for (int j = 1;j<targets.size();j++) {
+	    key = targets.get(j);
+	    i = j-1;
+	    while (i>=0 && targets.get(i).getID() < key.getID()) {
+		targets.set(i+1,targets.get(i));
+		targets.set(i,key);
+		i--;
+	    }
 	}
-    }    
+	//System.out.println(targets);
+    }
+
+    public void setActiveTargets() {
+	activeTargets = new ArrayList<Enemy>();//clear all previous targets
+	for (Loc l:targets) {
+	    for (Actor a:l.getActors()) {
+		if (a instanceof Enemy) 
+		    activeTargets.add((Enemy)a);
+	    }
+	}
+    }
 	   
     public void act() {
-	setTargets();
+	setActiveTargets();
 	if (turn%rate == 0) {
 	    for (int i = 0; i < activeTargets.size() && i <= numTargets;i++) {
 		activeTargets.get(0).setHP(activeTargets.get(0).getHP()-damage);

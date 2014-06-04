@@ -229,14 +229,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		if (l.getID() == -2) {
 		    ImageIcon icon = new ImageIcon(tower);
 		    thumb.setIcon(icon);
-		}	
-		else if (l.getID() > 0 && l.getActors().size()>0) {
-		    Enemy g = (Enemy) l.getActors().get(0);
-		    ImageIcon icon = new ImageIcon(g.getImg());
-		    thumb.setIcon(icon);
 		}
 		JLabel proj = new JLabel();
-		if (l.getActors().size() > 0 &&){
+		if (l.getActors().size() > 0 ){
 		    // System.out.println("here1");
 		    for (int q =0; q < l.getActors().size();q++){
 			//System.out.println("here2");
@@ -247,6 +242,11 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 			    ImageIcon icon = new ImageIcon(p.getImg());
 
 			    proj.setIcon(icon);
+			}
+			else if (l.getID() > 0 && l.getActors().size()>0) {
+			    Enemy g = (Enemy) l.getActors().get(0);
+			    ImageIcon icon = new ImageIcon(g.getImg());
+			    thumb.setIcon(icon);
 			}
 		    }
 		}

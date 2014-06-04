@@ -158,7 +158,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
     public void tick() {
 	//	int x = 23;
-	Projectile p = new Projectile(board.getLoc(4,4), board.getLoc(7,4));
+	Projectile p = new Projectile(board.getLoc(9,9), board.getLoc(7,4));
 	while ((Enemies.size() > 0) || (board.getEnd().getActors().size()==0)) {
 	    //System.out.println("check");
 		try {
@@ -208,7 +208,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
 		}
 		p.act();
-		p.act();
+		
 		updateBoard();
 		updateInfo();
 		pane.validate();

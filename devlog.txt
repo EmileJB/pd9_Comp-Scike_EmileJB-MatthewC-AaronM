@@ -32,3 +32,5 @@ M: Scike! I got the actor to change color when attacked!
 6/04/14
 M: Started projectiles; had problems with getting projectiles on the path as well as removing past versions of itself. hopefully its a small bug.
 M: Projectiles can move onto path; neeed to work on JLabel priotirierteies (-Me: I'm tired  -Dad: Hi Tired, I'm Dad)
+6/05/14
+E: Altered class interactions so they are more natural (e.g. enemies only get hurt when hit by projectile, towers don't change enemies iamge for them). Also altered Projectile.

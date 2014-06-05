@@ -47,7 +47,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	info = new JPanel(new GridLayout());
 	info.add(new JLabel("Lives: "+lives));
 	info.add(new JLabel("Money: "+money));
-	boardBorder=new JPanel(new GridLayout(10,10));
+	boardBorder=new JPanel(new GridLayout(x,y));
 	this.setTitle("xD");
 	this.setSize(800,750);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -126,7 +126,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) { 
 	    if (/*currTower = 1 &&*/money >= 50) {
 		Loc l = new Loc(jpanel.getX(), jpanel.getY(), -2, board,Color.WHITE);
-		Tower t = new Tower(l,20,6,3,0);//loc, damage,rate,range,numtargets
+		Tower t = new Tower(l,20,6,30,0);//loc, damage,rate,range,numtargets
 		Towers.add(t);
 		l.addActor(t);//different kinds of tower
 		board.setLoc(jpanel.getX(),jpanel.getY(),l);
@@ -199,7 +199,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		
 		   
 		enemySpawner.act();
-		Thread.sleep(100);
+		Thread.sleep(17);
 	    }
 	    catch(InterruptedException ex) {
 		System.out.println("gotcha");
@@ -310,6 +310,18 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
     public void setLives(int l) {
 	lives = l;
+    }
+
+    public boolean isActive(Enemy e) {
+	return Enemies.contains(e);
+    }
+
+    public boolean isActive(Tower t) {
+	return Towers.contains(t);
+    }
+
+    public boolean isActive(Projectile p) {
+	return Projectiles.contains(p);
     }
 
     public void fill(int n, int basespeed, int maxspeed, int basereward, int maxreward, int basehp, int maxhp) {

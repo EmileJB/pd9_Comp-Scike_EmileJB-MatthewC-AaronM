@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 public class Enemy extends Actor {
-
+    protected int id;
     protected int reward;
     protected int basereward;
     protected int speed;
@@ -19,7 +19,8 @@ public class Enemy extends Actor {
     //protected World world (may be useful to modify things like lives and money)
 
     public Enemy(int h, int s, int r, Loc loc) {
-	super(loc);	
+	super(loc);
+	id=0;
 	basehp = hp = h;
 	basespeed = speed = s;
 	basereward = reward = r;
@@ -130,5 +131,8 @@ public class Enemy extends Actor {
     }
     public Image getImg(){
 	return img;
+    }
+    public int ID(){
+	return id;
     }
 }

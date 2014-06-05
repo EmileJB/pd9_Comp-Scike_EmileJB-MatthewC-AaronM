@@ -81,6 +81,16 @@ public class Loc{
 	return occupants;
     }
 
+    public Enemy getEnemy() {
+	for (int i = occupants.size()-1; i >= 0; i--) {
+	    Actor e = occupants.get(i);
+	    if (e.getClass().getName().equals("Enemy")) {
+		return (Enemy)e;
+	    }
+	}
+	return null;
+    }
+
     public Grid getGrid() {
 	return board;
     }

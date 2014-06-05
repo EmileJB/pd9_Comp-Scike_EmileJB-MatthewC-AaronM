@@ -79,8 +79,13 @@ public class Enemy extends Actor {
 	board = l.getGrid();
     }
 
+    public void damage(int d) {
+	hp = hp - d;
+	img = atkd;
+    }
+
     public void move() {
-	if (speed == 0) {
+	if (speed <= 0) {
 	    pathPos++;
 	    swapLoc(board.getPathLoc(pathPos));
 	    speed = basespeed;

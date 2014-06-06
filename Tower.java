@@ -1,4 +1,8 @@
 import java.util.*;
+import javax.imageio.*;
+import java.awt.*;
+import javax.swing.*;
+import java.io.*;
 
 public class Tower extends Actor {
     protected int id;
@@ -13,6 +17,8 @@ public class Tower extends Actor {
     protected ArrayList<Enemy> activeTargets; //all enemies in tower's range
     protected int numTargets; //amount of targets that can be shot at once
     //protected Projectile projectile;
+    protected JPanel info;
+    protected Image norm;
 
     public Tower (Loc loc, int d, int s, int r, int n) {
 	super(loc);
@@ -22,9 +28,23 @@ public class Tower extends Actor {
 	baserange = range = r;
 	turn = 0;
 	numTargets = n;
-	if (location != null)
+	if (location != null) {
 	    board = loc.getGrid();
-	setTargets();
+	    setTargets();
+	}
+	try {
+	    norm = ImageIO.read(new File ( "images/Ciallou.gif"));
+	}
+	catch (IOException ex) {
+	    System.out.println("you dun goofed");
+	}
+	info = new JPanel();
+	ImageIcon icon = new ImageIcon(norm);
+	info.setPreferredSize(new Dimension(50,50));
+	String text= "Damage: " + damage + " Rate: " + baserate + " Range: " + range;
+	JLabel label = new JLabel(text);
+	    label.setIcon(icon);
+	info.add(label);
     }
 
     public int getDamage() {
@@ -71,6 +91,20 @@ public class Tower extends Actor {
 	location = l;
 	board = location.getGrid();
     }
+    public ArrayList getLocs(Loc l) {
+	targets = new ArrayList<Loc>();
+	int x = location.getX();
+	int y = location.getY();
+	for (int i = x + range; i >= x - range; i--) {
+	    for (int j = y + range; j >= y - range; j--) {
+       	if ( j >= 0 && j < board.getCol() && i >= 0 && i < board.getRow()) {
+		    targets.add(board.getLoc(i,j));
+		}
+	    }
+	}
+	return targets;
+    }
+
 
     public void setTargets() {
 	targets = new ArrayList<Loc>();
@@ -126,5 +160,9 @@ public class Tower extends Actor {
     }
     public int ID() {
 	return id;
+    }
+
+    public JPanel getJPanel() {
+	return info;
     }
 }

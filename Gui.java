@@ -10,7 +10,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private Container pane;
     private JButton resetButton;
     private Grid board;
-    private JPanel boardBorder,info;
+    private JPanel boardBorder,info,towerShop; //main JPanels
+    private JPanel towerInfo, availableTowers; //subJPanels
     private int pathNumber;
     private ArrayList<Enemy> Enemies;
     private ArrayList<Tower> Towers;
@@ -20,6 +21,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private int lives;
     private static int numthings;
     private Spawner enemySpawner;
+    private Tower currentTower;
+    private boolean addTowerMode;
     
     private class myKeyListener implements KeyListener {
 	public void keyPressed(KeyEvent e){
@@ -33,7 +36,10 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	}
     }
     public void actionPerformed(ActionEvent e) {
-	System.out.println("potate");
+	currentTower = new Tower(null,20,6,30,0);
+	addTowerMode = true;
+	towerInfo = currentTower.getJPanel();
+	UpdateTowerShop();
     }
     
     public Gui(int x, int y, int r) {
@@ -48,6 +54,12 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	info.add(new JLabel("Lives: "+lives));
 	info.add(new JLabel("Money: "+money));
 	boardBorder=new JPanel(new GridLayout(x,y));
+	towerShop = new JPanel(new BorderLayout(0,6));
+	towerInfo = new JPanel();
+	availableTowers = new JPanel(new GridLayout(5,2,2,2));
+	//towerInfo.setPreferredSize(new Dimension(100,100));
+	towerShop.add(towerInfo,BorderLayout.PAGE_START);
+	towerShop.add(availableTowers,BorderLayout.CENTER);
 	this.setTitle("xD");
 	this.setSize(800,750);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -56,13 +68,14 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    enemy = ImageIO.read(new File ( "images/Enemy.gif"));
 	    tower = ImageIO.read(new File ( "images/Ciallou.gif"));
 	}catch (IOException ex) {
-	    System.out.println("you goofed Dx");
+	    System.out.println("you dun goofed Dx");
 	}
 	pane = this.getContentPane();
 	pane.setBackground(Color.white);
 	pane.setLayout(new BorderLayout());
 	pane.add(boardBorder,BorderLayout.CENTER);
 	pane.add(info,BorderLayout.PAGE_START);
+	pane.add(towerShop,BorderLayout.LINE_END);
 	//pathNumber=0;
 	//for (int[] panels:board) {
 	//  for (int panel:panels) {
@@ -74,7 +87,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		for (int i = 0; i < path.length; i++) {
 		    if (xcor == path[i][0] && ycor == path[i][1]) {
 			l.setColor(Color.BLUE);
-				       l.setID(i);
+			l.setID(i);
 			board.setLoc(xcor,ycor,l);
 			pathSent[i] = l;
 			numLabel = "" + i;
@@ -113,7 +126,16 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		boardBorder.add(panel);
 	    }
 	}
-	addMouseListener(this);
+	ImageIcon icon = new ImageIcon(tower);
+	for (int i= 0; i < 10; i++) {
+	    JButton jb = new JButton(icon);
+	    jb.addActionListener(this);
+	    jb.setToolTipText("Towa");
+	    jb.setMnemonic(48+i);
+	    availableTowers.add(jb);
+	}
+
+	//addMouseListener(this);
 	board.setPath(pathSent);
 	enemySpawner = new Spawner(r, board.getSpawn(), this);
 	fill(25,5,5,10,90,50,50);
@@ -121,33 +143,39 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     }
     //mouselistener stuff
     public void mousePressed(MouseEvent e) {//needs some way of finding the jpanel's coordinates
-	try {
-	MappedJPanel jpanel = (MappedJPanel)e.getSource();
+	if (addTowerMode) {
+	    MappedJPanel jpanel = (MappedJPanel)e.getSource();
 	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) { 
 	    if (/*currTower = 1 &&*/money >= 50) {
 		Loc l = new Loc(jpanel.getX(), jpanel.getY(), -2, board,Color.WHITE);
-		Tower t = new Tower(l,20,6,30,0);//loc, damage,rate,range,numtargets
-		Towers.add(t);
-		l.addActor(t);//different kinds of tower
+		l.addActor(currentTower);//loc, damage,rate,range,numtargets
+		currentTower.setLoc(l);
+		currentTower.setTargets();
+		Towers.add(currentTower);
 		board.setLoc(jpanel.getX(),jpanel.getY(),l);
-		money -=50;		
+		money -= 50;		
 	    }
 	}
+	currentTower = null;
+	addTowerMode = false;
+	towerInfo = new JPanel();
 	updateBoard();
-	}
-	catch (Exception ex) {//
+	UpdateTowerShop();
 	}
     }
-    
+
     public void mouseReleased(MouseEvent e) {
 	//System.out.println("moo");
     }
     
     public void mouseEntered(MouseEvent e) {
-	numthings++;
-	System.out.println("moo" + numthings);
-    }
-    
+	//MappedJPanel jpanel = (MappedJPanel)e.getSource();
+	//	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) {
+	//  Loc l = board.getLoc(jpanel.getX(), jpanel.getY())
+	    // board.setTargetRange(currentTower.getLocs(l).toArray(new Loc[0]));
+	}
+
+   
     public void mouseExited(MouseEvent e) {
 	//System.out.println("moo");
     }
@@ -262,7 +290,6 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 			}
 		    }
 		}
-		
 		//ImageIcon icon = new ImageIcon(grid);
 		//jpanel.setPreferredSize(new Dimension(65,65));	
 		//thumb.setIcon(icon);
@@ -282,6 +309,22 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	info.add(new JLabel("Lives: "+lives));
 	info.add(new JLabel("Money: "+money));
     }
+
+    public void UpdateTowerShop() {
+	towerShop.removeAll();
+  	towerShop.add(towerInfo,BorderLayout.PAGE_START);
+	towerShop.add(availableTowers,BorderLayout.CENTER);
+	availableTowers = new JPanel(new GridLayout(5,2,2,2));
+	ImageIcon icon = new ImageIcon(tower);
+	for (int i= 0; i < 10; i++) {
+	    JButton jb = new JButton(icon);
+	    jb.addActionListener(this);
+	    jb.setToolTipText("Towa");
+	    jb.setMnemonic(48+i);
+	    availableTowers.add(jb);
+	}
+    }
+
 
     public boolean removeEnemy(Enemy e) {
 	return Enemies.remove(e);

@@ -5,6 +5,7 @@ public class Grid {
     private Loc endPoint;
     private Loc[] path;
     private Gui gui;
+    private Loc[] targetRange;
 
 
     public Grid(int x, int y, Gui g) {
@@ -63,6 +64,14 @@ public class Grid {
 	    return endPoint;
 	else
 	    return path[i];
+    }
+
+    public Loc[] getTargetRange() {
+	return targetRange;
+    }
+
+    public void setTargetRange(Loc[] l) {
+	targetRange = l;
     }
 
     public Gui getGui() {

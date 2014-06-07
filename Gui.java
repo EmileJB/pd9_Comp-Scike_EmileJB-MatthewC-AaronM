@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.imageio.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
@@ -275,19 +276,32 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    // System.out.println("here1");
 		    for (int q =0; q < l.getActors().size();q++){
 			//System.out.println("here2");
-			if (l.getActors().get(q).ID() ==3){
-			    // System.out.println("here3");
-			    
-			    Projectile p = (Projectile) l.getActors().get(q);
-			    ImageIcon icon = new ImageIcon(p.getImg());
 
-			    proj.setIcon(icon);
-			}
-			else if (l.getActors().get(q).ID()==0) {
+			if (l.getActors().get(q).ID()==0) {
 			    Enemy g = (Enemy) l.getActors().get(q);
 			    ImageIcon icon = new ImageIcon(g.getImg());
 			    thumb.setIcon(icon);
 			}
+
+			else if (l.getActors().get(q).ID() ==3){
+			    // System.out.println("here3");			    
+			    Projectile p = (Projectile) l.getActors().get(q);
+			    if (thumb.getIcon() == null) {
+				ImageIcon icon = new ImageIcon(p.getImg());
+				thumb.setIcon(icon);
+			    }
+			    else {
+				ImageIcon icon1 = (ImageIcon)thumb.getIcon();
+				int w = icon1.getIconWidth();
+				int h = icon1.getIconHeight();
+				BufferedImage combined = new BufferedImage (w, h, BufferedImage.TYPE_INT_ARGB);
+				Graphics g = combined.getGraphics();
+				g.drawImage(icon1.getImage(), 0, 0, null);
+				g.drawImage(p.getImg(), 0, 0, null);
+				thumb.setIcon (new ImageIcon(combined));
+			    }
+			}
+
 		    }
 		}
 		//ImageIcon icon = new ImageIcon(grid);

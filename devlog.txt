@@ -36,4 +36,5 @@ M: Projectiles can move onto path; neeed to work on JLabel priotirierteies (-Me:
 E: Altered class interactions so they are more natural (e.g. enemies only get hurt when hit by projectile, towers don't change enemies iamge for them). Also altered Projectile.
 M: Projectiles look pretty now (change direction accordingly, show first movement after tower)
 6/07/14
-A: Fixed projectiles such that their images are layered on top of other objects. Not sure if this will cause lag on slow machines.
+A: Fixed projectiles and enemies such that their images are layered on top of other objects. Not sure if this will cause lag on slow machines.
+A: Improved tower shop info panel

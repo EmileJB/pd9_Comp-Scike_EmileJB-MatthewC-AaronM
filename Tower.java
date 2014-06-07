@@ -40,8 +40,8 @@ public class Tower extends Actor {
 	}
 	info = new JPanel();
 	ImageIcon icon = new ImageIcon(norm);
-	info.setPreferredSize(new Dimension(50,50));
-	String text= "Damage: " + damage + " Rate: " + baserate + " Range: " + range;
+	info.setPreferredSize(new Dimension(50,75));
+	String text= "<html>Damage: " + damage + "<br>Rate: " + baserate + "<br>Range: " + range + "</html>";
 	JLabel label = new JLabel(text);
 	    label.setIcon(icon);
 	info.add(label);

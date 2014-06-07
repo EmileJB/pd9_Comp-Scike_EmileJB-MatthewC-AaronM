@@ -278,9 +278,21 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 			//System.out.println("here2");
 
 			if (l.getActors().get(q).ID()==0) {
-			    Enemy g = (Enemy) l.getActors().get(q);
-			    ImageIcon icon = new ImageIcon(g.getImg());
-			    thumb.setIcon(icon);
+			    Enemy en = (Enemy) l.getActors().get(q);
+			    if (thumb.getIcon() == null) {
+				ImageIcon icon = new ImageIcon(en.getImg());
+				thumb.setIcon(icon);
+			    }
+			    else {
+				ImageIcon icon1 = (ImageIcon)thumb.getIcon();
+				int w = icon1.getIconWidth();
+				int h = icon1.getIconHeight();
+				BufferedImage combined = new BufferedImage (w, h, BufferedImage.TYPE_INT_ARGB);
+				Graphics g = combined.getGraphics();
+				g.drawImage(icon1.getImage(), 0, 0, null);
+				g.drawImage(en.getImg(), 0, 0, null);
+				thumb.setIcon (new ImageIcon(combined));
+			    }
 			}
 
 			else if (l.getActors().get(q).ID() ==3){
@@ -326,7 +338,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
     public void UpdateTowerShop() {
 	towerShop.removeAll();
-  	towerShop.add(towerInfo,BorderLayout.PAGE_START);
+  	towerShop.add(towerInfo,BorderLayout.NORTH);
 	towerShop.add(availableTowers,BorderLayout.CENTER);
 	availableTowers = new JPanel(new GridLayout(5,2,2,2));
 	ImageIcon icon = new ImageIcon(tower);

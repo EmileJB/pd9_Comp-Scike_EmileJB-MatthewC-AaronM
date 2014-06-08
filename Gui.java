@@ -403,14 +403,22 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     }
 
     public void fill(int n, int basespeed, int maxspeed, int basereward, int maxreward, int basehp, int maxhp) {
+	int g;
+	Random r = new Random();
 	for (int i = 0; i < n; i++) {
 	    int hp = (int)(Math.random()*maxhp) + basehp;
 	    int speed = (int)(Math.random()*maxspeed) + basespeed;
 	    int reward = (int)(Math.random()*maxreward) + basereward;
-	    enemySpawner.add(new Bug(hp,speed,reward,null));
+	    
+	    g = r.nextInt(2);
+	    if (g==0){
+		enemySpawner.add(new Enemy(hp,speed,reward,null));
+	    }
+	    else{
+	    	enemySpawner.add(new Bug(hp,speed,reward,null));
+	    }
 	}
     }
-
     public static void main(String[] args){
 	Gui g= new Gui(10,10,10);
 	g.setVisible(true);

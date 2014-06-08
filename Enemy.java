@@ -32,12 +32,20 @@ public class Enemy extends Actor {
 	try {
 	    normn = ImageIO.read(new File ( "images/Enemy.gif"));
 	    atkdn = ImageIO.read(new File ( "images/atkdactor.gif"));
-	    normn= norme=normw=norms;
-	    atkdn= atkde=atkdw=atkds;
+	    norme=normn;
+	    normw=normn;
+	    norms=normn;
+	    atkds=atkdn;
+	    atkdw=atkdn;
+	    atkde=atkdn;
+	    
+       
 	}catch (IOException ex) {
 	    System.out.println("you goofed Dx");
 	}
-	
+	norm=norms;
+	atkd=atkds;
+	img = norms;
     }
 
     public int getHP() {
@@ -96,7 +104,7 @@ public class Enemy extends Actor {
 	    
 	    //System.out.println( this +": X's- "+ location.getX() + l.getX() + " & Y's:  " +location.getY() + l.getY());
 	    if (location.getX()==l.getX() && location.getY() < l.getY()){
-				System.out.println("5");
+		//		System.out.println("5");
 
 		setNorm(norme);
 		setAtkd(atkde);

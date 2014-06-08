@@ -38,3 +38,6 @@ M: Projectiles look pretty now (change direction accordingly, show first movemen
 6/07/14
 A: Fixed projectiles and enemies such that their images are layered on top of other objects. Not sure if this will cause lag on slow machines.
 A: Improved tower shop info panel
+6/08/14
+M: Fixed bug where Enemies don't die. now they die as they should.
+

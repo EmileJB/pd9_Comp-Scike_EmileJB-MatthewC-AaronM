@@ -170,11 +170,17 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     }
     
     public void mouseEntered(MouseEvent e) {
-	//MappedJPanel jpanel = (MappedJPanel)e.getSource();
-	//	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) {
-	//  Loc l = board.getLoc(jpanel.getX(), jpanel.getY())
-	    // board.setTargetRange(currentTower.getLocs(l).toArray(new Loc[0]));
+	MappedJPanel jpanel = (MappedJPanel)e.getSource();
+	Loc l = board.getLoc(jpanel.getX(),jpanel.getY()); 
+	if (l.getID() >= 0){
+	    if (l.getActors().size()>0 && l.getActors().get(0).ID()==0){
+		Enemy q = (Enemy) (board.getLoc(jpanel.getX(),jpanel.getY()).getActors().get(0));
+		System.out.println(Enemies);
+		q.die();
+	    }
 	}
+	
+    }
 
    
     public void mouseExited(MouseEvent e) {
@@ -209,11 +215,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    // Thread.sleep(10);
 		    //x--;
 		}
-		for (int i = 0; i < Enemies.size(); i++){
-		    Enemy e = Enemies.get(i);
-		    e.checkHP();
-
-		}
+	
 		for (int i = 0; i < Projectiles.size(); i++) {
 		    //System.out.println("check");
 		    Projectile t = Projectiles.get(i);
@@ -224,7 +226,11 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    // Thread.sleep(10);
 		    //x--;
 		}
-	
+		for (int i = 0; i < Enemies.size(); i++){
+		    Enemy e = Enemies.get(i);
+		    e.checkHP();
+		    
+		    }
 		
 		   
 		enemySpawner.act();

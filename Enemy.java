@@ -109,10 +109,11 @@ public class Enemy extends Actor {
     }
 
     public void die() {
-	location.removeActor(this);
 	Gui g = board.getGui();
 	g.removeEnemy(this);
+	board.getLoc(location.getX(), location.getY()).removeActor(this);
 	g.setMoney(g.getMoney()+reward);
+	location.removeActor(this);
     }
 
     public void finish() {

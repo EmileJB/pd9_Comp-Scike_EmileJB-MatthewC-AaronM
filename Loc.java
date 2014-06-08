@@ -60,7 +60,7 @@ public class Loc{
 
     public void addActor(Actor a) {
 	String name = a.getClass().getName();
-	if ((name == "Enemy" && ID >= 0) || (name != "Enemy" && ID < 0) || (a.ID() ==3 && ID>=0))  
+	if ((a.ID()==0 && ID >= 0) || (name != "Enemy" && ID < 0) || (a.ID() ==3 && ID>=0))  
 //won't work when subclasses are implemented, a fix will need to be found
 	    occupants.add(a);
     }
@@ -84,7 +84,7 @@ public class Loc{
     public Enemy getEnemy() {
 	for (int i = occupants.size()-1; i >= 0; i--) {
 	    Actor e = occupants.get(i);
-	    if (e.getClass().getName().equals("Enemy")) {
+	    if (e.ID() == 0) {
 		return (Enemy)e;
 	    }
 	}

@@ -167,16 +167,18 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
     public void mouseReleased(MouseEvent e) {
 	//System.out.println("moo");
+		System.out.println(Enemies);
     }
     
     public void mouseEntered(MouseEvent e) {
 	MappedJPanel jpanel = (MappedJPanel)e.getSource();
 	Loc l = board.getLoc(jpanel.getX(),jpanel.getY()); 
 	if (l.getID() >= 0){
+	    System.out.println(l.getActors());
 	    if (l.getActors().size()>0 && l.getActors().get(0).ID()==0){
 		Enemy q = (Enemy) (board.getLoc(jpanel.getX(),jpanel.getY()).getActors().get(0));
-		System.out.println(Enemies);
-		q.die();
+		
+		
 	    }
 	}
 	
@@ -189,6 +191,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
     public void mouseClicked(MouseEvent e) {
 	//System.out.println("moo");
+	System.out.println(Enemies);
     }
 
     //end of stupid mouselistener stuff
@@ -404,7 +407,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    int hp = (int)(Math.random()*maxhp) + basehp;
 	    int speed = (int)(Math.random()*maxspeed) + basespeed;
 	    int reward = (int)(Math.random()*maxreward) + basereward;
-	    enemySpawner.add(new Enemy(hp,speed,reward,null));
+	    enemySpawner.add(new Bug(hp,speed,reward,null));
 	}
     }
 

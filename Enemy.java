@@ -15,7 +15,9 @@ public class Enemy extends Actor {
     // protected Loc location;
     protected Grid board;
     protected int pathPos;
-    protected Image img, norm, atkd;
+    protected Image img,atkd,norm;
+    protected Image normn, norme,normw,norms;
+    protected Image atkdn, atkde,atkdw,atkds;
     //protected World world (may be useful to modify things like lives and money)
 
     public Enemy(int h, int s, int r, Loc loc) {
@@ -28,12 +30,14 @@ public class Enemy extends Actor {
 	if (location != null)
 	board = location.getGrid();
 	try {
-	    norm = ImageIO.read(new File ( "images/Enemy.gif"));
-	    atkd = ImageIO.read(new File ( "images/atkdactor.gif"));
+	    normn = ImageIO.read(new File ( "images/Enemy.gif"));
+	    atkdn = ImageIO.read(new File ( "images/atkdactor.gif"));
+	    normn= norme=normw=norms;
+	    atkdn= atkde=atkdw=atkds;
 	}catch (IOException ex) {
 	    System.out.println("you goofed Dx");
 	}
-	img = norm;
+	
     }
 
     public int getHP() {
@@ -85,8 +89,37 @@ public class Enemy extends Actor {
     }
 
     public void move() {
+	
 	if (speed <= 0) {
 	    pathPos++;
+	    Loc l = board.getPathLoc(pathPos);
+	    
+	    //System.out.println( this +": X's- "+ location.getX() + l.getX() + " & Y's:  " +location.getY() + l.getY());
+	    if (location.getX()==l.getX() && location.getY() < l.getY()){
+				System.out.println("5");
+
+		setNorm(norme);
+		setAtkd(atkde);
+	    }
+	    else if (location.getX()==l.getX() && location.getY() > l.getY()){
+		//System.out.println("6");		
+
+		setNorm(normw);
+		setAtkd(atkdw);
+	    }
+	    else if (location.getX() <l.getX() && location.getY()== l.getY()){
+		//System.out.println("7");		
+
+		setNorm(norms);
+		setAtkd(atkds);
+	    }
+	    else if(location.getX() >l.getX() && location.getY() == l.getY()){
+		    
+		//		System.out.println("8");
+		setNorm(normn);
+		setAtkd(atkdn);
+	    }
+	    resetImg();
 	    swapLoc(board.getPathLoc(pathPos));
 	    speed = basespeed;
 		   }
@@ -138,6 +171,38 @@ public class Enemy extends Actor {
     public Image getImg(){
 	return img;
     }
+    public void setNorm(Image i){
+	norm = i;
+    }
+    public void setNormn(Image i){
+	normn = i;
+    }
+    public void setNorms(Image i){
+	norms = i;
+    }
+    public void setNormw(Image i){
+	normw = i;
+    }
+    public void setNorme(Image i){
+	norme = i;
+    }
+    public void setAtkd(Image i){
+	atkd=i;
+    }
+    public void setAtkdn(Image i){
+	atkdn=i;
+    }
+    public void setAtkds(Image i){
+	atkds=i;
+    }
+    public void setAtkde(Image i){
+	atkde=i;
+    }
+    public void setAtkdw(Image i){
+	atkdw=i;
+    }
+    
+
     public int ID(){
 	return id;
     }

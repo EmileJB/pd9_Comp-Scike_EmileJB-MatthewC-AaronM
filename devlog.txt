@@ -40,4 +40,4 @@ A: Fixed projectiles and enemies such that their images are layered on top of ot
 A: Improved tower shop info panel
 6/08/14
 M: Fixed bug where Enemies don't die. now they die as they should.
-
+M: Added bug class.

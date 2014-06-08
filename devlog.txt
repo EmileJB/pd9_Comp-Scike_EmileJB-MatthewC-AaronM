@@ -41,3 +41,4 @@ A: Improved tower shop info panel
 6/08/14
 M: Fixed bug where Enemies don't die. now they die as they should.
 M: Added bug class.
+M: Spawns random enemies (from the two we have thus far)

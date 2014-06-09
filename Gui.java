@@ -28,7 +28,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private class myKeyListener implements KeyListener {
 	public void keyPressed(KeyEvent e){
 	    System.out.println("xD?");
-	}
+       }
 		public void keyTyped(KeyEvent e){
 	    System.out.println("xD?");
 	}
@@ -38,13 +38,13 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     }
     public void actionPerformed(ActionEvent e) {
 	if (e.getSource() == jb0) {
-	    currentTower = new Tower(null,20,6,30,0,50);
+	    currentTower = new Tower(null,20,6,3,0,50);//loc, damage, rate,range, numbtargets, ID
 	}
 	else if (e.getSource() == jb1) {
-	    currentTower = new Tower(null,7,1,30,0,100);
+	    currentTower = new Tower(null,3,1,1,0,100);
 	} 
 	else {
-	    currentTower = new Tower(null,20,6,30,0,50);
+	    currentTower = new Tower(null,20,6,3,0,50);
 	}
 	    
 	addTowerMode = true;
@@ -168,7 +168,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	//addMouseListener(this);
 	board.setPath(pathSent);
 	enemySpawner = new Spawner(r, board.getSpawn(), this);
-	fill(25,5,5,10,90,50,50);
+	fill(300,5,5,10,0,65,65);
 	pane.validate();
     }
     //mouselistener stuff
@@ -475,7 +475,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	}
     }
     public static void main(String[] args){
-	Gui g= new Gui(10,10,10);
+	Gui g= new Gui(10,10,8);
 	g.setVisible(true);
 	//System.out.println(g.Enemies.size());
 	g.tick();

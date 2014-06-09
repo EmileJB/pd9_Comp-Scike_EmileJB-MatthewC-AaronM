@@ -18,6 +18,7 @@ public class Enemy extends Actor {
     protected Image img,atkd,norm;
     protected Image normn, norme,normw,norms;
     protected Image atkdn, atkde,atkdw,atkds;
+    protected ArrayList<Status> status;
     //protected World world (may be useful to modify things like lives and money)
 
     public Enemy(int h, int s, int r, Loc loc) {
@@ -26,6 +27,7 @@ public class Enemy extends Actor {
 	basehp = hp = h;
 	basespeed = speed = s;
 	basereward = reward = r;
+	status = new ArrayList<Status>();
 	//location = loc;
 	if (location != null)
 	board = location.getGrid();
@@ -97,7 +99,7 @@ public class Enemy extends Actor {
     }
 
     public void move() {
-	
+	if (!checkStatus(Status.FROZEN)) {
 	if (speed <= 0) {
 	    pathPos++;
 	    Loc l = board.getPathLoc(pathPos);
@@ -133,6 +135,7 @@ public class Enemy extends Actor {
 		   }
 	else
 	    speed--;
+	}
     }
 
     public void checkHP() {
@@ -141,6 +144,24 @@ public class Enemy extends Actor {
 	if (hp > basehp)
 	    hp = basehp;
     }
+
+    public boolean checkStatus(int i) {
+	for (Status s:status) {
+	    if (s.Effect(i) == i)
+		return true;
+	}
+	return false;
+    }
+
+    public void addStatus(Status stat) {
+	for (Status s:status) {
+	    if (s.equals(stat))
+		s.combine(stat);
+	    return;
+	}
+	status.add(stat);
+    }
+
 
     public void checkPos() {
 	if (location.getID() < 0)

@@ -44,3 +44,5 @@ M: Added bug class.
 M: Spawns random enemies (from the two we have thus far)
 A: Added a new type of tower; we need to make it easier to add different types of towers
 A: Made some other small tweaks to tower shop
+6/09/14
+E: Added status class, gave projectiles 10% chance to freeze enemies(for testing only)

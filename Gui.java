@@ -7,9 +7,9 @@ import java.io.*;
 import java.util.*;
 
 public class Gui extends JFrame implements ActionListener, MouseListener {
-    private Image grid,enemy,tower;
+    private Image grid,enemy,tower,potato;
     private Container pane;
-    private JButton resetButton;
+    private JButton resetButton, jb0, jb1;
     private Grid board;
     private JPanel boardBorder,info,towerShop; //main JPanels
     private JPanel towerInfo, availableTowers; //subJPanels
@@ -37,10 +37,19 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	}
     }
     public void actionPerformed(ActionEvent e) {
-	currentTower = new Tower(null,20,6,30,0);
+	if (e.getSource() == jb0) {
+	    currentTower = new Tower(null,20,6,30,0,50);
+	}
+	else if (e.getSource() == jb1) {
+	    currentTower = new Tower(null,7,1,30,0,100);
+	} 
+	else {
+	    currentTower = new Tower(null,20,6,30,0,50);
+	}
+	    
 	addTowerMode = true;
 	towerInfo = currentTower.getJPanel();
-	UpdateTowerShop();
+	updateTowerShop();
     }
     
     public Gui(int x, int y, int r) {
@@ -68,6 +77,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    grid = ImageIO.read(new File ( "images/BoundedGrid.gif"));
 	    enemy = ImageIO.read(new File ( "images/Enemy.gif"));
 	    tower = ImageIO.read(new File ( "images/Ciallou.gif"));
+	    potato = ImageIO.read(new File ( "images/potato.gif"));
 	}catch (IOException ex) {
 	    System.out.println("you dun goofed Dx");
 	}
@@ -118,23 +128,42 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		//ImageIcon icon = new ImageIcon(grid);
 		//jpanel.setPreferredSize(new Dimension(65,65));	
 		//thumb.setIcon(icon);
-		jpanel.add(thumb);
+;
 		//boardBorder.add(jpanel);
 		JPanel panel = new JPanel(new GridLayout(1,1));
-		panel.add(jpanel);
+		panel.add(thumb);
 		panel.setBackground(board.getLoc(xcor,ycor).getColor());
 		panel.setBorder(BorderFactory.createLineBorder(Color.black,1));
+		panel.add(jpanel);
 		boardBorder.add(panel);
 	    }
 	}
-	ImageIcon icon = new ImageIcon(tower);
+	/*ImageIcon icon0 = new ImageIcon(tower);
+	ImageIcon icon1 = new ImageIcon(potato);
 	for (int i= 0; i < 10; i++) {
-	    JButton jb = new JButton(icon);
-	    jb.addActionListener(this);
-	    jb.setToolTipText("Towa");
-	    jb.setMnemonic(48+i);
-	    availableTowers.add(jb);
-	}
+	    if (i == 0) {
+		jb0 = new JButton(icon0);
+		jb0.addActionListener(this);
+		jb0.setToolTipText("Ciallou");
+		jb0.setMnemonic(48+i);
+		availableTowers.add(jb0);
+	    }
+	    else if (i == 1) {
+		JButton jb1 = new JButton(icon1);
+		jb1.addActionListener(this);
+		jb1.setToolTipText("Potato");
+		jb1.setMnemonic(48+i);
+		availableTowers.add(jb1);
+	    }
+	    else {
+		JButton jb = new JButton(icon0);
+		jb.addActionListener(this);
+		jb.setToolTipText("Ciallou");
+		jb.setMnemonic(48+i);
+		availableTowers.add(jb);
+	    }
+	}*/
+	updateTowerShop();
 
 	//addMouseListener(this);
 	board.setPath(pathSent);
@@ -147,21 +176,26 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	if (addTowerMode) {
 	    MappedJPanel jpanel = (MappedJPanel)e.getSource();
 	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) { 
-	    if (/*currTower = 1 &&*/money >= 50) {
-		Loc l = new Loc(jpanel.getX(), jpanel.getY(), -2, board,Color.WHITE);
-		l.addActor(currentTower);//loc, damage,rate,range,numtargets
+	    if (money >= currentTower.getPrice()) {
+		int ID = -2;
+		if (currentTower.getPrice() == 50)
+		    ID = -2;
+		else if (currentTower.getPrice() == 100)
+		    ID = -3;
+		Loc l = new Loc(jpanel.getX(), jpanel.getY(), ID, board,Color.WHITE);
+		l.addActor(currentTower);//loc, damage,rate,range,numtargets,price
 		currentTower.setLoc(l);
 		currentTower.setTargets();
 		Towers.add(currentTower);
 		board.setLoc(jpanel.getX(),jpanel.getY(),l);
-		money -= 50;		
+		money -= currentTower.getPrice();		
 	    }
 	}
 	currentTower = null;
 	addTowerMode = false;
 	towerInfo = new JPanel();
 	updateBoard();
-	UpdateTowerShop();
+	updateTowerShop();
 	}
     }
 
@@ -280,6 +314,10 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    ImageIcon icon = new ImageIcon(tower);
 		    thumb.setIcon(icon);
 		}
+		if (l.getID() == -3) {
+		    ImageIcon icon = new ImageIcon(potato);
+		    thumb.setIcon(icon);
+		}
 		JLabel proj = new JLabel();
 		if (l.getActors().size() > 0 ){
 		    // System.out.println("here1");
@@ -345,19 +383,36 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	info.add(new JLabel("Money: "+money));
     }
 
-    public void UpdateTowerShop() {
-	towerShop.removeAll();
+    public void updateTowerShop() {
+       	towerShop.removeAll();
   	towerShop.add(towerInfo,BorderLayout.NORTH);
-	towerShop.add(availableTowers,BorderLayout.CENTER);
 	availableTowers = new JPanel(new GridLayout(5,2,2,2));
-	ImageIcon icon = new ImageIcon(tower);
+	ImageIcon icon0 = new ImageIcon(tower);
+	ImageIcon icon1 = new ImageIcon(potato);
 	for (int i= 0; i < 10; i++) {
-	    JButton jb = new JButton(icon);
-	    jb.addActionListener(this);
-	    jb.setToolTipText("Towa");
-	    jb.setMnemonic(48+i);
-	    availableTowers.add(jb);
+	    if(i == 0) {
+		jb0 = new JButton(icon0);
+		jb0.addActionListener(this);
+		jb0.setToolTipText("Ciallou");
+		jb0.setMnemonic(48+i);
+		availableTowers.add(jb0);
+	    }
+	    else if (i == 1) {
+		jb1 = new JButton(icon1);
+		jb1.addActionListener(this);
+		jb1.setToolTipText("Potato");
+		jb1.setMnemonic(48+i);
+		availableTowers.add(jb1);
+	    }
+	    else {
+		JButton jb = new JButton(icon0);
+		jb.addActionListener(this);
+		jb.setToolTipText("Ciallou");
+		jb.setMnemonic(48+i);
+		availableTowers.add(jb);
+	    }
 	}
+	towerShop.add(availableTowers,BorderLayout.CENTER);
     }
 
 

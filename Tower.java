@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.io.*;
 
 public class Tower extends Actor {
-    protected int id;
+    protected int id,price;
     protected int damage;
     protected int basedamage;
     protected int rate, turn;
@@ -20,8 +20,9 @@ public class Tower extends Actor {
     protected JPanel info;
     protected Image norm;
 
-    public Tower (Loc loc, int d, int s, int r, int n) {
+    public Tower (Loc loc, int d, int s, int r, int n, int p) {
 	super(loc);
+	price = p;
 	id=1;
 	basedamage = damage = d;
 	baserate = rate = s;
@@ -33,7 +34,15 @@ public class Tower extends Actor {
 	    setTargets();
 	}
 	try {
-	    norm = ImageIO.read(new File ( "images/Ciallou.gif"));
+	    if (p == 50) {
+		norm = ImageIO.read(new File ( "images/Ciallou.gif"));
+	    }
+	    else if (p == 100) {
+		norm = ImageIO.read(new File ( "images/potato.gif"));
+	    }
+	    else {
+		norm = ImageIO.read(new File ( "images/Ciallou.gif"));
+	    }
 	}
 	catch (IOException ex) {
 	    System.out.println("you dun goofed");
@@ -41,7 +50,7 @@ public class Tower extends Actor {
 	info = new JPanel();
 	ImageIcon icon = new ImageIcon(norm);
 	info.setPreferredSize(new Dimension(50,75));
-	String text= "<html>Damage: " + damage + "<br>Rate: " + baserate + "<br>Range: " + range + "</html>";
+	String text= "<html>Price: " + price + "<br>Damage: " + damage + "<br>Rate: " + baserate + "<br>Range: " + range + "</html>";
 	JLabel label = new JLabel(text);
 	    label.setIcon(icon);
 	info.add(label);
@@ -71,6 +80,10 @@ public class Tower extends Actor {
 	return board;
     }
 
+    public int getPrice() {
+	return price;
+    }
+
     public void setDamage(int d) {
 	damage = d;
     }
@@ -85,6 +98,10 @@ public class Tower extends Actor {
 
     public void setNumTargets(int n) {
 	numTargets = n;
+    }
+
+   public void setPrice(int p) {
+	price = p;
     }
 
     public void setLoc(Loc l) {

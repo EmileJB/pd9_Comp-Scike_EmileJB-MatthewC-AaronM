@@ -24,7 +24,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private Spawner enemySpawner;
     private Tower currentTower;
     private boolean addTowerMode;
-    private float counter = 3;
+    private int counter = 0;
     
     private class myKeyListener implements KeyListener {
 	public void keyPressed(KeyEvent e){
@@ -294,8 +294,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
 		}
 	
-		counter+= (.2 + counter*.02 + counter*counter*.000001);		
-		fill(1,5,5,(int)(8+(2*Math.sqrt(counter))),(int)(10+(Math.sqrt(counter))), (int)counter*30 ,(int)counter*10);
+		counter++;		
+		fill(1,5,5,4 + counter/150,2 + counter/75,30 + 4*counter + counter*counter/10000,15 + 2*counter + counter*counter/20000);
 
 		updateBoard();
 		updateInfo();

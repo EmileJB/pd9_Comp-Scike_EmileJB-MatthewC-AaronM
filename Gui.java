@@ -24,6 +24,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private Spawner enemySpawner;
     private Tower currentTower;
     private boolean addTowerMode;
+    private float counter = 3;
     
     private class myKeyListener implements KeyListener {
 	public void keyPressed(KeyEvent e){
@@ -168,7 +169,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	//addMouseListener(this);
 	board.setPath(pathSent);
 	enemySpawner = new Spawner(r, board.getSpawn(), this);
-	fill(300,5,5,10,0,65,65);
+	//	fill(300,5,5,10,0,65,65);
 	pane.validate();
     }
     //mouselistener stuff
@@ -201,7 +202,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
     public void mouseReleased(MouseEvent e) {
 	//System.out.println("moo");
-		System.out.println(Enemies);
+	//	System.out.println(Enemies);
     }
     
     public void mouseEntered(MouseEvent e) {
@@ -211,6 +212,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    System.out.println(l.getActors());
 	    if (l.getActors().size()>0 && l.getActors().get(0).ID()==0){
 		Enemy q = (Enemy) (board.getLoc(jpanel.getX(),jpanel.getY()).getActors().get(0));
+		System.out.println(""+q.getHP() + " " + q.getStatus());
 		
 		
 	    }
@@ -292,7 +294,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
 		}
 	
-		
+		counter+= (.2 + counter*.02 + counter*counter*.000001);		
+		fill(1,5,5,(int)(8+(2*Math.sqrt(counter))),(int)(10+(Math.sqrt(counter))), (int)counter*30 ,(int)counter*10);
+
 		updateBoard();
 		updateInfo();
 		pane.validate();
@@ -464,13 +468,17 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    int hp = (int)(Math.random()*maxhp) + basehp;
 	    int speed = (int)(Math.random()*maxspeed) + basespeed;
 	    int reward = (int)(Math.random()*maxreward) + basereward;
-	    
-	    g = r.nextInt(2);
-	    if (g==0){
-		enemySpawner.add(new Enemy(hp,speed,reward,null));
-	    }
-	    else{
-	    	enemySpawner.add(new Bug(hp,speed,reward,null));
+	    if ( counter < 10 ) {
+		enemySpawner.add(new Enemy(hp, speed, reward, null));
+	    }					
+	    else {
+		g = r.nextInt(2);
+		if (g==0){
+		    enemySpawner.add(new Enemy(hp,speed,reward,null));
+		}
+		else{
+		    enemySpawner.add(new Bug(hp,speed,reward,null));
+		}
 	    }
 	}
     }

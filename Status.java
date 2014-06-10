@@ -15,13 +15,19 @@ public class Status {
 	mag = m;
 	ID = i;
     }
-
+    public String toString(){
+	String ret ="";
+	if (ID == 1) {
+	    ret = "frozen";
+	}
+	return ret;
+    }
     public int Effect(int i) {
 	if (ticks != 0 || ID != i) {
 	    ticks--;
 	    return 0;
 	}
-	else if (dur == 0) 
+	else if (dur <= 0) 
 	    return -1;
 	else {
 	    ticks = baseticks;

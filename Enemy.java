@@ -100,35 +100,35 @@ public class Enemy extends Actor {
 
     public void move() {
 	if (!checkStatus(Status.FROZEN)) {
-	if (speed <= 0) {
-	    pathPos++;
-	    Loc l = board.getPathLoc(pathPos);
-	    
-	    //System.out.println( this +": X's- "+ location.getX() + l.getX() + " & Y's:  " +location.getY() + l.getY());
-	    if (location.getX()==l.getX() && location.getY() < l.getY()){
-		//		System.out.println("5");
+	    if (speed <= 0) {
+		pathPos++;
+		Loc l = board.getPathLoc(pathPos);
+		
+		//System.out.println( this +": X's- "+ location.getX() + l.getX() + " & Y's:  " +location.getY() + l.getY());
+		if (location.getX()==l.getX() && location.getY() < l.getY()){
+		    //		System.out.println("5");
 
-		setNorm(norme);
-		setAtkd(atkde);
-	    }
-	    else if (location.getX()==l.getX() && location.getY() > l.getY()){
-		//System.out.println("6");		
+		    setNorm(norme);
+		    setAtkd(atkde);
+		}
+		else if (location.getX()==l.getX() && location.getY() > l.getY()){
+		    //System.out.println("6");		
 
-		setNorm(normw);
-		setAtkd(atkdw);
-	    }
-	    else if (location.getX() <l.getX() && location.getY()== l.getY()){
-		//System.out.println("7");		
+		    setNorm(normw);
+		    setAtkd(atkdw);
+		}
+		else if (location.getX() <l.getX() && location.getY()== l.getY()){
+		    //System.out.println("7");		
 
-		setNorm(norms);
-		setAtkd(atkds);
-	    }
-	    else if(location.getX() >l.getX() && location.getY() == l.getY()){
+		    setNorm(norms);
+		    setAtkd(atkds);
+		}
+		else if(location.getX() >l.getX() && location.getY() == l.getY()){
 		    
 		//		System.out.println("8");
-		setNorm(normn);
-		setAtkd(atkdn);
-	    }
+		    setNorm(normn);
+		    setAtkd(atkdn);
+		}
 	    resetImg();
 	    swapLoc(board.getPathLoc(pathPos));
 	    speed = basespeed;
@@ -161,7 +161,9 @@ public class Enemy extends Actor {
 	}
 	status.add(stat);
     }
-
+    public ArrayList<Status> getStatus(){
+	return status;
+    }
 
     public void checkPos() {
 	if (location.getID() < 0)

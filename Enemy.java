@@ -4,6 +4,7 @@ import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.awt.image.BufferedImage;
 public class Enemy extends Actor {
     protected int id;
     protected int reward;
@@ -18,6 +19,7 @@ public class Enemy extends Actor {
     protected Image img,atkd,norm;
     protected Image normn, norme,normw,norms;
     protected Image atkdn, atkde,atkdw,atkds;
+    protected Image frozen;
     protected ArrayList<Status> status;
     //protected World world (may be useful to modify things like lives and money)
 
@@ -34,6 +36,7 @@ public class Enemy extends Actor {
 	try {
 	    normn = ImageIO.read(new File ( "images/Enemy.gif"));
 	    atkdn = ImageIO.read(new File ( "images/atkdactor.gif"));
+	    frozen = ImageIO.read(new File ( "images/frozen.gif"));
 	    norme=normn;
 	    normw=normn;
 	    norms=normn;
@@ -99,6 +102,19 @@ public class Enemy extends Actor {
     }
 
     public void move() {
+	if (checkStatus(Status.FROZEN)) {
+	    int w = 60;
+	    int h = 60;
+	    BufferedImage combined = new BufferedImage (w, h, BufferedImage.TYPE_INT_ARGB);
+	    Graphics g = combined.getGraphics();
+	    g.drawImage(frozen, 0, 0, null);
+	    BufferedImage combined2 = combined;
+	    Graphics g2 = combined2.getGraphics();
+	    g2.drawImage(getAtkd(), 0, 0, null);
+	    setAtkd(combined2);
+	    g.drawImage(getNorm(), 0, 0, null);
+	    setNorm(combined);
+	}
 	if (!checkStatus(Status.FROZEN)) {
 	    if (speed <= 0) {
 		pathPos++;
@@ -107,7 +123,7 @@ public class Enemy extends Actor {
 		//System.out.println( this +": X's- "+ location.getX() + l.getX() + " & Y's:  " +location.getY() + l.getY());
 		if (location.getX()==l.getX() && location.getY() < l.getY()){
 		    //		System.out.println("5");
-
+		    
 		    setNorm(norme);
 		    setAtkd(atkde);
 		}
@@ -129,13 +145,13 @@ public class Enemy extends Actor {
 		    setNorm(normn);
 		    setAtkd(atkdn);
 		}
-	    resetImg();
-	    swapLoc(board.getPathLoc(pathPos));
-	    speed = basespeed;
-		   }
-	else
-	    speed--;
+		swapLoc(board.getPathLoc(pathPos));
+		speed = basespeed;
+	    }
+	    else
+		speed--;
 	}
+	resetImg();
     }
 
     public void checkHP() {
@@ -232,7 +248,10 @@ public class Enemy extends Actor {
     public void setAtkdw(Image i){
 	atkdw=i;
     }
-    
+
+    public Image getNorm() {return norm;}
+
+    public Image getAtkd() {return atkd;}
 
     public int ID(){
 	return id;

@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.*;
 
 public class Gui extends JFrame implements ActionListener, MouseListener {
-    private Image grid,enemy,tower,potato;
+    private Image caillou,potato,enemy;
     private Container pane;
     private JButton resetButton, jb0, jb1;
     private Grid board;
@@ -26,6 +26,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private boolean addTowerMode;
     private int counter = 0;
     
+
     private class myKeyListener implements KeyListener {
 	public void keyPressed(KeyEvent e){
 	    System.out.println("xD?");
@@ -39,13 +40,13 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     }
     public void actionPerformed(ActionEvent e) {
 	if (e.getSource() == jb0) {
-	    currentTower = new Tower(null,20,6,3,0,50);//loc, damage, rate,range, numbtargets, ID
+	    currentTower = new Caillou();//new Tower(null,20,6,3,0,50);//loc, damage, rate,range, numbtargets, ID
 	}
 	else if (e.getSource() == jb1) {
-	    currentTower = new Tower(null,3,1,1,0,100);
+	    currentTower = new Potato();//new Tower(null,3,1,1,0,100);
 	} 
 	else {
-	    currentTower = new Tower(null,20,6,3,0,50);
+	    currentTower = new Tower(null,20,6,3,0,50,caillou);
 	}
 	    
 	addTowerMode = true;
@@ -54,6 +55,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     }
     
     public Gui(int x, int y, int r) {
+	potato = Images.potato();
+	caillou = Images.caillou();
+	enemy = Images.enemy();
 	Loc[] pathSent = new Loc[path.length];
 	board = new Grid(x,y,this);
 	Enemies = new ArrayList<Enemy>();
@@ -74,14 +78,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	this.setTitle("xD");
 	this.setSize(800,750);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	try {
-	    grid = ImageIO.read(new File ( "images/BoundedGrid.gif"));
-	    enemy = ImageIO.read(new File ( "images/Enemy.gif"));
-	    tower = ImageIO.read(new File ( "images/Ciallou.gif"));
-	    potato = ImageIO.read(new File ( "images/potato.gif"));
-	}catch (IOException ex) {
-	    System.out.println("you dun goofed Dx");
-	}
+
 	pane = this.getContentPane();
 	pane.setBackground(Color.white);
 	pane.setLayout(new BorderLayout());
@@ -139,31 +136,6 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		boardBorder.add(panel);
 	    }
 	}
-	/*ImageIcon icon0 = new ImageIcon(tower);
-	ImageIcon icon1 = new ImageIcon(potato);
-	for (int i= 0; i < 10; i++) {
-	    if (i == 0) {
-		jb0 = new JButton(icon0);
-		jb0.addActionListener(this);
-		jb0.setToolTipText("Ciallou");
-		jb0.setMnemonic(48+i);
-		availableTowers.add(jb0);
-	    }
-	    else if (i == 1) {
-		JButton jb1 = new JButton(icon1);
-		jb1.addActionListener(this);
-		jb1.setToolTipText("Potato");
-		jb1.setMnemonic(48+i);
-		availableTowers.add(jb1);
-	    }
-	    else {
-		JButton jb = new JButton(icon0);
-		jb.addActionListener(this);
-		jb.setToolTipText("Ciallou");
-		jb.setMnemonic(48+i);
-		availableTowers.add(jb);
-	    }
-	}*/
 	updateTowerShop();
 
 	//addMouseListener(this);
@@ -315,7 +287,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		//JLabel thumb = new JLabel(""+board.getLoc(xcor,ycor).getID());
 		JLabel thumb = new JLabel();
 		if (l.getID() == -2) {
-		    ImageIcon icon = new ImageIcon(tower);
+		    ImageIcon icon = new ImageIcon(caillou);
 		    thumb.setIcon(icon);
 		}
 		if (l.getID() == -3) {
@@ -391,13 +363,13 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
        	towerShop.removeAll();
   	towerShop.add(towerInfo,BorderLayout.NORTH);
 	availableTowers = new JPanel(new GridLayout(5,2,2,2));
-	ImageIcon icon0 = new ImageIcon(tower);
+	ImageIcon icon0 = new ImageIcon(caillou);
 	ImageIcon icon1 = new ImageIcon(potato);
 	for (int i= 0; i < 10; i++) {
 	    if(i == 0) {
 		jb0 = new JButton(icon0);
 		jb0.addActionListener(this);
-		jb0.setToolTipText("Ciallou");
+		jb0.setToolTipText("Caillou");
 		jb0.setMnemonic(48+i);
 		availableTowers.add(jb0);
 	    }
@@ -411,7 +383,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    else {
 		JButton jb = new JButton(icon0);
 		jb.addActionListener(this);
-		jb.setToolTipText("Ciallou");
+		jb.setToolTipText("Caillou");
 		jb.setMnemonic(48+i);
 		availableTowers.add(jb);
 	    }

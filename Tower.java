@@ -20,7 +20,7 @@ public class Tower extends Actor {
     protected JPanel info;
     protected Image norm;
 
-    public Tower (Loc loc, int d, int s, int r, int n, int p) {
+    public Tower (Loc loc, int d, int s, int r, int n, int p,Image im) {
 	super(loc);
 	price = p;
 	id=1;
@@ -33,20 +33,7 @@ public class Tower extends Actor {
 	    board = loc.getGrid();
 	    setTargets();
 	}
-	try {
-	    if (p == 50) {
-		norm = ImageIO.read(new File ( "images/Ciallou.gif"));
-	    }
-	    else if (p == 100) {
-		norm = ImageIO.read(new File ( "images/potato.gif"));
-	    }
-	    else {
-		norm = ImageIO.read(new File ( "images/Ciallou.gif"));
-	    }
-	}
-	catch (IOException ex) {
-	    System.out.println("you dun goofed");
-	}
+	norm = im;
 	info = new JPanel();
 	ImageIcon icon = new ImageIcon(norm);
 	info.setPreferredSize(new Dimension(50,75));

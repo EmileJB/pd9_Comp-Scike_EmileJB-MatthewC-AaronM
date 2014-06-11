@@ -45,7 +45,7 @@ public class Projectile extends Actor {
 	}catch (IOException ex) {
 	    System.out.println("you goofed Dx");
 	}
-	img = nw;
+	
 	location.addActor(this);
 	gu.addProjectile(this);
     }
@@ -178,6 +178,30 @@ public class Projectile extends Actor {
     }
     public void setImg(Image i){
 	img = i;
+    }
+    public void setNW( Image i){
+	nw = i;
+    }
+   public void setNE( Image i){
+	ne = i;
+    }
+   public void setN( Image i){
+	n = i;
+    }
+   public void setE( Image i){
+	e = i;
+    }
+   public void setW( Image i){
+	w = i;
+    }
+   public void setSW( Image i){
+	sw = i;
+    }
+   public void setSE( Image i){
+	se = i;
+    }
+   public void setS( Image i){
+	s= i;
     }
     public int ID(){
 	return id;

@@ -7,9 +7,9 @@ import java.io.*;
 import java.util.*;
 
 public class Gui extends JFrame implements ActionListener, MouseListener {
-    private Image caillou,potato,enemy,elsa;
+    private Image caillou,potato,enemy,elsa,moneyTree;
     private Container pane;
-    private JButton resetButton, jb0, jb1, jb2;
+    private JButton resetButton, jb0, jb1, jb2, jb4;
     private Grid board;
     private JPanel boardBorder,info,towerShop; //main JPanels
     private JPanel towerInfo, availableTowers; //subJPanels
@@ -50,6 +50,10 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    currentTower = new Elsa();
 	}
 
+	else if (e.getSource() == jb4) {
+	    currentTower = new Moneytree();
+	}
+
 	else {
 	    currentTower = new Tower(null,20,6,3,0,50,caillou);
 	}
@@ -64,6 +68,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	caillou = Images.caillou();
 	enemy = Images.enemy();
 	elsa = Images.elsa();
+	moneyTree = Images.moneyTree();
 	Loc[] pathSent = new Loc[path.length];
 	board = new Grid(x,y,this);
 	Enemies = new ArrayList<Enemy>();
@@ -163,6 +168,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    ID = -3;
 		else if (currentTower.getPrice() == 120)
 		    ID = -4;
+		else if (currentTower.getPrice() == 500)
+		    ID = -6;
 		Loc l = new Loc(jpanel.getX(), jpanel.getY(), ID, board,Color.WHITE);
 		l.addActor(currentTower);//loc, damage,rate,range,numtargets,price
 		currentTower.setLoc(l);
@@ -306,6 +313,10 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    ImageIcon icon = new ImageIcon(elsa);
 		    thumb.setIcon(icon);
 		}
+		if (l.getID() == -6) {
+		    ImageIcon icon = new ImageIcon(moneyTree);
+		    thumb.setIcon(icon);
+		}
 		JLabel proj = new JLabel();
 		if (l.getActors().size() > 0 ){
 		    // System.out.println("here1");
@@ -378,6 +389,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	ImageIcon icon0 = new ImageIcon(caillou);
 	ImageIcon icon1 = new ImageIcon(potato);
 	ImageIcon icon2 = new ImageIcon(elsa);
+	ImageIcon icon4 = new ImageIcon(moneyTree);
 	for (int i= 0; i < 10; i++) {
 	    if(i == 0) {
 		jb0 = new JButton(icon0);
@@ -399,6 +411,13 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		jb2.setToolTipText("Elsa");
 		jb2.setMnemonic(48+i);
 		availableTowers.add(jb2);
+	    }
+	    else if (i == 4) {
+		jb4 = new JButton(icon4);
+		jb4.addActionListener(this);
+		jb4.setToolTipText("Money Tree");
+		jb4.setMnemonic(48+i);
+		availableTowers.add(jb4);
 	    }
 	    else {
 		JButton jb = new JButton(icon0);

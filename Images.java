@@ -42,4 +42,14 @@ public class Images{
 	    return null;
 	}
     }
+
+   public static Image moneyTree() {
+	try {
+	    Image i = ImageIO.read(new File ("images/moneytree.gif"));
+	    return i;
+	}
+	catch (IOException e) {
+	    return null;
+	}
+   }
 }

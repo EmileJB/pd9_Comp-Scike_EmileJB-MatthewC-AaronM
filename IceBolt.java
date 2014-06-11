@@ -9,15 +9,13 @@ public class IceBolt extends Projectile {
 
     public void checkPos() {
 if (location.getEnemy() != null) {
-	    if ((int)(Math.random() * 20) < 15)
-		location.getEnemy().addStatus(new Status(0,dur,0,Status.FROZEN));
-	    location.getEnemy().damage(damage);
-	    die();
+    location.getEnemy().addStatus(new Status(0,dur,0,Status.FROZEN));
+    location.getEnemy().damage(damage);
+    die();
 	    }
 	if  (location.getX() == target.getX() && location.getY() == target.getY()) {
 	    if (mark != null && mark.getLoc().equals(target)) {
-		if ((int)(Math.random() * 20) < 15)
-		    mark.addStatus(new Status(0,dur,0,Status.FROZEN));
+		mark.addStatus(new Status(0,dur,0,Status.FROZEN));
 		mark.damage(damage);
 		die();
 	    }

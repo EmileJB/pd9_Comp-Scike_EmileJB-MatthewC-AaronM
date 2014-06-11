@@ -1,0 +1,113 @@
+public class Shapeshifter extends Tower {
+
+    private Tower t;
+    private int shiftTime;
+
+    public Shapeshifter() {
+	super(null,20,10,3,0,99,Images.caillou());
+	t = null;
+	shiftTime = 60;
+    }
+
+    public int getDamage() {
+	if (t == null)
+	    return super.getDamage();
+	else
+	    return t.getDamage();
+    }
+
+    public int getRate() {
+		if (t == null)
+	    return super.getRate();
+	else
+	    return t.getRate();
+    }
+
+
+    public int getRange() {
+		if (t == null)
+	    return super.getRange();
+	else
+	    return t.getRange();
+    }
+
+
+    public int getNumTargets() {
+		if (t == null)
+	    return super.getNumTargets();
+	else
+	    return t.getNumTargets();
+    }
+
+    public void setDamage(int d) {
+	if (t == null)
+	    super.setDamage(d);
+	else
+	    t.setDamage(d);
+    }
+
+    public void setRate(int r) {
+	if (t == null)
+	    super.setRate(r);
+	else
+	    t.setRate(r);
+    }
+
+
+    public void setRange(int r) {
+	if (t == null)
+	    super.setRange(r);
+	else
+	    t.setRange(r);
+    }
+
+    public void setNumTargets(int n) {
+	if (t == null)
+	    super.setNumTargets(n);
+	else
+	    t.setNumTargets(n);
+    }
+
+public void setTargets() {
+    if (t == null)
+	super.setTargets();
+    else
+	t.setTargets();
+}
+
+public void setActiveTargets() {
+    if (t == null)
+	super.setActiveTargets();
+    else
+	t.setActiveTargets();
+}
+
+public void act() {
+    if (shiftTime == 0) {
+	if (t != null) {
+	    t = null;
+	    shiftTime = 60;
+	}
+	else {
+	    int r =(int)Math.random() * 3;
+	    if (r == 0)
+		t = new Caillou();
+	    else if (r == 1)
+		t = new Potato();
+	    else if (r == 2)
+		t = new Elsa();
+	    t.setTargets();
+	    shiftTime = 180;
+	}
+    }
+    else if (t == null) {
+	super.act();
+	shiftTime--;
+    }
+
+    else {
+	t.act();
+	shiftTime--;
+    }
+}
+}

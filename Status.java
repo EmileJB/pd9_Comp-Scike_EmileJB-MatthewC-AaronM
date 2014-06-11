@@ -35,6 +35,9 @@ public class Status {
 	    return ID;
 	}
     }
+    public int getDur(){
+	return dur;
+    }
 	public int getMagnitude() {
 	    return mag;
 	}

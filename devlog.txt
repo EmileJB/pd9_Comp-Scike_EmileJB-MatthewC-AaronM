@@ -46,3 +46,7 @@ A: Added a new type of tower; we need to make it easier to add different types o
 A: Made some other small tweaks to tower shop
 6/09/14
 E: Added status class, gave projectiles 10% chance to freeze enemies(for testing only)
+A&E&M: Began to balance game
+6/10/14
+A&E&M: Created progressively more difficult enemies
+M: Fixed bug where statuses remained in an Enemy's status ArrayList after thawing

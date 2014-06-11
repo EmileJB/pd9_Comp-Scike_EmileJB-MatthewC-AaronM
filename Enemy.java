@@ -162,9 +162,13 @@ public class Enemy extends Actor {
     }
 
     public boolean checkStatus(int i) {
-	for (Status s:status) {
+	Status s;
+	for (int q = 0; q < status.size(); q++) {
+	    s = status.get(q);
 	    if (s.Effect(i) == i)
 		return true;
+	    else
+		status.remove(q);
 	}
 	return false;
     }

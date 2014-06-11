@@ -32,4 +32,14 @@ public class Images{
 	    return null;
 	}
     }
+
+    public static Image elsa() {
+	try {
+	    Image i = ImageIO.read(new File ("images/Elsa.gif"));
+	    return i;
+	}
+	catch (IOException e) {
+	    return null;
+	}
+    }
 }

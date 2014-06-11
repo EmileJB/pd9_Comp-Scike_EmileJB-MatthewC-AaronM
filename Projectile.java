@@ -122,15 +122,11 @@ public class Projectile extends Actor {
 	//System.out.println("check2099: " + location.getEnemy());
 	
 	if (location.getEnemy() != null) {
-	    if ((int)(Math.random() * 10) < 1)
-		location.getEnemy().addStatus(new Status(0,120,0,Status.FROZEN));
 	    location.getEnemy().damage(damage);
 	    die();
 	    }
 	if  (location.getX() == target.getX() && location.getY() == target.getY()) {
 	    if (mark != null && mark.getLoc().equals(target)) {
-		if ((int)(Math.random() * 10) < 1)
-		    mark.addStatus(new Status(0,120,0,Status.FROZEN));
 		mark.damage(damage);
 		die();
 	    }

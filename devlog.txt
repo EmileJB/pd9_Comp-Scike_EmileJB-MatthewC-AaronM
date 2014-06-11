@@ -50,3 +50,6 @@ A&E&M: Began to balance game
 6/10/14
 A&E&M: Created progressively more difficult enemies
 M: Fixed bug where statuses remained in an Enemy's status ArrayList after thawing
+6/11/14
+E: Added Elsa tower and IceBolt projectile (but no image for the latter)
+

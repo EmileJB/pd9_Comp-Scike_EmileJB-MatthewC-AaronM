@@ -13,7 +13,7 @@ public class Moneytree extends Tower {
 	JLabel label = new JLabel(text);
 	label.setIcon(icon);
 	info.add(label);
-	id = 4;
+	
     }
     
     public void act() {

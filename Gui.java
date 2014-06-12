@@ -7,9 +7,9 @@ import java.io.*;
 import java.util.*;
 
 public class Gui extends JFrame implements ActionListener, MouseListener {
-    private Image caillou,potato,enemy,elsa,ditto,moneyTree;
+    private Image caillou,potato,enemy,elsa,ditto,moneyTree,fang;
     private Container pane;
-    private JButton resetButton, jb0, jb1, jb2, jb3, jb4;
+    private JButton resetButton, jb0, jb1, jb2, jb3, jb4, jb5;
     private Grid board;
     private JPanel boardBorder,info,towerShop; //main JPanels
     private JPanel towerInfo, availableTowers; //subJPanels
@@ -57,7 +57,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	else if (e.getSource() == jb4) {
 	    currentTower = new Moneytree();
 	}
-
+	else if (e.getSource() == jb5) {
+	    currentTower = new Fang();
+	}
 	else {
 	    currentTower = new Caillou();
 	}
@@ -74,6 +76,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	elsa = Images.elsa();
 	ditto = Images.ditto();
 	moneyTree = Images.moneyTree();
+	fang = Images.fang();
 	Loc[] pathSent = new Loc[path.length];
 	board = new Grid(x,y,this);
 	Enemies = new ArrayList<Enemy>();
@@ -328,6 +331,10 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    ImageIcon icon = new ImageIcon(moneyTree);
 		    thumb.setIcon(icon);
 		}
+		if (t.ID() == 9) {
+		    ImageIcon icon = new ImageIcon(fang);
+		    thumb.setIcon(icon);
+		}	
 		}
 		JLabel proj = new JLabel();
 		if (l.getActors().size() > 0 ){
@@ -403,6 +410,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	ImageIcon icon2 = new ImageIcon(elsa);
 	ImageIcon icon3 = new ImageIcon(ditto);
 	ImageIcon icon4 = new ImageIcon(moneyTree);
+	ImageIcon icon5 = new ImageIcon(fang);
 	for (int i= 0; i < 10; i++) {
 	    if(i == 0) {
 		jb0 = new JButton(icon0);
@@ -438,6 +446,13 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		jb4.setToolTipText("Money Tree");
 		jb4.setMnemonic(48+i);
 		availableTowers.add(jb4);
+	    }
+	    else if (i == 5) {
+		jb5 = new JButton(icon5);
+		jb5.addActionListener(this);
+		jb5.setToolTipText("Money Tree");
+		jb5.setMnemonic(48+i);
+		availableTowers.add(jb5);
 	    }
 	    else {
 		JButton jb = new JButton(icon0);

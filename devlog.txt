@@ -54,5 +54,7 @@ M: Fixed bug where statuses remained in an Enemy's status ArrayList after thawin
 E: Added Elsa tower and IceBolt projectile (but no image for the latter)
 A: Added MoneyTree tower
 E: Added Shapeshifter tower and improved placing towers and updating board
-
+M: Made IceBolt projectile work
+6/12/14
+M: Made Fang tower
 

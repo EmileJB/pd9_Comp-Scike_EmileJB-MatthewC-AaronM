@@ -9,7 +9,7 @@ import java.util.*;
 public class Gui extends JFrame implements ActionListener, MouseListener {
     private Image caillou,potato,enemy,elsa,ditto,moneyTree,fang;
     private Container pane;
-    private JButton resetButton, jb0, jb1, jb2, jb3, jb4, jb5;
+    private JButton resetButton, jb0, jb1, jb2, jb3, jb4, jb5, jb6;
     private Grid board;
     private JPanel boardBorder,info,towerShop; //main JPanels
     private JPanel towerInfo, availableTowers; //subJPanels
@@ -60,6 +60,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	else if (e.getSource() == jb5) {
 	    currentTower = new Fang();
 	}
+	else if (e.getSource() == jb6) {
+	    currentTower = new Dragon();
+	}
 	else {
 	    currentTower = new Caillou();
 	}
@@ -83,7 +86,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	Towers = new ArrayList<Tower>();
 	Projectiles = new ArrayList<Projectile>();
 	lives = 100;
-	money = 130;
+	money = 1000;
 	info = new JPanel(new GridLayout());
 	info.add(new JLabel("Lives: "+lives));
 	info.add(new JLabel("Money: "+money));
@@ -453,9 +456,16 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    else if (i == 5) {
 		jb5 = new JButton(icon5);
 		jb5.addActionListener(this);
-		jb5.setToolTipText("Money Tree");
+		jb5.setToolTipText("Fang the Sniper");
 		jb5.setMnemonic(48+i);
 		availableTowers.add(jb5);
+	    }
+	    else if (i == 6) {
+		jb6 = new JButton(icon0);
+		jb6.addActionListener(this);
+		jb6.setToolTipText("Dragon");
+		jb6.setMnemonic(48+i);
+		availableTowers.add(jb6);
 	    }
 	    else {
 		JButton jb = new JButton(icon0);

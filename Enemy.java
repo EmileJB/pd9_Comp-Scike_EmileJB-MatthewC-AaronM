@@ -102,7 +102,7 @@ public class Enemy extends Actor {
     }
 
     public void move() {
-	if (checkStatus(Status.FROZEN)) {
+	if (checkStatus(Status.FROZEN) > -1) {
 	    int w = 60;
 	    int h = 60;
 	    BufferedImage combined = new BufferedImage (w, h, BufferedImage.TYPE_INT_ARGB);
@@ -115,7 +115,7 @@ public class Enemy extends Actor {
 	    g.drawImage(getNorm(), 0, 0, null);
 	    setNorm(combined);
 	}
-	if (!checkStatus(Status.FROZEN)) {
+	if (checkStatus(Status.FROZEN) == -1) {
 	    if (speed <= 0) {
 		pathPos++;
 		Loc l = board.getPathLoc(pathPos);
@@ -147,6 +147,12 @@ public class Enemy extends Actor {
 		}
 		swapLoc(board.getPathLoc(pathPos));
 		speed = basespeed;
+		if (checkStatus(Status.BURN) == -1)
+		    System.out.println(status);
+		if (checkStatus(Status.BURN) > -1) {
+		    damage(checkStatus(Status.BURN));
+		    System.out.println("BURNED!");
+		}
 	    }
 	    else
 		speed--;
@@ -161,25 +167,29 @@ public class Enemy extends Actor {
 	    hp = basehp;
     }
 
-    public boolean checkStatus(int i) {
+    public int checkStatus(int i) {
 	Status s;
 	for (int q = 0; q < status.size(); q++) {
 	    s = status.get(q);
-	    if (s.Effect(i) == i)
-		return true;
-	    else
+	    if (s.Effect(i) == i) {
+		//System.out.println(s.getMagnitude());
+		return s.getMagnitude();
+	    }
+	    else if (s.Effect(i) == -1)
 		status.remove(q);
 	}
-	return false;
+	return -1;
     }
 
     public void addStatus(Status stat) {
 	for (Status s:status) {
-	    if (s.equals(stat))
+	    if (s.equals(stat)) {
 		s.combine(stat);
+	    }
 	    return;
 	}
 	status.add(stat);
+	//System.out.println(stat);
     }
     public ArrayList<Status> getStatus(){
 	return status;

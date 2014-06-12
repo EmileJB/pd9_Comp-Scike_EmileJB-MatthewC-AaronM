@@ -1,6 +1,7 @@
 public class Status {
 
     public static final int FROZEN = 1;
+    public static final int BURN = 2;
 
 
 
@@ -19,6 +20,9 @@ public class Status {
 	String ret ="";
 	if (ID == 1) {
 	    ret = "frozen";
+	}
+	else if (ID == 2) {
+	    ret = "burned";
 	}
 	return ret;
     }
@@ -55,7 +59,8 @@ public class Status {
 	    this.baseticks = s.baseticks;
 	}
     }
- 
+
+
 }
 
 	  

@@ -52,4 +52,7 @@ A&E&M: Created progressively more difficult enemies
 M: Fixed bug where statuses remained in an Enemy's status ArrayList after thawing
 6/11/14
 E: Added Elsa tower and IceBolt projectile (but no image for the latter)
+A: Added MoneyTree tower
+E: Added Shapeshifter tower and improved placing towers and updating board
+
 

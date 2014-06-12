@@ -6,6 +6,7 @@ public class Moneytree extends Tower {
 
     public Moneytree() {
 	super(null,10,40,0,0,500,Images.moneyTree());
+	id = 8;
 	info.removeAll();
 	ImageIcon icon = new ImageIcon(norm);
 	String text= "<html>Price: " + price + "<br>Payout: " + damage + "<br>Rate: " + rate + "</html>";

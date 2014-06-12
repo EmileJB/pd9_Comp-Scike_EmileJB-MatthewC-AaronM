@@ -43,6 +43,16 @@ public class Images{
 	}
     }
 
+    public static Image ditto() {
+	try {
+	    Image i = ImageIO.read(new File("images/ditto.gif"));
+	    return i;
+	}
+	catch (IOException e) {
+	    return null;
+	}
+    }
+
    public static Image moneyTree() {
 	try {
 	    Image i = ImageIO.read(new File ("images/moneytree.gif"));

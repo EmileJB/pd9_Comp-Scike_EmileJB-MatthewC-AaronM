@@ -9,7 +9,7 @@ public class Elsa extends Tower {
      
     public Elsa() {
 	super(null,10,20,4,0,120,Images.elsa());
-
+	id = 6;
     }
 
 public void act() {

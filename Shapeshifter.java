@@ -4,9 +4,10 @@ public class Shapeshifter extends Tower {
     private int shiftTime;
 
     public Shapeshifter() {
-	super(null,20,10,3,0,99,Images.caillou());
+	super(null,20,10,3,0,99,Images.ditto());
 	t = null;
 	shiftTime = 60;
+	id = 7;
     }
 
     public int getDamage() {
@@ -83,22 +84,28 @@ public void setActiveTargets() {
 }
 
 public void act() {
-    if (shiftTime == 0) {
+    if (shiftTime <= 0) {
 	if (t != null) {
 	    t = null;
 	    shiftTime = 60;
+	    System.out.println("Shift!");
 	}
 	else {
-	    int r =(int)Math.random() * 3;
+	    int r =(int)(Math.random() * 4);
 	    if (r == 0)
-		t = new Caillou();
-	    else if (r == 1)
-		t = new Potato();
-	    else if (r == 2)
+	    	t = new Caillou();
+	     else if (r == 1)
+	    	t = new Potato();
+	     else if (r == 2)
 		t = new Elsa();
+	     else if (r == 3)
+		 t = new Moneytree();
+	    System.out.println("SHIFT!: " + r );
+	    t.setLoc(location);
 	    t.setTargets();
 	    shiftTime = 180;
 	}
+	System.out.println("check");
     }
     else if (t == null) {
 	super.act();
@@ -109,5 +116,13 @@ public void act() {
 	t.act();
 	shiftTime--;
     }
-}
+    }
+
+    public int ID() {
+	if (t == null)
+	    return id;
+	else
+	    return t.ID();
+    }
+
 }

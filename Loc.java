@@ -91,6 +91,16 @@ public class Loc{
 	return null;
     }
 
+    public Tower getTower() {
+	for (int i = occupants.size()-1; i >= 0; i--) {
+	    Actor t = occupants.get(i);
+	    if (t.getClass().getSuperclass().getName().equals("Tower")) {
+		return (Tower)t;
+	    }
+	}
+	return null;
+    }
+
     public Grid getGrid() {
 	return board;
     }

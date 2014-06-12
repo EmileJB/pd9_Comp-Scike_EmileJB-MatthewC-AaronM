@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Projectile extends Actor {
     protected int id;
-    protected Loc  target;
+    protected Loc target;
     protected Enemy mark;
     protected Image img ,nw,ne,n,s,e,w,se,sw;
     protected int damage;
@@ -24,7 +24,8 @@ public class Projectile extends Actor {
 	id=3;
 	//location=location;
 	mark = en;
-	target = mark.getLoc();	
+	if (mark != null)
+	    target = mark.getLoc();	
 	g= location.getGrid();
 	gu = g.getGui();
 	range = r;

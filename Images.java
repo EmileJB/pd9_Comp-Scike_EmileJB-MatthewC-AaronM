@@ -70,9 +70,4 @@ public class Images{
 	    return null;
 	}
     }
-
-    public static ImageIcon coin() {
-        ImageIcon i = new ImageIcon(MappedJPanel.class.getClass().getResource("coin.gif"));
-	return i;
-    }
 }

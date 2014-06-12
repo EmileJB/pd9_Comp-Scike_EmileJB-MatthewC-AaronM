@@ -13,5 +13,10 @@ public class MappedJPanel extends JPanel{
 
     public int getY() {return y;}
 
+ public static ImageIcon Coin() {
+        ImageIcon i = new ImageIcon(MappedJPanel.class.getClass().getResource("coin.gif"));
+	return i;
+    }
+
 
 }

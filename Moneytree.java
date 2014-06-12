@@ -19,6 +19,8 @@ public class Moneytree extends Tower {
     public void act() {
 	if (turn%rate == 0) {
 	    getGrid().getGui().setMoney(getGrid().getGui().getMoney() + damage);
+	    //this.label.setIcon(Images.coin());
+	    //info.add(label);
 	}
 	turn++;
     }

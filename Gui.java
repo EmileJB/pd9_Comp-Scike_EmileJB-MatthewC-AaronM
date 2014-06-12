@@ -311,30 +311,33 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		JLabel thumb = new JLabel();
 		Tower t = l.getTower();
 		if (t != null) {
-		if (t.ID() == 4) {
-		    ImageIcon icon = new ImageIcon(caillou);
+		    /*if (t.ID() == 4) {
+			ImageIcon icon = new ImageIcon(caillou);
+			thumb.setIcon(icon);
+		    }
+		    if (t.ID() == 5) {
+			ImageIcon icon = new ImageIcon(potato);
+			thumb.setIcon(icon);
+		    }
+		    if (t.ID() == 6) {
+			ImageIcon icon = new ImageIcon(elsa);
+			thumb.setIcon(icon);
+		    }
+		    if (t.ID() == 7) {
+			ImageIcon icon = new ImageIcon(ditto);
+			thumb.setIcon(icon);
+		    }
+		    if (t.ID() == 8) {
+			ImageIcon icon = new ImageIcon(moneyTree);
+			thumb.setIcon(icon);
+		    }
+		    if (t.ID() == 9) {
+			ImageIcon icon = new ImageIcon(fang);
+			thumb.setIcon(icon);
+		    }*/	
+		    ImageIcon icon = new ImageIcon(t.norm);
 		    thumb.setIcon(icon);
-		}
-		if (t.ID() == 5) {
-		    ImageIcon icon = new ImageIcon(potato);
-		    thumb.setIcon(icon);
-		}
-		if (t.ID() == 6) {
-		    ImageIcon icon = new ImageIcon(elsa);
-		    thumb.setIcon(icon);
-		}
-		if (t.ID() == 7) {
-		    ImageIcon icon = new ImageIcon(ditto);
-		    thumb.setIcon(icon);
-		}
-		if (t.ID() == 8) {
-		    ImageIcon icon = new ImageIcon(moneyTree);
-		    thumb.setIcon(icon);
-		}
-		if (t.ID() == 9) {
-		    ImageIcon icon = new ImageIcon(fang);
-		    thumb.setIcon(icon);
-		}	
+		    
 		}
 		JLabel proj = new JLabel();
 		if (l.getActors().size() > 0 ){

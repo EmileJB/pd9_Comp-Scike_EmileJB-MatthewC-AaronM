@@ -5,7 +5,7 @@ import javax.imageio.*;
 public class Moneytree extends Tower {
 
     public Moneytree() {
-	super(null,10,40,0,0,500,Images.moneyTree());
+	super(null,10,40,0,0,100,Images.moneyTree());
 	id = 8;
 	info.removeAll();
 	ImageIcon icon = new ImageIcon(norm);
@@ -19,8 +19,9 @@ public class Moneytree extends Tower {
     public void act() {
 	if (turn%rate == 0) {
 	    getGrid().getGui().setMoney(getGrid().getGui().getMoney() + damage);
-	    //this.label.setIcon(Images.coin());
-	    //info.add(label);
+	    id = 10;
+	    Coin c = new Coin(location,board.getGui());
+	    c.act();
 	}
 	turn++;
     }

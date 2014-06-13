@@ -79,5 +79,12 @@ public class Images{
 	    return null;
 	}
     }
-
-}
+    public static Image bm() {
+	try {
+	    Image i = ImageIO.read(new File ("images/bm.gif"));
+	    return i;
+	}catch (IOException e){
+	    return null;
+	}
+	    }
+    }

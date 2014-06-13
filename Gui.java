@@ -7,9 +7,9 @@ import java.io.*;
 import java.util.*;
 
 public class Gui extends JFrame implements ActionListener, MouseListener {
-    private Image caillou,potato,enemy,elsa,ditto,moneyTree,fang,ord;
+    private Image caillou,potato,enemy,elsa,ditto,moneyTree,fang,ord,bm;
     private Container pane;
-    private JButton resetButton, jb0, jb1, jb2, jb3, jb4, jb5, jb6, up0, up1, up2, up3, up4, up5;
+    private JButton resetButton, jb0, jb1, jb2, jb3, jb4, jb5, jb6, jb7, up0, up1, up2, up3, up4, up5;
     private Grid board;
     private JPanel boardBorder,info,towerShop; //main JPanels
     private JPanel towerInfo, availableTowers; //subJPanels
@@ -63,6 +63,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	else if (e.getSource() == jb6) {
 	    currentTower = new Dragon();
 	}
+	else if (e.getSource() == jb7) {
+	    currentTower = new Bomber();
+	}
 	else if (e.getSource() == up0) {
 	    //TODO: add upgrades
 	}
@@ -101,6 +104,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	moneyTree = Images.moneyTree();
 	fang = Images.fang();
 	ord = Images.ord();
+        bm = Images.bm();
 	Loc[] pathSent = new Loc[path.length];
 	board = new Grid(x,y,this);
 	Enemies = new ArrayList<Enemy>();
@@ -476,6 +480,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    ImageIcon icon4 = new ImageIcon(moneyTree);
 	    ImageIcon icon5 = new ImageIcon(fang);
 	    ImageIcon icon6 = new ImageIcon(ord);
+	    ImageIcon icon7 = new ImageIcon(bm);
 	    for (int i= 0; i < 10; i++) {
 		if(i == 0) {
 		    jb0 = new JButton(icon0);
@@ -525,6 +530,13 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    jb6.setToolTipText("Dragon");
 		    jb6.setMnemonic(48+i);
 		    availableTowers.add(jb6);
+		}
+		else if (i == 7) {
+		    jb7 = new JButton(icon7);
+		    jb7.addActionListener(this);
+		    jb7.setToolTipText("Dragon");
+		    jb7.setMnemonic(48+i);
+		    availableTowers.add(jb7);
 		}
 		else {
 		    JButton jb = new JButton(icon0);

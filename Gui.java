@@ -9,7 +9,7 @@ import java.util.*;
 public class Gui extends JFrame implements ActionListener, MouseListener {
     private Image caillou,potato,enemy,elsa,ditto,moneyTree,fang;
     private Container pane;
-    private JButton resetButton, jb0, jb1, jb2, jb3, jb4, jb5, jb6;
+    private JButton resetButton, jb0, jb1, jb2, jb3, jb4, jb5, jb6, up0, up1, up2, up3, up4, up5;
     private Grid board;
     private JPanel boardBorder,info,towerShop; //main JPanels
     private JPanel towerInfo, availableTowers; //subJPanels
@@ -23,7 +23,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private static int numthings;
     private Spawner enemySpawner;
     private Tower currentTower;
-    private boolean addTowerMode;
+    private boolean addTowerMode, upgradeMode;
     private int counter = 0;
     
 
@@ -62,6 +62,23 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	}
 	else if (e.getSource() == jb6) {
 	    currentTower = new Dragon();
+	}
+	else if (e.getSource() == up0) {
+	    //TODO: add upgrades
+	}
+	else if (e.getSource() == up1) {
+	    //TODO: add upgrades
+	}
+	else if (e.getSource() == up2) {
+	    //TODO: add upgrades
+	}
+	else if (e.getSource() == up3) {
+	    //TODO: add upgrades
+	}
+	else if (e.getSource() == up4) {
+	    upgradeMode = false;
+	    addTowerMode = false;
+	    updateTowerShop();
 	}
 	else {
 	    currentTower = new Caillou();
@@ -168,34 +185,34 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     }
     //mouselistener stuff
     public void mousePressed(MouseEvent e) {//needs some way of finding the jpanel's coordinates
-	if (addTowerMode) {
-	    MappedJPanel jpanel = (MappedJPanel)e.getSource();
-	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) { 
-	    if (money >= currentTower.getPrice()) {
-		int ID = -2;
-		/*	if (currentTower.getPrice() == 50)
-		    ID = -2;
-		else if (currentTower.getPrice() == 100)
-		    ID = -3;
-		else if (currentTower.getPrice() == 120)
-		    ID = -4;
-		else if (currentTower.getPrice() == 500)
-		    ID = -6; */
-		Loc l = new Loc(jpanel.getX(), jpanel.getY(), ID, board,Color.WHITE);
-		l.addActor(currentTower);//loc, damage,rate,range,numtargets,price
-		currentTower.setLoc(l);
-		currentTower.setTargets();
-		Towers.add(currentTower);
-		board.setLoc(jpanel.getX(),jpanel.getY(),l);
-		money -= currentTower.getPrice();		
+	MappedJPanel jpanel = (MappedJPanel)e.getSource();
+	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) {
+	    if (upgradeMode) {
+		upgradeMode = false;
 	    }
+	    if (addTowerMode) {
+		if (money >= currentTower.getPrice()) {
+		    int ID = -2;
+		    Loc l = new Loc(jpanel.getX(), jpanel.getY(), ID, board,Color.WHITE);
+		    l.addActor(currentTower);//loc, damage,rate,range,numtargets,price
+		    currentTower.setLoc(l);
+		    currentTower.setTargets();
+		    Towers.add(currentTower);
+		    board.setLoc(jpanel.getX(),jpanel.getY(),l);
+		    money -= currentTower.getPrice();		
+		}
+	    }
+	    currentTower = null;
+	    addTowerMode = false;
+	    towerInfo = new JPanel();
 	}
-	currentTower = null;
-	addTowerMode = false;
-	towerInfo = new JPanel();
+	else if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -2) { 
+	    addTowerMode = false;
+	    upgradeMode = true;
+	    currentTower = board.getLoc(jpanel.getX(),jpanel.getY()).getTower();
+	}
 	updateBoard();
 	updateTowerShop();
-	}
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -409,73 +426,106 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
     public void updateTowerShop() {
        	towerShop.removeAll();
-  	towerShop.add(towerInfo,BorderLayout.NORTH);
-	availableTowers = new JPanel(new GridLayout(5,2,2,2));
-	ImageIcon icon0 = new ImageIcon(caillou);
-	ImageIcon icon1 = new ImageIcon(potato);
-	ImageIcon icon2 = new ImageIcon(elsa);
-	ImageIcon icon3 = new ImageIcon(ditto);
-	ImageIcon icon4 = new ImageIcon(moneyTree);
-	ImageIcon icon5 = new ImageIcon(fang);
-	for (int i= 0; i < 10; i++) {
-	    if(i == 0) {
-		jb0 = new JButton(icon0);
-		jb0.addActionListener(this);
-		jb0.setToolTipText("Caillou");
-		jb0.setMnemonic(48+i);
-		availableTowers.add(jb0);
-	    }
-	    else if (i == 1) {
-		jb1 = new JButton(icon1);
-		jb1.addActionListener(this);
-		jb1.setToolTipText("Potato");
-		jb1.setMnemonic(48+i);
-		availableTowers.add(jb1);
-	    }
-	    else if (i == 2) {
-		jb2 = new JButton(icon2);
-		jb2.addActionListener(this);
-		jb2.setToolTipText("Elsa");
-		jb2.setMnemonic(48+i);
-		availableTowers.add(jb2);
-	    }
-	    else if (i == 3) {
-		jb3 = new JButton(icon3);
-		jb3.addActionListener(this);
-		jb3.setToolTipText("Shapeshifter");
-		jb3.setMnemonic(48+i);
-		availableTowers.add(jb3);
-	    }
-	    else if (i == 4) {
-		jb4 = new JButton(icon4);
-		jb4.addActionListener(this);
-		jb4.setToolTipText("Money Tree");
-		jb4.setMnemonic(48+i);
-		availableTowers.add(jb4);
-	    }
-	    else if (i == 5) {
-		jb5 = new JButton(icon5);
-		jb5.addActionListener(this);
-		jb5.setToolTipText("Fang the Sniper");
-		jb5.setMnemonic(48+i);
-		availableTowers.add(jb5);
-	    }
-	    else if (i == 6) {
-		jb6 = new JButton(icon0);
-		jb6.addActionListener(this);
-		jb6.setToolTipText("Dragon");
-		jb6.setMnemonic(48+i);
-		availableTowers.add(jb6);
-	    }
-	    else {
-		JButton jb = new JButton(icon0);
-		jb.addActionListener(this);
-		jb.setToolTipText("Caillou");
-		jb.setMnemonic(48+i);
-		availableTowers.add(jb);
-	    }
+	if (upgradeMode) {
+	    towerShop.add(towerInfo,BorderLayout.NORTH);
+	    availableTowers = new JPanel(new GridLayout(5,1));
+	    
+	    up0 = new JButton("Damage Upgrade");
+	    up0.addActionListener(this);
+	    up0.setToolTipText("Damage");
+	    up0.setMnemonic(48);
+	    availableTowers.add(up0);
+	    up1 = new JButton("Speed Upgrade");
+	    up1.addActionListener(this);
+	    up1.setToolTipText("Speed");
+	    up1.setMnemonic(49);
+	    availableTowers.add(up1);
+	    up2 = new JButton("Range Upgrade");
+	    up2.addActionListener(this);
+	    up2.setToolTipText("Range");
+	    up2.setMnemonic(50);
+	    availableTowers.add(up2);
+	    up3 = new JButton("Special Upgrade");
+	    up3.addActionListener(this);
+	    up3.setToolTipText("Special");
+	    up3.setMnemonic(51);
+	    availableTowers.add(up3);
+	    up4 = new JButton("Back to Towers");
+	    up4.addActionListener(this);
+	    up4.setToolTipText("Back");
+	    up4.setMnemonic(52);
+	    availableTowers.add(up4);
+	    towerShop.add(availableTowers,BorderLayout.CENTER);
 	}
-	towerShop.add(availableTowers,BorderLayout.CENTER);
+	else {
+	    towerShop.add(towerInfo,BorderLayout.NORTH);
+	    availableTowers = new JPanel(new GridLayout(5,2,2,2));
+	    ImageIcon icon0 = new ImageIcon(caillou);
+	    ImageIcon icon1 = new ImageIcon(potato);
+	    ImageIcon icon2 = new ImageIcon(elsa);
+	    ImageIcon icon3 = new ImageIcon(ditto);
+	    ImageIcon icon4 = new ImageIcon(moneyTree);
+	    ImageIcon icon5 = new ImageIcon(fang);
+	    for (int i= 0; i < 10; i++) {
+		if(i == 0) {
+		    jb0 = new JButton(icon0);
+		    jb0.addActionListener(this);
+		    jb0.setToolTipText("Caillou");
+		    jb0.setMnemonic(48+i);
+		    availableTowers.add(jb0);
+		}
+		else if (i == 1) {
+		    jb1 = new JButton(icon1);
+		    jb1.addActionListener(this);
+		    jb1.setToolTipText("Potato");
+		    jb1.setMnemonic(48+i);
+		    availableTowers.add(jb1);
+		}
+		else if (i == 2) {
+		    jb2 = new JButton(icon2);
+		    jb2.addActionListener(this);
+		    jb2.setToolTipText("Elsa");
+		    jb2.setMnemonic(48+i);
+		    availableTowers.add(jb2);
+		}
+		else if (i == 3) {
+		    jb3 = new JButton(icon3);
+		    jb3.addActionListener(this);
+		    jb3.setToolTipText("Shapeshifter");
+		    jb3.setMnemonic(48+i);
+		    availableTowers.add(jb3);
+		}
+		else if (i == 4) {
+		    jb4 = new JButton(icon4);
+		    jb4.addActionListener(this);
+		    jb4.setToolTipText("Money Tree");
+		    jb4.setMnemonic(48+i);
+		    availableTowers.add(jb4);
+		}
+		else if (i == 5) {
+		    jb5 = new JButton(icon5);
+		    jb5.addActionListener(this);
+		    jb5.setToolTipText("Fang the Sniper");
+		    jb5.setMnemonic(48+i);
+		    availableTowers.add(jb5);
+		}
+		else if (i == 6) {
+		    jb6 = new JButton(icon0);
+		    jb6.addActionListener(this);
+		    jb6.setToolTipText("Dragon");
+		    jb6.setMnemonic(48+i);
+		    availableTowers.add(jb6);
+		}
+		else {
+		    JButton jb = new JButton(icon0);
+		    jb.addActionListener(this);
+		    jb.setToolTipText("Caillou");
+		    jb.setMnemonic(48+i);
+		    availableTowers.add(jb);
+		}
+	    }
+	    towerShop.add(availableTowers,BorderLayout.CENTER);
+	}
     }
 
     public Grid getGrid(){

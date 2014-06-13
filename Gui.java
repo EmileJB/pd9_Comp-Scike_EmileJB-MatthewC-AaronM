@@ -76,6 +76,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    //TODO: add upgrades
 	}
 	else if (e.getSource() == up4) {
+	    //TODO: add upgrades
+	}
+	else if (e.getSource() == up5) {
 	    upgradeMode = false;
 	    addTowerMode = false;
 	    updateTowerShop();
@@ -428,7 +431,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
        	towerShop.removeAll();
 	if (upgradeMode) {
 	    towerShop.add(towerInfo,BorderLayout.NORTH);
-	    availableTowers = new JPanel(new GridLayout(5,1));
+	    availableTowers = new JPanel(new GridLayout(6,1));
 	    
 	    up0 = new JButton("Damage Upgrade");
 	    up0.addActionListener(this);
@@ -450,10 +453,15 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    up3.setToolTipText("Special");
 	    up3.setMnemonic(51);
 	    availableTowers.add(up3);
-	    up4 = new JButton("Back to Towers");
+	    up4 = new JButton("Purchase Upgrade");
 	    up4.addActionListener(this);
-	    up4.setToolTipText("Back");
+	    up4.setToolTipText("Purchase");
 	    up4.setMnemonic(52);
+	    availableTowers.add(up4);
+	    up5 = new JButton("Back to Towers");
+	    up5.addActionListener(this);
+	    up5.setToolTipText("Back");
+	    up5.setMnemonic(53);
 	    availableTowers.add(up4);
 	    towerShop.add(availableTowers,BorderLayout.CENTER);
 	}

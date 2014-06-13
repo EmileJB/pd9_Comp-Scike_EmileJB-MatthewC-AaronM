@@ -30,9 +30,11 @@ public class Enemy extends Actor {
 	basespeed = speed = s;
 	basereward = reward = r;
 	status = new ArrayList<Status>();
-	//location = loc;
-	if (location != null)
-	board = location.getGrid();
+	
+	if (location != null){
+	    board = location.getGrid();
+	    pathPos=loc.getID();
+	}
 	try {
 	    normn = ImageIO.read(new File ( "images/Enemy.gif"));
 	    atkdn = ImageIO.read(new File ( "images/atkdactor.gif"));
@@ -145,6 +147,7 @@ public class Enemy extends Actor {
 		    setNorm(normn);
 		    setAtkd(atkdn);
 		}
+		
 		swapLoc(board.getPathLoc(pathPos));
 		speed = basespeed;
 		if (checkStatus(Status.BURN) == -1)
@@ -153,6 +156,7 @@ public class Enemy extends Actor {
 		    damage(checkStatus(Status.BURN));
 		    System.out.println("BURNED!");
 		}
+		setLoc(board.getPathLoc(pathPos));
 	    }
 	    else
 		speed--;
@@ -210,6 +214,8 @@ public class Enemy extends Actor {
 	board.getLoc(location.getX(), location.getY()).removeActor(this);
 	g.setMoney(g.getMoney()+reward);
 	location.removeActor(this);
+	Coin c= new Coin(location, g);
+	c.act();
     }
 
     public void finish() {
@@ -271,5 +277,14 @@ public class Enemy extends Actor {
 
     public int ID(){
 	return id;
+    }
+    public int getBHP(){
+	return basehp;
+    }
+    public int getBS(){
+	return basespeed;
+    }
+    public int getBR(){
+	return basereward;
     }
 }

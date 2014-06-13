@@ -478,7 +478,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	towerShop.add(availableTowers,BorderLayout.CENTER);
     }
 
-
+    public Grid getGrid(){
+	return board;
+    }
     public boolean removeEnemy(Enemy e) {
 	return Enemies.remove(e);
     }
@@ -527,13 +529,26 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    int hp = (int)(Math.random()*maxhp) + basehp;
 	    int speed = (int)(Math.random()*maxspeed) + basespeed;
 	    int reward = (int)(Math.random()*maxreward) + basereward;
-	    if ( counter < 100 ) {
+	    if ( counter < 54 ) {
 		enemySpawner.add(new Enemy(hp, speed, reward, null));
-	    }					
-	    else {
+	   
+		 }					
+	    else if (counter <84) {
 		g = r.nextInt(2);
 		if (g==0){
 		    enemySpawner.add(new Enemy(hp,speed,reward,null));
+		}
+		else{
+		    enemySpawner.add(new Bug(hp,speed,reward,null));
+		}
+	    }
+	    else {
+		g = r.nextInt(3);
+		if (g==0){
+		    enemySpawner.add(new Enemy(hp,speed,reward,null));
+		}
+		else if (g==1){
+		    enemySpawner.add(new BoxBug(hp,speed,reward,null));
 		}
 		else{
 		    enemySpawner.add(new Bug(hp,speed,reward,null));

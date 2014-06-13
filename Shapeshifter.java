@@ -1,3 +1,9 @@
+import java.util.*;
+import javax.imageio.*;
+import java.awt.*;
+import javax.swing.*;
+import java.io.*;
+
 public class Shapeshifter extends Tower {
 
     private Tower t;
@@ -88,10 +94,9 @@ public void act() {
 	if (t != null) {
 	    t = null;
 	    shiftTime = 60;
-	    System.out.println("Shift!");
 	}
 	else {
-	    int r =(int)(Math.random() * 4);
+	    int r =(int)(Math.random() * 6);
 	    if (r == 0)
 	    	t = new Caillou();
 	     else if (r == 1)
@@ -100,7 +105,10 @@ public void act() {
 		t = new Elsa();
 	     else if (r == 3)
 		 t = new Moneytree();
-	    System.out.println("SHIFT!: " + r );
+	     else if (r == 4)
+		 t = new Fang();
+	     else if (r == 5)
+		 t = new Dragon();
 	    t.setLoc(location);
 	    t.setTargets();
 	    shiftTime = 180;
@@ -118,11 +126,11 @@ public void act() {
     }
     }
 
-    public int ID() {
+    public Image getImage() {
 	if (t == null)
-	    return id;
+	    return super.getImage();
 	else
-	    return t.ID();
+	    return t.getImage();
     }
 
 }

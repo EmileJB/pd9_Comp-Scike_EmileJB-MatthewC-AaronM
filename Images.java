@@ -70,4 +70,14 @@ public class Images{
 	    return null;
 	}
     }
+
+    public static Image ord() {
+	try {
+	    Image i = ImageIO.read(new File ("images/ord.gif"));
+	    return i;
+	}catch (IOException e){
+	    return null;
+	}
+    }
+
 }

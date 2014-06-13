@@ -169,4 +169,8 @@ public class Tower extends Actor {
     public JPanel getJPanel() {
 	return info;
     }
+
+    public Image getImage() {
+	return norm;
+    }
 }

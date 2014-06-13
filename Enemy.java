@@ -150,7 +150,7 @@ public class Enemy extends Actor {
 		
 		swapLoc(board.getPathLoc(pathPos));
 		speed = basespeed;
-		check = checkStatus(Status.BURN);
+		int check = checkStatus(Status.BURN);
 		if (check > -1) {
 		    damage(check);
 		}

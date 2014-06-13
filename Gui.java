@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.*;
 
 public class Gui extends JFrame implements ActionListener, MouseListener {
-    private Image caillou,potato,enemy,elsa,ditto,moneyTree,fang;
+    private Image caillou,potato,enemy,elsa,ditto,moneyTree,fang,ord;
     private Container pane;
     private JButton resetButton, jb0, jb1, jb2, jb3, jb4, jb5, jb6, up0, up1, up2, up3, up4, up5;
     private Grid board;
@@ -100,6 +100,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	ditto = Images.ditto();
 	moneyTree = Images.moneyTree();
 	fang = Images.fang();
+	ord = Images.ord();
 	Loc[] pathSent = new Loc[path.length];
 	board = new Grid(x,y,this);
 	Enemies = new ArrayList<Enemy>();
@@ -358,7 +359,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 			ImageIcon icon = new ImageIcon(fang);
 			thumb.setIcon(icon);
 		    }*/	
-		    ImageIcon icon = new ImageIcon(t.norm);
+		    ImageIcon icon = new ImageIcon(t.getImage());
 		    thumb.setIcon(icon);
 		    
 		}
@@ -474,6 +475,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    ImageIcon icon3 = new ImageIcon(ditto);
 	    ImageIcon icon4 = new ImageIcon(moneyTree);
 	    ImageIcon icon5 = new ImageIcon(fang);
+	    ImageIcon icon6 = new ImageIcon(ord);
 	    for (int i= 0; i < 10; i++) {
 		if(i == 0) {
 		    jb0 = new JButton(icon0);
@@ -518,7 +520,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    availableTowers.add(jb5);
 		}
 		else if (i == 6) {
-		    jb6 = new JButton(icon0);
+		    jb6 = new JButton(icon6);
 		    jb6.addActionListener(this);
 		    jb6.setToolTipText("Dragon");
 		    jb6.setMnemonic(48+i);

@@ -8,7 +8,7 @@ import java.util.*;
 public class Dragon extends Tower {
 
     public Dragon() {
-	super(null,1,1,3,0,200,Images.caillou());
+	super(null,1,1,3,0,200,Images.ord());
 	id = 10;
     }
 

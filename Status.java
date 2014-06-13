@@ -27,13 +27,17 @@ public class Status {
 	return ret;
     }
     public int Effect(int i) {
-	if (ticks != 0 || ID != i) {
+	if (ticks > 0 || ID != i) {
 	    ticks--;
+	    // System.out.println(ID + " v " + i);
 	    return 0;
 	}
-	else if (dur <= 0) 
+	else if (dur <= 0) {
+	    System.out.println("Check12");
 	    return -1;
+	}
 	else {
+	    // System.out.println("Check!!!!");
 	    ticks = baseticks;
 	    dur--;
 	    return ID;

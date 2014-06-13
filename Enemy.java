@@ -150,11 +150,9 @@ public class Enemy extends Actor {
 		
 		swapLoc(board.getPathLoc(pathPos));
 		speed = basespeed;
-		if (checkStatus(Status.BURN) == -1)
-		    // System.out.println(status);
-		if (checkStatus(Status.BURN) > -1) {
-		    damage(checkStatus(Status.BURN));
-		    System.out.println("BURNED!");
+		check = checkStatus(Status.BURN);
+		if (check > -1) {
+		    damage(check);
 		}
 		setLoc(board.getPathLoc(pathPos));
 	    }
@@ -176,12 +174,11 @@ public class Enemy extends Actor {
 	for (int q = 0; q < status.size(); q++) {
 	    s = status.get(q);
 	    if (s.Effect(i) == i) {
-		System.out.println(s + " " + s.getDur());
 		return s.getMagnitude();
 	    }
 	    else if (s.Effect(i) == -1) {
-		//System.out.println(s +" " + s.getDur() + " removed");
 		status.remove(q);
+		q--;
 	    }
 	}
 	return -1;

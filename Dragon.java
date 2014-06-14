@@ -10,6 +10,11 @@ public class Dragon extends Tower {
     public Dragon() {
 	super(null,1,1,3,0,200,Images.ord());
 	id = 10;
+	maxUpgrades = new int[]{3,1,2,3};
+	upgradePrices[0] = new int[]{100,200,300};
+	upgradePrices[1] = new int[]{500,0,0};
+	upgradePrices[2] = new int[]{200,400,0};
+	upgradePrices[3] = new int[]{200,400,800};
     }
 
 public void act() {

@@ -3,6 +3,7 @@ public class Bomber extends Tower {
     public Bomber() {
 	super(null,75,20,4,0,40,Images.bm());
 	id = 11;
+	maxUpgrades = new int[]{3,3,3,1};
     }
 
     public void act() {

@@ -13,7 +13,7 @@ public class Moneytree extends Tower {
 	JLabel label = new JLabel(text);
 	label.setIcon(icon);
 	info.add(label);
-	
+	maxUpgrades = new int[]{3,3,0,0};
     }
     
     public void act() {

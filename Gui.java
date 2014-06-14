@@ -88,36 +88,35 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    updateTowerShop();
 	}
 	else if (e.getSource() == up4) {
-	    if (upgrade == 0 && money >= 100) {
-		currentTower.setDamage(currentTower.getDamage() + 4);
-		money-=100;
-		updateTowerShop();
-	    }
-	    if (upgrade == 1 && money >= 100 && currentTower.getBaseRate() > 0) {
-		currentTower.setBaseRate(currentTower.getBaseRate() - 1);
-		money-=100;
-		updateTowerShop();
-	    }
-	    if (upgrade == 2 && money >= 100) {
-		currentTower.setRange(currentTower.getRange() + 1);
-		money-=100;
-		updateTowerShop();
-	    }
-	    if (upgrade == 3 && money >= 100) {
-		System.out.println("+1 swag (tower specefic upgrade)");
-		money-=100;
+	    if (currentTower.upgrades[upgrade] < currentTower.getMaxUpgrades()[upgrade] &&
+		money >= currentTower.getUpgradePrices()[upgrade][currentTower.upgrades[upgrade]]) {
+		if (upgrade == 0) {
+		    currentTower.setDamage(Math.max(currentTower.getDamage() + 1,(currentTower.getDamage()*6)/5));
+		}
+		if (upgrade == 1) {
+		    currentTower.setBaseRate(Math.min(currentTower.getBaseRate() - 1,(currentTower.getBaseRate()*9)/10));
+		}
+		if (upgrade == 2) {
+		    currentTower.setRange(currentTower.getRange() + 1);
+		}
+		if (upgrade == 3) {
+		    System.out.println("+1 swag (tower specefic upgrade)");
+		}
+		money-=currentTower.getUpgradePrices()[upgrade][currentTower.upgrades[upgrade]];
+		currentTower.upgrades[upgrade] = currentTower.upgrades[upgrade] + 1;
 		updateTowerShop();
 	    }
 	}
 	else if (e.getSource() == up5) {
 	    upgradeMode = false;
 	    addTowerMode = false;
+	    upgrade = -1;
 	    updateTowerShop();
 	}
 	else {
 	    currentTower = new Caillou();
 	}
-	    
+	
 	addTowerMode = true;
 	towerInfo = currentTower.getJPanel();
 	updateTowerShop();
@@ -226,7 +225,10 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	MappedJPanel jpanel = (MappedJPanel)e.getSource();
 	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) {
 	    if (upgradeMode) {
+		addTowerMode = false;
 		upgradeMode = false;
+		upgrade = -1;
+		currentTower = null;
 	    }
 	    else if (addTowerMode) {
 		if (money >= currentTower.getPrice()) {
@@ -468,25 +470,34 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    ImageIcon icon = new ImageIcon(currentTower.getNorm());
 	    upgradeInfo.setPreferredSize(new Dimension(50,75));
 	    String text = "";
-	    if (upgrade == 0) {
-		text= "<html>Price: " + 100 + "<br>Damage: " + currentTower.getDamage() + "+4<br>Rate: " + 
-		    currentTower.getBaseRate() + "<br>Range: " + currentTower.getRange() + "</html>";
+	    if (upgrade>=0 && upgrade <=3) {
+		if (currentTower.upgrades[upgrade] < currentTower.getMaxUpgrades()[upgrade]) {
+		    text = "<html>Price: "+ currentTower.getUpgradePrices()[upgrade][currentTower.upgrades[upgrade]] + "<br>";
+		    if (upgrade == 0) {
+			text= text + "Damage: " + currentTower.getDamage() + "<br>+" + Math.max(1,currentTower.getDamage()/5);
+		    }
+		    if (upgrade == 1) {
+			text= text + "<br>Rate: " + currentTower.getBaseRate() + "<br>-" + Math.max(1,currentTower.getRate()/10);
+		    }
+		    if (upgrade == 2) {
+			text= text + "<br>Range: " + currentTower.getRange() + "<br>+1";
+		    }
+		    if (upgrade == 3) {
+			text= text + "<br>Swag: +1</html>";
+		    }
+		    text+="</html>";
+		}
+		else {
+		    text = "Upgrade not available";
+		}
+		JLabel label = new JLabel(text);
+		label.setIcon(icon);	    
+		upgradeInfo.add(label);
 	    }
-	    if (upgrade == 1) {
-		text= "<html>Price: " + 100 + "<br>Damage: " + currentTower.getDamage() + "<br>Rate: " + 
-		    currentTower.getBaseRate() + "-1<br>Range: " + currentTower.getRange() + "</html>";
+	    else {
+		upgradeInfo = currentTower.info;
 	    }
-	    if (upgrade == 2) {
-		text= "<html>Price: " + 100 + "<br>Damage: " + currentTower.getDamage() + "+4<br>Rate: " + 
-		    currentTower.getBaseRate() + "<br>Range: " + currentTower.getRange() + "+1</html>";
-	    }
-	    if (upgrade == 3) {
-		text= "<html>Price: " + 100 + "<br>Damage: " + currentTower.getDamage() + "+4<br>Rate: " + 
-		    currentTower.getBaseRate() + "<br>Range: " + currentTower.getRange() + "<br>Swag: +1</html>";
-	    }
-	    JLabel label = new JLabel(text);
-	    label.setIcon(icon);	    
-	    upgradeInfo.add(label);
+
 	    towerShop.add(upgradeInfo,BorderLayout.NORTH);
 	    availableTowers = new JPanel(new GridLayout(6,1));
 	    

@@ -19,9 +19,19 @@ public class Tower extends Actor {
     //protected Projectile projectile;
     protected JPanel info;
     protected Image norm;
+    public int[] upgrades;
+    protected int[] maxUpgrades;
+    protected int[][] upgradePrices;//damage prices, speed prices, range prices, special prices
 
     public Tower (Loc loc, int d, int s, int r, int n, int p,Image im) {
 	super(loc);
+	upgrades = new int[]{0,0,0,0};
+	maxUpgrades = new int[]{3,3,2,0};
+	upgradePrices =new int [4][3];
+	upgradePrices[0] = new int[]{p,p*2,p*3};
+	upgradePrices[1] = new int[]{p,p*2,p*3};
+	upgradePrices[2] = new int[]{p,p*2,p*3};
+	upgradePrices[3] = new int[]{p,p*2,p*3};
 	price = p;
 	id=1;
 	basedamage = damage = d;
@@ -73,6 +83,14 @@ public class Tower extends Actor {
 
     public int getPrice() {
 	return price;
+    }
+
+    public int[] getMaxUpgrades() {
+	return maxUpgrades;
+    }
+
+  public int[][] getUpgradePrices() {
+	return upgradePrices;
     }
 
     public Image getNorm() {

@@ -2,6 +2,11 @@ public class Arcade extends Tower {
 
     public Arcade() {
 	super(null,20,10,10,0,150,Images.arcade());
+	maxUpgrades = new int[]{3,3,2,1};
+	upgradePrices[0] = new int[]{150,300,450};
+	upgradePrices[1] = new int[]{150,300,450};
+	upgradePrices[2] = new int[]{150,300,0};
+	upgradePrices[3] = new int[]{300,0,0};
     }
 
     public void act() {

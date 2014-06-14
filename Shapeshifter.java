@@ -14,6 +14,7 @@ public class Shapeshifter extends Tower {
 	t = null;
 	shiftTime = 60;
 	id = 7;
+	maxUpgrades = new int[]{0,0,0,3};
     }
 
     public int getDamage() {

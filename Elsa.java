@@ -10,6 +10,12 @@ public class Elsa extends Tower {
     public Elsa() {
 	super(null,10,20,4,0,120,Images.elsa());
 	id = 6;
+	maxUpgrades = new int[]{3,2,2,3};
+	upgradePrices[0] = new int[]{60,120,180};
+	upgradePrices[1] = new int[]{240,480,0};
+	upgradePrices[2] = new int[]{120,240,0};
+	upgradePrices[3] = new int[]{120,240,360};
+	    
     }
 
 public void act() {

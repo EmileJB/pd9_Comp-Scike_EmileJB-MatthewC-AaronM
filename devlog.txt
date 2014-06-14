@@ -63,4 +63,4 @@ E: Made Dragon tower
 A: Made functional upgrade shop
 6/14/14
 E&M: Made Bomber Tower and Bomb projectile
-
+E: Started Arcade Tower

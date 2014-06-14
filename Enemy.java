@@ -74,6 +74,10 @@ public class Enemy extends Actor {
 	return board;
     }
 
+    public int getPathPos() {
+	return pathPos;
+    }
+
     public void setHP(int h) {
 	hp = h;
     }
@@ -96,6 +100,13 @@ public class Enemy extends Actor {
     public void setLoc(Loc l) {
 	location = l;
 	board = l.getGrid();
+    }
+
+    public void setPathPos(int p) {
+	if (p <= 0)
+	    pathPos = 0;
+	else
+	    pathPos = p;
     }
 
     public void damage(int d) {

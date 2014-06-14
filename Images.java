@@ -87,4 +87,14 @@ public class Images{
 	    return null;
 	}
 	    }
-    }
+
+    public static Image arcade() {
+	try {
+	    Image i = ImageIO.read(new File ("images/arcade.gif"));
+	    return i;
+	}catch (IOException e){
+	    return null;
+	}
+	    }
+
+}

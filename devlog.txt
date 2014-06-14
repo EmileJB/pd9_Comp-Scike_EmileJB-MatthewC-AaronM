@@ -59,4 +59,8 @@ M: Made IceBolt projectile work
 M: Made Fang tower
 M: Made BoxBug enemy
 E: Made Dragon tower
+6/13/14
+A: Made functional upgrade shop
+6/14/14
+E&M: Made Bomber Tower and Bomb projectile
 

@@ -9,7 +9,7 @@ import java.util.*;
 public class Gui extends JFrame implements ActionListener, MouseListener {
     private Image caillou,potato,enemy,elsa,ditto,moneyTree,fang,ord,bm;
     private Container pane;
-    private JButton resetButton, jb0, jb1, jb2, jb3, jb4, jb5, jb6, jb7, up0, up1, up2, up3, up4, up5;
+    private JButton resetButton, jb0, jb1, jb2, jb3, jb4, jb5, jb6, jb7,  up0, up1, up2, up3, up4, up5;
     private Grid board;
     private JPanel boardBorder,info,towerShop; //main JPanels
     private JPanel towerInfo, availableTowers, upgradeInfo; //subJPanels
@@ -64,9 +64,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	else if (e.getSource() == jb6) {
 	    currentTower = new Dragon();
 	}
-	//else if (e.getSource() == jb7) {
-	//    currentTower = new Bomber();
-	//}
+	else if (e.getSource() == jb7) {
+	    currentTower = new Bomber();
+	}
 	else if (e.getSource() == up0) {
 	  
 	    upgrade = 0;

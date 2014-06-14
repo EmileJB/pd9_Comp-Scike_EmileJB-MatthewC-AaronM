@@ -51,6 +51,10 @@ public class Tower extends Actor {
 	return rate;
     }
 
+    public int getBaseRate() {
+	return baserate;
+    }
+
     public int getRange() {
 	return range;
     }
@@ -71,12 +75,20 @@ public class Tower extends Actor {
 	return price;
     }
 
+    public Image getNorm() {
+	return norm;
+    }
+
     public void setDamage(int d) {
 	damage = d;
     }
 
     public void setRate(int r) {
 	rate = r;
+    }
+
+   public void setBaseRate(int r) {
+	baserate = r;
     }
 
     public void setRange(int r) {
@@ -95,6 +107,7 @@ public class Tower extends Actor {
 	location = l;
 	board = location.getGrid();
     }
+
     public ArrayList getLocs(Loc l) {
 	targets = new ArrayList<Loc>();
 	int x = location.getX();

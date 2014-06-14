@@ -12,19 +12,20 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private JButton resetButton, jb0, jb1, jb2, jb3, jb4, jb5, jb6, jb7, up0, up1, up2, up3, up4, up5;
     private Grid board;
     private JPanel boardBorder,info,towerShop; //main JPanels
-    private JPanel towerInfo, availableTowers; //subJPanels
+    private JPanel towerInfo, availableTowers, upgradeInfo; //subJPanels
     private int pathNumber;
     private ArrayList<Enemy> Enemies;
     private ArrayList<Tower> Towers;
     private ArrayList<Projectile> Projectiles;
     private int[][] path = {{0,3},{1,3},{2,3},{3,3},{4,3},{4,4},{5,4},{6,4},{7,4},{8,4},{9,4}};
-    private int money;
+    private int money, score;
     private int lives;
     private static int numthings;
     private Spawner enemySpawner;
     private Tower currentTower;
     private boolean addTowerMode, upgradeMode;
     private int counter = 0;
+    private int upgrade = -1;
     
 
     private class myKeyListener implements KeyListener {
@@ -63,23 +64,47 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	else if (e.getSource() == jb6) {
 	    currentTower = new Dragon();
 	}
-	else if (e.getSource() == jb7) {
-	    currentTower = new Bomber();
-	}
+	//else if (e.getSource() == jb7) {
+	//    currentTower = new Bomber();
+	//}
 	else if (e.getSource() == up0) {
-	    //TODO: add upgrades
+	  
+	    upgrade = 0;
+	    updateTowerShop();
 	}
 	else if (e.getSource() == up1) {
-	    //TODO: add upgrades
+	    upgrade = 1;
+	    updateTowerShop();
 	}
 	else if (e.getSource() == up2) {
-	    //TODO: add upgrades
+	    upgrade = 2;
+	    updateTowerShop();
 	}
 	else if (e.getSource() == up3) {
-	    //TODO: add upgrades
+	    upgrade = 3;
+	    updateTowerShop();
 	}
 	else if (e.getSource() == up4) {
-	    //TODO: add upgrades
+	    if (upgrade == 0 && money >= 100) {
+		currentTower.setDamage(currentTower.getDamage() + 4);
+		money-=100;
+		updateTowerShop();
+	    }
+	    if (upgrade == 1 && money >= 100 && currentTower.getBaseRate() > 0) {
+		currentTower.setBaseRate(currentTower.getBaseRate() - 1);
+		money-=100;
+		updateTowerShop();
+	    }
+	    if (upgrade == 2 && money >= 100) {
+		currentTower.setRange(currentTower.getRange() + 1);
+		money-=100;
+		updateTowerShop();
+	    }
+	    if (upgrade == 3 && money >= 100) {
+		System.out.println("+1 swag (tower specefic upgrade)");
+		money-=100;
+		updateTowerShop();
+	    }
 	}
 	else if (e.getSource() == up5) {
 	    upgradeMode = false;
@@ -113,6 +138,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	lives = 100;
 	money = 1000;
 	info = new JPanel(new GridLayout());
+	upgradeInfo = new JPanel();
 	info.add(new JLabel("Lives: "+lives));
 	info.add(new JLabel("Money: "+money));
 	boardBorder=new JPanel(new GridLayout(x,y));
@@ -198,7 +224,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    if (upgradeMode) {
 		upgradeMode = false;
 	    }
-	    if (addTowerMode) {
+	    else if (addTowerMode) {
 		if (money >= currentTower.getPrice()) {
 		    int ID = -2;
 		    Loc l = new Loc(jpanel.getX(), jpanel.getY(), ID, board,Color.WHITE);
@@ -217,6 +243,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	else if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -2) { 
 	    addTowerMode = false;
 	    upgradeMode = true;
+	    upgradeInfo = new JPanel();
 	    currentTower = board.getLoc(jpanel.getX(),jpanel.getY()).getTower();
 	}
 	updateBoard();
@@ -233,11 +260,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	Loc l = board.getLoc(jpanel.getX(),jpanel.getY()); 
 	if (l.getID() >= 0){
 	    System.out.println(l.getActors());
-	    if (l.getActors().size()>0 && l.getActors().get(0).ID()==0){
+	    if (l.getActors().size()>0 && l.getActors().get(0).ID()==0) {
 		Enemy q = (Enemy) (board.getLoc(jpanel.getX(),jpanel.getY()).getActors().get(0));
-		System.out.println(""+q.getHP() + " " + q.getStatus());
-		
-		
+		System.out.println(""+q.getHP() + " " + q.getStatus());		
 	    }
 	}
 	
@@ -435,7 +460,30 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     public void updateTowerShop() {
        	towerShop.removeAll();
 	if (upgradeMode) {
-	    towerShop.add(towerInfo,BorderLayout.NORTH);
+	    upgradeInfo = new JPanel();
+	    ImageIcon icon = new ImageIcon(currentTower.getNorm());
+	    upgradeInfo.setPreferredSize(new Dimension(50,75));
+	    String text = "";
+	    if (upgrade == 0) {
+		text= "<html>Price: " + 100 + "<br>Damage: " + currentTower.getDamage() + "+4<br>Rate: " + 
+		    currentTower.getBaseRate() + "<br>Range: " + currentTower.getRange() + "</html>";
+	    }
+	    if (upgrade == 1) {
+		text= "<html>Price: " + 100 + "<br>Damage: " + currentTower.getDamage() + "<br>Rate: " + 
+		    currentTower.getBaseRate() + "-1<br>Range: " + currentTower.getRange() + "</html>";
+	    }
+	    if (upgrade == 2) {
+		text= "<html>Price: " + 100 + "<br>Damage: " + currentTower.getDamage() + "+4<br>Rate: " + 
+		    currentTower.getBaseRate() + "<br>Range: " + currentTower.getRange() + "+1</html>";
+	    }
+	    if (upgrade == 3) {
+		text= "<html>Price: " + 100 + "<br>Damage: " + currentTower.getDamage() + "+4<br>Rate: " + 
+		    currentTower.getBaseRate() + "<br>Range: " + currentTower.getRange() + "<br>Swag: +1</html>";
+	    }
+	    JLabel label = new JLabel(text);
+	    label.setIcon(icon);	    
+	    upgradeInfo.add(label);
+	    towerShop.add(upgradeInfo,BorderLayout.NORTH);
 	    availableTowers = new JPanel(new GridLayout(6,1));
 	    
 	    up0 = new JButton("Damage Upgrade");
@@ -467,7 +515,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    up5.addActionListener(this);
 	    up5.setToolTipText("Back");
 	    up5.setMnemonic(53);
-	    availableTowers.add(up4);
+	    availableTowers.add(up5);
 	    towerShop.add(availableTowers,BorderLayout.CENTER);
 	}
 	else {
@@ -534,7 +582,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		else if (i == 7) {
 		    jb7 = new JButton(icon7);
 		    jb7.addActionListener(this);
-		    jb7.setToolTipText("Dragon");
+		    jb7.setToolTipText("Bomber");
 		    jb7.setMnemonic(48+i);
 		    availableTowers.add(jb7);
 		}

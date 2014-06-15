@@ -28,11 +28,11 @@ public void act() {
 		//activeTargets.get(0).setHP(activeTargets.get(0).getHP()-damage);
 		int random = (int)(Math.random() * 100);//0-99
 		if (random < freezeChance) {
-		    Projectile p = new IceBolt(location, activeTargets.get(0), board.getGui(), damage, 2*range, 1, 60);
+		    Projectile p = new IceBolt(location, activeTargets.get(0), board.getGui(), (int)(damage * buff), 2*range, 1, 60);
 		    p.act();
 		}
 		else {
-		    Projectile p = new IceBolt(location, activeTargets.get(0), board.getGui(), damage, 2*range, 1, 0);
+		    Projectile p = new IceBolt(location, activeTargets.get(0), board.getGui(), (int)(damage * buff), 2*range, 1, 0);
 		    p.act();
 		}
 		//activeTargets.get(0).setImg();

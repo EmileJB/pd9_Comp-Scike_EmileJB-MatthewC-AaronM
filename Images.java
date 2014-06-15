@@ -86,7 +86,16 @@ public class Images{
 	}catch (IOException e){
 	    return null;
 	}
-	    }
+    }
+
+   public static Image bufftower() {
+	try {
+	    Image i = ImageIO.read(new File ("images/buff.gif"));
+	    return i;
+	}catch (IOException e){
+	    return null;
+	}
+    }
 
     public static Image arcade() {
 	try {

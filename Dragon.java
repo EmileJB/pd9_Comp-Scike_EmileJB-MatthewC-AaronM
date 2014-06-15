@@ -25,7 +25,7 @@ public void act() {
 	if (turn%rate == 0) {
 	    for (int i = 0; i < activeTargets.size() && i <= numTargets;i++) {
 		//activeTargets.get(0).setHP(activeTargets.get(0).getHP()-damage);
-		Projectile p = new FireBlast(location, activeTargets.get(0), board.getGui(), damage, range, 0, burnDuration, 8);
+		Projectile p = new FireBlast(location, activeTargets.get(0), board.getGui(), (int)(damage * buff), range, 0, burnDuration, 8);
 		p.act();
 		//activeTargets.get(0).setImg();
 		activeTargets.remove(0);

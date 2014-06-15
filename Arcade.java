@@ -29,7 +29,7 @@ public class Arcade extends Tower {
 	    numTargets = 10;
 	    Random r = new Random();
 	    for (int i = 0; i < g.getEnemies().size() && i <= numTargets;i++) {
-		Projectile p = new Invader(board.getLoc(r.nextInt(board.getCol()),r.nextInt(board.getRow())),g.getEnemies().get(r.nextInt(g.getEnemies().size())),g,5*damage, 2*range, 2);
+		Projectile p = new Invader(board.getLoc(r.nextInt(board.getCol()),r.nextInt(board.getRow())),g.getEnemies().get(r.nextInt(g.getEnemies().size())),g,5*(int)(damage * buff), 2*range, 2);
 		p.act();
 	    }
 	    numTargets = 0;

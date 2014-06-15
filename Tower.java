@@ -6,6 +6,7 @@ import java.io.*;
 
 public class Tower extends Actor {
     protected int id,price;
+    protected double buff;
     protected int damage;
     protected int basedamage;
     protected int rate, turn;
@@ -38,6 +39,7 @@ public class Tower extends Actor {
 	baserate = rate = s;
 	baserange = range = r;
 	turn = 0;
+	buff = 1.0001;
 	numTargets = n;
 	if (location != null) {
 	    board = loc.getGrid();
@@ -126,7 +128,7 @@ public class Tower extends Actor {
 	board = location.getGrid();
     }
 
-    public ArrayList getLocs(Loc l) {
+    public ArrayList<Loc> getLocs(Loc l) {
 	targets = new ArrayList<Loc>();
 	int x = location.getX();
 	int y = location.getY();
@@ -182,7 +184,7 @@ public class Tower extends Actor {
 	if (turn%rate == 0) {
 	    for (int i = 0; i < activeTargets.size() && i <= numTargets;i++) {
 		//activeTargets.get(0).setHP(activeTargets.get(0).getHP()-damage);
-		Projectile p = new Projectile(location, activeTargets.get(0), board.getGui(), damage, 2*range, 0);
+		Projectile p = new Projectile(location, activeTargets.get(0), board.getGui(), (int)(damage * buff), 2*range, 0);
 		p.act();
 		//activeTargets.get(0).setImg();
 		activeTargets.remove(0);
@@ -208,7 +210,15 @@ public class Tower extends Actor {
     public void SpecUpgrade() {
     }
 
+    public void setTargets(ArrayList<Loc> l) {
+	targets = l;
+    }
+
     public String getSpecDescription() {
 	return "Swag +1";
+    }
+
+    public void setBuff(double d) {
+	buff = d;
     }
 }

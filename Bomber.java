@@ -11,7 +11,7 @@ public class Bomber extends Tower {
 	if (turn%rate == 0) {
 	    for (int i = 0; i < activeTargets.size() && i <= numTargets;i++) {
 		//activeTargets.get(0).setHP(activeTargets.get(0).getHP()-damage);
-		Projectile p = new Bomb(location, activeTargets.get(0), board.getGui(), damage, 2*range, 1, 1);
+		Projectile p = new Bomb(location, activeTargets.get(0), board.getGui(), (int)(damage * buff), 2*range, 1, 1);
 		p.act();
 		//activeTargets.get(0).setImg();
 		activeTargets.remove(0);

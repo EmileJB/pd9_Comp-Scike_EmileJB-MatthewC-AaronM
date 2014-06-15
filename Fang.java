@@ -15,7 +15,7 @@ public class Fang extends Tower {
 	if (turn%rate == 0) {
 	    for (int i = 0; i < activeTargets.size() && i <= numTargets;i++) {
 		//activeTargets.get(0).setHP(activeTargets.get(0).getHP()-damage);
-		Projectile p = new Bullet(location, activeTargets.get(0), board.getGui(), damage, 2*range, 0, piercing);
+		Projectile p = new Bullet(location, activeTargets.get(0), board.getGui(), (int)(damage * buff), 2*range, 0, piercing);
 		p.act();
 		//activeTargets.get(0).setImg();
 		activeTargets.remove(0);

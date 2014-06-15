@@ -70,8 +70,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	else if (e.getSource() == jb9) {
 	    currentTower = new Arcade();
 	}
-	else if (e.getSource() == up0) {
-	  
+	else if (e.getSource() == up0) {	  
 	    upgrade = 0;
 	    updateTowerShop();
 	}
@@ -88,7 +87,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    updateTowerShop();
 	}
 	else if (e.getSource() == up4) {
-	    if (currentTower.upgrades[upgrade] < currentTower.getMaxUpgrades()[upgrade] &&
+	    if (upgrade > -1 &&currentTower.upgrades[upgrade] < currentTower.getMaxUpgrades()[upgrade] &&
 		money >= currentTower.getUpgradePrices()[upgrade][currentTower.upgrades[upgrade]]) {
 		if (upgrade == 0) {
 		    currentTower.setDamage(Math.max(currentTower.getDamage() + 1,(currentTower.getDamage()*6)/5));
@@ -112,6 +111,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    upgradeMode = false;
 	    addTowerMode = false;
 	    upgrade = -1;
+	    currentTower = null;
 	    updateTowerShop();
 	}
 	else {
@@ -119,7 +119,10 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	}
 	
 	addTowerMode = true;
-	towerInfo = currentTower.getJPanel();
+	if (currentTower != null)
+	    towerInfo = currentTower.getJPanel();
+	else
+	    towerInfo = new JPanel();
 	updateTowerShop();
     }
     
@@ -230,12 +233,11 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	MappedJPanel jpanel = (MappedJPanel)e.getSource();
 	if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -1) {
 	    if (upgradeMode) {
-		addTowerMode = false;
 		upgradeMode = false;
 		upgrade = -1;
 		currentTower = null;
 	    }
-	    else if (addTowerMode) {
+	    else if (addTowerMode && currentTower != null) {
 		if (money >= currentTower.getPrice()) {
 		    int ID = -2;
 		    Loc l = new Loc(jpanel.getX(), jpanel.getY(), ID, board,Color.WHITE);
@@ -254,8 +256,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	else if (board.getLoc(jpanel.getX(),jpanel.getY()).getID() == -2) { 
 	    addTowerMode = false;
 	    upgradeMode = true;
-	    upgradeInfo = new JPanel();
 	    currentTower = board.getLoc(jpanel.getX(),jpanel.getY()).getTower();
+	    upgradeInfo = new JPanel();
 	}
 	updateBoard();
 	updateTowerShop();
@@ -375,33 +377,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		JLabel thumb = new JLabel();
 		Tower t = l.getTower();
 		if (t != null) {
-		    /*if (t.ID() == 4) {
-			ImageIcon icon = new ImageIcon(caillou);
-			thumb.setIcon(icon);
-		    }
-		    if (t.ID() == 5) {
-			ImageIcon icon = new ImageIcon(potato);
-			thumb.setIcon(icon);
-		    }
-		    if (t.ID() == 6) {
-			ImageIcon icon = new ImageIcon(elsa);
-			thumb.setIcon(icon);
-		    }
-		    if (t.ID() == 7) {
-			ImageIcon icon = new ImageIcon(ditto);
-			thumb.setIcon(icon);
-		    }
-		    if (t.ID() == 8) {
-			ImageIcon icon = new ImageIcon(moneyTree);
-			thumb.setIcon(icon);
-		    }
-		    if (t.ID() == 9) {
-			ImageIcon icon = new ImageIcon(fang);
-			thumb.setIcon(icon);
-		    }*/	
 		    ImageIcon icon = new ImageIcon(t.getImage());
-		    thumb.setIcon(icon);
-		    
+		    thumb.setIcon(icon);	    
 		}
 		JLabel proj = new JLabel();
 		if (l.getActors().size() > 0 ){
@@ -490,7 +467,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 			text= text + "<br>Range: " + currentTower.getRange() + "<br>+1";
 		    }
 		    if (upgrade == 3) {
-			text= text + "<br>Swag: +1</html>";
+			text= text + "<br>"+ currentTower.getSpecDescription();
 		    }
 		    text+="</html>";
 		}

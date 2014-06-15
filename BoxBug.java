@@ -9,7 +9,7 @@ public class BoxBug extends Enemy {
     protected Image nn,ns,nw,ne,an,as,aw,ae;
     protected Gui g;
     public BoxBug(int health, int speed, int reward, Loc l){
-	super(health+40, speed+16, reward+12, l);
+	super(health+40, speed+8, reward+12, l);
 	try {
 	    // System.out.println("you goofed boxbug style Dx");
 	    nn =  ImageIO.read(new File ( "images/bbn.gif"));

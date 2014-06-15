@@ -207,4 +207,8 @@ public class Tower extends Actor {
 
     public void SpecUpgrade() {
     }
+
+    public String getSpecDescription() {
+	return "Swag +1";
+    }
 }

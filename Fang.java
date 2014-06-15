@@ -30,5 +30,9 @@ public class Fang extends Tower {
     public void SpecUpgrade() {
 	piercing = true;
     }
+
+    public String getSpecDescription() {
+	return "Piercing Shot";
+    }
 }
 

@@ -120,7 +120,6 @@ public class Projectile extends Actor {
 	//System.out.println(location.getActors());
     }
     public void checkPos() {
-	//System.out.println("check2099: " + location.getEnemy());
 	
 	if (location.getEnemy() != null) {
 	    location.getEnemy().damage(damage);

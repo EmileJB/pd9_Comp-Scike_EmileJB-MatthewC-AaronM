@@ -92,5 +92,32 @@ public class Pac extends Projectile {
 	}
 	//System.out.println(location.getActors());
     }
+
+    public void checkPos() {
+	
+	if (location.getEnemy() != null) {
+	    Enemy en;
+	    for (Actor a:location.getActors()) {
+		if (a instanceof Enemy && a != null) {
+		    en = (Enemy)a;
+		    en.damage(damage);
+		}
+	    }
+	}
+	if  (location.getX() == target.getX() && location.getY() == target.getY()) {
+	    if (mark != null && mark.getLoc().equals(target)) {
+		mark.damage(damage * 2);
+		die();
+	    }
+	     else if (mark == null) {
+		    die(); 
+	}
+		die();
+	    }
+	else if (range <= 0) {
+	    die();
+	}
+    }
+
 }
 

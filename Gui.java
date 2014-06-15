@@ -665,6 +665,11 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	return Projectiles.contains(p);
     }
 
+    public ArrayList<Enemy> getEnemies() {
+	return Enemies;
+    }
+
+
     public void fill(int n, int basespeed, int maxspeed, int basereward, int maxreward, int basehp, int maxhp) {
 	int g;
 	Random r = new Random();

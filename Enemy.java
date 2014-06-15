@@ -221,6 +221,8 @@ public class Enemy extends Actor {
 	g.removeEnemy(this);
 	board.getLoc(location.getX(), location.getY()).removeActor(this);
 	g.setMoney(g.getMoney()+reward);
+	g.setScore(g.getScore() + reward);
+	g.setKills(g.getKills() + 1);
 	location.removeActor(this);
 	Coin c= new Coin(location, g);
 	c.act();

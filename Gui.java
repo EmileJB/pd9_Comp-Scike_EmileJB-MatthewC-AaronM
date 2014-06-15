@@ -18,7 +18,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private ArrayList<Tower> Towers;
     private ArrayList<Projectile> Projectiles;
     private int[][] path = {{0,3},{1,3},{2,3},{3,3},{4,3},{4,4},{5,4},{6,4},{7,4},{8,4},{9,4}};
-    private int money, score;
+    private int money, score, kills;
     private int lives;
     private static int numthings;
     private Spawner enemySpawner;
@@ -100,7 +100,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    currentTower.setRange(currentTower.getRange() + 1);
 		}
 		if (upgrade == 3) {
-		    System.out.println("+1 swag (tower specefic upgrade)");
+		    currentTower.SpecUpgrade();
+		    // System.out.println("+1 swag (tower specefic upgrade)");
 		}
 		money-=currentTower.getUpgradePrices()[upgrade][currentTower.upgrades[upgrade]];
 		currentTower.upgrades[upgrade] = currentTower.upgrades[upgrade] + 1;
@@ -140,10 +141,14 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	Projectiles = new ArrayList<Projectile>();
 	lives = 100;
 	money = 1000;
+	score = 0;
+	kills = 0;
 	info = new JPanel(new GridLayout());
 	upgradeInfo = new JPanel();
 	info.add(new JLabel("Lives: "+lives));
 	info.add(new JLabel("Money: "+money));
+	info.add(new JLabel("Kills: "+kills));
+	info.add(new JLabel("Score: "+score));
 	boardBorder=new JPanel(new GridLayout(x,y));
 	towerShop = new JPanel(new BorderLayout(0,6));
 	towerInfo = new JPanel();
@@ -461,6 +466,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	info.removeAll();
 	info.add(new JLabel("Lives: "+lives));
 	info.add(new JLabel("Money: "+money));
+	info.add(new JLabel("Kills: "+kills));
+	info.add(new JLabel("Score: "+score));
     }
 
     public void updateTowerShop() {
@@ -651,6 +658,22 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 
     public void setLives(int l) {
 	lives = l;
+    }
+
+ public int getScore() {
+	return score;
+ }
+
+    public void setScore(int s) {
+	score = s;
+    }
+
+    public int getKills() {
+	return kills;
+    }
+
+    public void setKills(int k) {
+	kills = k;
     }
 
     public boolean isActive(Enemy e) {

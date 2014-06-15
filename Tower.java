@@ -204,4 +204,7 @@ public class Tower extends Actor {
     public Image getImage() {
 	return norm;
     }
+
+    public void SpecUpgrade() {
+    }
 }

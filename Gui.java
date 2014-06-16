@@ -148,8 +148,8 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	Enemies = new ArrayList<Enemy>();
 	Towers = new ArrayList<Tower>();
 	Projectiles = new ArrayList<Projectile>();
-	lives = 100;
-	money = 1000;
+	lives = 15;
+	money = 200;
 	score = 0;
 	kills = 0;
 	info = new JPanel(new GridLayout());
@@ -165,7 +165,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	//towerInfo.setPreferredSize(new Dimension(100,100));
 	towerShop.add(towerInfo,BorderLayout.PAGE_START);
 	towerShop.add(availableTowers,BorderLayout.CENTER);
-	this.setTitle("xD");
+	this.setTitle("Real World vs. Gridworld");
 	this.setSize(800,750);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -253,6 +253,9 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    Towers.add(currentTower);
 		    board.setLoc(jpanel.getX(),jpanel.getY(),l);
 		    money -= currentTower.getPrice();		
+		}
+		else {
+		    JOptionPane.showMessageDialog(this,"You do not have enough money to do that","You're POOR",JOptionPane.ERROR_MESSAGE);
 		}
 	    }
 	    currentTower = null;
@@ -362,13 +365,13 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		}
 	
 		counter++;		
-		fill(1,5,5,6 + counter/150,3 + counter/75,30 + 3*counter + counter*counter/10000,15 + 3*counter/2 + counter*counter/20000);
+		fill(1,5,5,7+(counter/10),7+ (counter/20),30 + 3*counter + counter*counter/10000,15 + 3*counter/2 + counter*counter/20000);
 		if ( lives <= 0){
 		    
 		    JOptionPane.showMessageDialog(this,"You lost!","Game Over",JOptionPane.ERROR_MESSAGE);
 		    System.exit(0);
 		}
-		if (kills == 500 && reached != true){
+		if (kills == 200 && reached != true){
 		    int dialogResult = JOptionPane.showConfirmDialog (null, "You have killed "+kills+ " enemies and won! If you would like to continue, press yes." ,"Congratulations!", JOptionPane.YES_NO_OPTION);
 		    
 		    if(dialogResult == JOptionPane.NO_OPTION){
@@ -376,6 +379,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    }
 		    reached=true;
 		}
+		
 		updateBoard();
 		updateInfo();
 		pane.validate();
@@ -703,11 +707,11 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 	    int hp = (int)(Math.random()*maxhp) + basehp;
 	    int speed = (int)(Math.random()*maxspeed) + basespeed;
 	    int reward = (int)(Math.random()*maxreward) + basereward;
-	    if ( counter < 54 ) {
+	    if ( counter < 16 ) {
 		enemySpawner.add(new Enemy(hp, speed, reward, null));
 	   
 		 }					
-	    else if (counter <84) {
+	    else if (counter <36) {
 		g = r.nextInt(2);
 		if (g==0){
 		    enemySpawner.add(new Enemy(hp,speed,reward,null));
@@ -716,7 +720,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    enemySpawner.add(new Bug(hp,speed,reward,null));
 		}
 	    }
-	    else {
+	    else if (counter < 64 ){
 		g = r.nextInt(3);
 		if (g==0){
 		    enemySpawner.add(new Enemy(hp,speed,reward,null));
@@ -728,6 +732,43 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    enemySpawner.add(new Bug(hp,speed,reward,null));
 		}
 	    }
+	    else if (counter < 100) {
+		g = r.nextInt(4);
+		if (g==0){
+		    enemySpawner.add(new Enemy(hp,speed,reward,null));
+		}
+		else if (g==1){
+		    enemySpawner.add(new BoxBug(hp,speed,reward,null));
+		}
+		else if (g==2){
+		    enemySpawner.add(new Bug(hp,speed,reward,null));
+		}
+		else {
+		    enemySpawner.add(new Critter(hp, speed, reward, null));
+		}
+	    }
+	    else {
+		int rock = r.nextInt(35);
+		if (rock == 1) {
+		    enemySpawner.add(new Rock(hp,speed,reward,null));
+		}   
+		else {
+		    g =	r.nextInt(4);
+		    if (g==0){
+			enemySpawner.add(new Enemy(hp,speed,reward,null));
+		    }
+		    else if (g==1){
+			enemySpawner.add(new BoxBug(hp,speed,reward,null));
+		    }
+		    else if (g==2){
+			enemySpawner.add(new Bug(hp,speed,reward,null));
+		    }
+		    else {
+			enemySpawner.add(new Critter(hp, speed, reward, null));
+		    }
+		}
+	    }
+	    //System.out.println("counter" + counter);
 	}
     }
     public static void main(String[] args){

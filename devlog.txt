@@ -66,4 +66,4 @@ E&M: Made Bomber Tower and Bomb projectile
 E: Started Arcade Tower
 6/15/14
 E: Gave Fang Bullet projectiles and first to get a specialized upgrade. Scores and Kills added to Gui
-M: Fixed Bullet bug
+M: Fixed Bullet bug, added end game (winning/losing) dialogs, added Rock and Critter, changed fill()

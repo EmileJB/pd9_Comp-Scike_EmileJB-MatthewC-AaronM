@@ -8,7 +8,7 @@ import java.util.*;
 public class Bug extends Enemy {
     protected Image nn,ns,nw,ne,an,as,aw,ae;
     public Bug(int health, int speed, int reward, Loc l){
-	super(health+10, speed-2, reward +3, l);
+	super(health+10, speed-2, reward +1, l);
 	try {
 	    nn =  ImageIO.read(new File ( "images/bugn.gif"));
 	    ns=ImageIO.read(new File ( "images/bugs.gif"));

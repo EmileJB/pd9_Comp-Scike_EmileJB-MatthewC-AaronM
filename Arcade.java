@@ -6,7 +6,7 @@ public class Arcade extends Tower {
     private boolean spaceInvaders;
 
     public Arcade() {
-	super(null,20,10,10,0,150,Images.arcade());
+	super(null,20,10,3,0,150,Images.arcade());
 	maxUpgrades = new int[]{3,3,2,1};
 	upgradePrices[0] = new int[]{150,300,450};
 	upgradePrices[1] = new int[]{150,300,450};

@@ -3,10 +3,9 @@ public class Fang extends Tower {
     public boolean piercing;
 
     public Fang() {
-	super(null,10000,35,10,0,100,Images.fang());
+	super(null,1000,35,10,0,500,Images.fang());
 	id = 9;
 	maxUpgrades = new int[]{3,3,0,1};
-	upgradePrices[1] = new int[]{200,400,600};
 	piercing = false;
     }
 

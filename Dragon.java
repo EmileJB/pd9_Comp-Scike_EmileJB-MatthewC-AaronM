@@ -10,7 +10,7 @@ public class Dragon extends Tower {
     private int burnDuration;
 
     public Dragon() {
-	super(null,1,1,3,0,200,Images.ord());
+	super(null,1,1,2,0,175,Images.ord());
 	id = 10;
 	burnDuration = 50;
 	maxUpgrades = new int[]{3,1,2,3};

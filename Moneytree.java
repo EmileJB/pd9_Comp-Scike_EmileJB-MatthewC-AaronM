@@ -5,7 +5,7 @@ import javax.imageio.*;
 public class Moneytree extends Tower {
 
     public Moneytree() {
-	super(null,10,40,0,0,100,Images.moneyTree());
+	super(null,10,40,0,0,500,Images.moneyTree());
 	id = 8;
 	info.removeAll();
 	ImageIcon icon = new ImageIcon(norm);
@@ -14,6 +14,8 @@ public class Moneytree extends Tower {
 	label.setIcon(icon);
 	info.add(label);
 	maxUpgrades = new int[]{3,3,0,0};
+	upgradePrices[0] = new int[]{250,500,750};
+	upgradePrices[1] = new int[]{250,500,750};
     }
     
     public void act() {

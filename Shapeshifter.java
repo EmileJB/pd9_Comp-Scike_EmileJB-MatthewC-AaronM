@@ -10,7 +10,7 @@ public class Shapeshifter extends Tower {
     private int shiftTime;
 
     public Shapeshifter() {
-	super(null,20,10,3,0,99,Images.ditto());
+	super(null,20,10,3,0,200,Images.ditto());
 	t = null;
 	shiftTime = 60;
 	id = 7;

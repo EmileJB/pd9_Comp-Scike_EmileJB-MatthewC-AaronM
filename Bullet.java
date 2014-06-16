@@ -52,9 +52,9 @@ public class Bullet extends Projectile {
 	    die();
 	}
 	 if  (location.getX() == target.getX() && location.getY() == target.getY()) {
-	    if (!piercing)
-		mark.damage(damage);
-	    else {
+	     // if (!piercing)
+	     //	mark.damage(damage);
+	     //  else {
 		Enemy en;
 		for (Actor a:location.getActors()) {
 		    if (a instanceof Enemy && a != null) {
@@ -63,7 +63,7 @@ public class Bullet extends Projectile {
 			damage = damage/2;
 		    }
 		}
-	    }
+		//  }
 
 	    /* else if (mark == null && target.getEnemy() != null) {
 		    target.getEnemy().damage(damage);

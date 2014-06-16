@@ -26,6 +26,7 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
     private boolean addTowerMode, upgradeMode;
     private int counter = 0;
     private int upgrade = -1;
+    private boolean reached = false;
     
 
     private class myKeyListener implements KeyListener {
@@ -366,6 +367,14 @@ public class Gui extends JFrame implements ActionListener, MouseListener {
 		    
 		    JOptionPane.showMessageDialog(this,"You lost!","Game Over",JOptionPane.ERROR_MESSAGE);
 		    System.exit(0);
+		}
+		if (kills == 500 && reached != true){
+		    int dialogResult = JOptionPane.showConfirmDialog (null, "You have killed "+kills+ " enemies and won! If you would like to continue, press yes." ,"Congratulations!", JOptionPane.YES_NO_OPTION);
+		    
+		    if(dialogResult == JOptionPane.NO_OPTION){
+			System.exit(0);
+		    }
+		    reached=true;
 		}
 		updateBoard();
 		updateInfo();

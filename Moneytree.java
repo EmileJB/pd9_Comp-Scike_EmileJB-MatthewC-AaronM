@@ -13,9 +13,9 @@ public class Moneytree extends Tower {
 	JLabel label = new JLabel(text);
 	label.setIcon(icon);
 	info.add(label);
-	maxUpgrades = new int[]{3,3,0,0};
-	upgradePrices[0] = new int[]{250,500,750};
+	maxUpgrades = new int[]{0,3,0,3};
 	upgradePrices[1] = new int[]{250,500,750};
+	upgradePrices[3] = new int[]{250,500,750};
     }
     
     public void act() {
@@ -26,5 +26,14 @@ public class Moneytree extends Tower {
 	    c.act();
 	}
 	turn++;
+    }
+
+
+   public void SpecUpgrade() {
+       setDamage((6*getDamage())/5); 
+   }
+    
+    public String getSpecDescription() {
+ 	return "Payout: " + damage + "<br>+" + (getDamage()/5);
     }
 }

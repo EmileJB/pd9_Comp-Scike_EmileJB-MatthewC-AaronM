@@ -1,9 +1,12 @@
 public class Bomber extends Tower {
 
+    private int size = 1;
+
     public Bomber() {
-	super(null,75,20,4,0,200,Images.bm());
+	super(null,75,30,4,0,400,Images.bm());
 	id = 11;
 	maxUpgrades = new int[]{3,3,3,1};
+	upgradePrices[3] = new int[]{800,0,0,0};
     }
 
     public void act() {
@@ -11,7 +14,7 @@ public class Bomber extends Tower {
 	if (turn%rate == 0) {
 	    for (int i = 0; i < activeTargets.size() && i <= numTargets;i++) {
 		//activeTargets.get(0).setHP(activeTargets.get(0).getHP()-damage);
-		Projectile p = new Bomb(location, activeTargets.get(0), board.getGui(), (int)(damage * buff), 2*range, 1, 1);
+		Projectile p = new Bomb(location, activeTargets.get(0), board.getGui(), (int)(damage * buff), 2*range, 1, size);
 		p.act();
 		//activeTargets.get(0).setImg();
 		activeTargets.remove(0);
@@ -21,5 +24,13 @@ public class Bomber extends Tower {
 	//System.out.println(targets);
 	//System.out.println(activeTargets);
 	    turn++;
+    }
+
+ public void SpecUpgrade() {
+     size++;
+    }
+
+  public String getSpecDescription() {
+	return "Explosion radius: " + size + "<br>+1";
     }
 }

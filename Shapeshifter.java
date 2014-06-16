@@ -8,13 +8,15 @@ public class Shapeshifter extends Tower {
 
     private Tower t;
     private int shiftTime;
+    private boolean uber;
 
     public Shapeshifter() {
 	super(null,20,10,3,0,200,Images.ditto());
 	t = null;
 	shiftTime = 60;
 	id = 7;
-	maxUpgrades = new int[]{0,0,0,3};
+	uber = false;
+	maxUpgrades = new int[]{0,0,0,1};
     }
 
     public int getDamage() {
@@ -96,8 +98,8 @@ public void act() {
 	    t = null;
 	    shiftTime = 60;
 	}
-	else {
-	    int r =(int)(Math.random() * 6);
+	else if (!uber) {
+	    int r =(int)(Math.random() * 9);
 	    if (r == 0)
 	    	t = new Caillou();
 	     else if (r == 1)
@@ -110,9 +112,28 @@ public void act() {
 		 t = new Fang();
 	     else if (r == 5)
 		 t = new Dragon();
+	     else if (r == 6)
+		 t = new Bomber();
+	     else if (r == 7)
+		 t = new Bufftower();
+	     else if (r == 8)
+		 t = new Arcade();
 	    t.setLoc(location);
 	    t.setTargets();
 	    shiftTime = 180;
+	}
+	else {
+	    int r =(int)(Math.random() * 5);
+	     if (r == 0)
+		 t = new Moneytree();
+	     else if (r == 1)
+		 t = new Fang();
+	     else if (r == 2)
+		 t = new Bomber();
+	     else if (r == 3)
+		 t = new Bufftower();
+	     else if (r == 4)
+		 t = new Arcade();
 	}
 	System.out.println("check");
     }
@@ -134,4 +155,11 @@ public void act() {
 	    return t.getImage();
     }
 
+   public void SpecUpgrade() {
+	uber = true;
+    }
+
+    public String getSpecDescription() {
+	return "Dittosuar";
+    }
 }
